@@ -3,7 +3,7 @@
   "short_name": "Mowg'Lille",
   "theme_color": "#FFE860",
   "background_color": "#000000",
-  "display": "standalone",
+  "display": "fullscreen",
   "scope": "/",
   "start_url": "/",
   "icons": [
@@ -466,7 +466,6 @@
   "lang": "fr",
   "orientation": "portrait",
   "display_override": [
-    "standalone",
     "fullscreen",
     "window-controls-overlay"
   ],
@@ -474,4 +473,4 @@
     "education",
     "entertainment"
   ]
-}                                                                                                            
+}
