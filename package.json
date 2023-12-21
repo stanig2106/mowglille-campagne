@@ -1,6 +1,7 @@
 {
   "name": "mowglille",
   "version": "0.0.0",
+  "license": "MIT",
   "engines": {
     "node": "20",
     "yarn": "1.22"
