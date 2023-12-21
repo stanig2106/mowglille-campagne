@@ -7,7 +7,22 @@
     "yarn": "1.22"
   },
   "scripts": {
-    "build": "cd vue && yarn build",
-    "postinstall": "cd vue && yarn install"
+    "build": "cd vue && vue-tsc --noEmit && vite build && rm -rf ../public/* && mv dist/* ../public"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.21.4",
+    "@types/node": "^18.15.0",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/cli-plugin-pwa": "~5.0.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "sass": "^1.69.5",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.0.0",
+    "unplugin-fonts": "^1.0.3",
+    "vite": "^4.2.0",
+    "vite-plugin-mkcert": "^1.17.1",
+    "vite-plugin-vuetify": "^1.0.0",
+    "vue-tsc": "^1.8.25"
   }
 }
