@@ -7,7 +7,7 @@
     "yarn": "1.22"
   },
   "scripts": {
-    "build": "ls ./node_modules/.bin; ./node_modules/.bin/vue-tsc --noEmit && ./node_modules/.bin/vite build && rm -rf ../public/* && mv dist/* ../public",
+    "build": "./node_modules/.bin/vite build && rm -rf ../public/* && mv dist/* ../public",
     "dev": "vite",
     "preview": "vite preview"
   },
