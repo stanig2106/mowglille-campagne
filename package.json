@@ -9,6 +9,18 @@
   "scripts": {
     "build": "cd vue && vue-tsc --noEmit && vite build && rm -rf ../public/* && mv dist/* ../public"
   },
+  "dependencies": {
+    "@mdi/font": "7.0.96",
+    "@morev/vue-transitions": "^2.3.6",
+    "@vueuse/core": "^10.7.0",
+    "axios": "^1.6.2",
+    "register-service-worker": "^1.7.2",
+    "roboto-fontface": "*",
+    "vue": "^3.2.0",
+    "vue-picture-input": "^3.0.1",
+    "vue-router": "^4.0.0",
+    "vuetify": "^3.0.0"
+  },
   "devDependencies": {
     "@babel/types": "^7.21.4",
     "@types/node": "^18.15.0",
