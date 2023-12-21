@@ -78,16 +78,16 @@ button {
 
 // incognito mode
 
-img, video {
-  filter: blur(40px);
-}
-
-body {
-  background: #065223 !important;
-}
-
-h1 {
-  filter: blur(40px);
-}
+//img, video {
+//  filter: blur(40px);
+//}
+//
+//body {
+//  background: #065223 !important;
+//}
+//
+//h1 {
+//  filter: blur(40px);
+//}
 </style>
 
