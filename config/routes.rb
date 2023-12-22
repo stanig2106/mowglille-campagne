@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   root 'home#index'
+  get ".well-known/assetlinks.json", to: "home#assetlinks"
   get '*path', to: 'home#index'
-  get "/.well-known/assetlinks.json", to: "home#assetlinks"
 
   namespace :api do
     post "register", to: "users#create"
