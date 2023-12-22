@@ -7,7 +7,7 @@
     "yarn": "1.22"
   },
   "scripts": {
-    "build": "vue-tsc --noEmit && vite build && rm -rf ../public/* && mv dist/* ../public",
+    "build": "vue-tsc --noEmit && vite build && && mv dist/* ../public",
     "dev": "vite",
     "preview": "vite preview"
   },

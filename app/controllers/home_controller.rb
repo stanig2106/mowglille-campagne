@@ -3,4 +3,8 @@ class HomeController < ApplicationController
     cookies[:csrf_token] = form_authenticity_token
     render file: 'public/index.html'
   end
+
+  def assetlinks
+    render file: 'public/assetlinks.json'
+  end
 end
