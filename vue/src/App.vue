@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
 </script>
 
 <template>
-  <Loading :time="750"/>
+  <Loading/>
 
   <v-app v-if="fullpage" class="bg-transparent">
     <router-view/>
@@ -27,11 +27,10 @@ router.beforeEach((to, from, next) => {
     <v-main class="z-0 pt-16 bg-primary">
       <Header/>
 
-      <div class="p-4 bg-white h-full rounded-t-3xl overflow-y-auto mt-2">
+      <div class="p-2 h-full rounded-t-3xl overflow-y-auto">
         <router-view/>
       </div>
 
-      <Footer/>
     </v-main>
   </v-app>
 </template>
@@ -53,7 +52,8 @@ router.beforeEach((to, from, next) => {
 }
 
 * {
-  font-family: "QuintoAndatTextos-Regular", sans-serif !important;
+  font-family: "QuintoAndatTextos-Bold", sans-serif !important;
+  font-weight: bolder;
 }
 
 #header-clip::before {

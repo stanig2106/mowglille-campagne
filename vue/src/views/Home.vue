@@ -1,16 +1,14 @@
 <script lang="ts" setup>
 
-
+import Score from "@/views/home/Score.vue";
+import NextEvent from "@/views/home/NextEvent.vue";
 </script>
 
 <template>
-  <div>
-    <v-btn @click="$router.push('/login')" color="primary" class="w-full" rounded="lg">
-      <span class="font-extrabold text-uppercase text-2xl">
-        Commencer
-      </span>
-    </v-btn>
-    Home page
+  <div class="flex flex-col gap-4">
+    <Score/>
+    <NextEvent/>
   </div>
 </template>
+
 

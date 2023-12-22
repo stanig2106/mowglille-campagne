@@ -5,7 +5,7 @@
   <div class="bg-primary top-0 absolute h-16 w-full
               flex p-4 !pb-1 justify-between">
 
-    <h1 class=" h-full flex items-center font-extrabold text-3xl italic mt-0.5">
+    <h1 class=" h-full flex items-center text-3xl italic mt-0.5">
       MOWG'LILLE
     </h1>
 
