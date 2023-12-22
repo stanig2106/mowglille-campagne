@@ -7,7 +7,7 @@
     "yarn": "1.22"
   },
   "scripts": {
-    "build": "cd vue && vue-tsc --noEmit && vite build && && mv dist/* ../public"
+    "build": "cd vue && vue-tsc --noEmit && vite build && mv dist/* ../public"
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
