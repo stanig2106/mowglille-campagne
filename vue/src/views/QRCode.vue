@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import fake_qrcode from "@/assets/fake/qrcode.png";
+import fake_qrcode from "@/assets/fake/QRCode.png";
 
 async function generateQRCode() {
 }
