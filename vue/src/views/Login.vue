@@ -14,9 +14,8 @@ const first_name = ref("");
 
 const image = ref(null);
 
-if (localStorage.getItem("token") != null) {
-  router.push("/")
-}
+if (localStorage.getItem("token") != null)
+  router.replace("/")
 
 
 async function login() {
@@ -30,7 +29,7 @@ async function login() {
 
   localStorage.setItem("token", r.data.token)
 
-  router.push("/")
+  await router.replace("/")
 }
 
 </script>

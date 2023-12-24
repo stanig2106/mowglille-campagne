@@ -4,6 +4,7 @@
 const props = defineProps<{
   back: string | null
 }>()
+
 </script>
 
 <template>

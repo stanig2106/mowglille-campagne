@@ -60,6 +60,7 @@ html {
 }
 
 * {
+  user-select: none;
   font-family: "QuintoAndatTextos-Bold", sans-serif !important;
   font-weight: bolder;
 }
