@@ -11,10 +11,29 @@ if (localStorage.getItem("token") == null)
 
 const fullpage = ref(router.currentRoute.value.path == "/login");
 
+const currentTitle = ref<null | string>(null)
+
 router.beforeEach((to, from, next) => {
   fullpage.value = to.path == "/login"
+
+  switch (to.path) {
+    case "/":
+      currentTitle.value = null
+      break
+    case "/scoreboard":
+      currentTitle.value = "Classement"
+      break
+    case "/score_details":
+      currentTitle.value = "Détails des scores"
+      break
+    case "/qrcode":
+      currentTitle.value = "QR Code"
+      break
+  }
+
   next()
 })
+
 </script>
 
 <template>
@@ -24,10 +43,10 @@ router.beforeEach((to, from, next) => {
     <router-view/>
   </v-app>
   <v-app v-else>
-    <v-main class="z-0 pt-16 bg-primary">
-      <Header/>
+    <v-main class="z-0 pt-16 bg-primary h-screen">
+      <Header :back="currentTitle"/>
 
-      <div class="p-2 h-full rounded-t-3xl overflow-y-auto">
+      <div class="px-2 h-full rounded-t-3xl !overflow-y-auto">
         <router-view/>
       </div>
 
@@ -49,6 +68,10 @@ router.beforeEach((to, from, next) => {
 @font-face {
   font-family: "QuintoAndatTextos-Bold";
   src: url("assets/fonts/QuintoAndarTextos-Bold.woff2") format("woff2");
+}
+
+html {
+  @apply bg-primary overflow-hidden;
 }
 
 * {
@@ -74,6 +97,14 @@ button {
 
 .text-muted {
   @apply text-gray-500;
+}
+
+.one-line {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 // incognito mode

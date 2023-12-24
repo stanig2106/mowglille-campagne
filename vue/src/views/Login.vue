@@ -14,8 +14,9 @@ const first_name = ref("");
 
 const image = ref(null);
 
-if (localStorage.getItem("token") != null)
+if (localStorage.getItem("token") != null) {
   router.push("/")
+}
 
 
 async function login() {
@@ -29,7 +30,7 @@ async function login() {
 
   localStorage.setItem("token", r.data.token)
 
-  await router.push("/")
+  router.push("/")
 }
 
 </script>
@@ -48,6 +49,10 @@ async function login() {
 </template>
 
 <style lang="scss">
+
+html {
+  overflow: hidden;
+}
 
 body {
   overflow: hidden;
