@@ -25,7 +25,7 @@ import banane from "@/assets/banane.png";
       <h1 class="text-xl">
         123456
       </h1>
-      <v-img :src="banane" class="h-6 w-6"/>
+      <v-img :src="banane" class="h-6 w-6" :transition="false"/>
     </div>
   </div>
 </template>

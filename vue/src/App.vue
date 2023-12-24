@@ -14,23 +14,8 @@ const fullpage = ref(router.currentRoute.value.path == "/login");
 const currentTitle = ref<null | string>(null)
 
 router.beforeEach((to, from, next) => {
-  fullpage.value = to.path == "/login"
-
-  switch (to.path) {
-    case "/":
-      currentTitle.value = null
-      break
-    case "/scoreboard":
-      currentTitle.value = "Classement"
-      break
-    case "/score_details":
-      currentTitle.value = "Détails des scores"
-      break
-    case "/qrcode":
-      currentTitle.value = "QR Code"
-      break
-  }
-
+  fullpage.value = (to.meta.fullpage ?? false) as boolean
+  currentTitle.value = to.meta.title as string | null
   next()
 })
 

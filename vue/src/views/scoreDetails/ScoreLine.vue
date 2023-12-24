@@ -9,7 +9,7 @@ import banane from "@/assets/banane.png";
     <div class="flex gap-2 items-center">
       <div class="flex flex-col justify-center">
         <h1 class="text-xl">
-          Activité banger
+          Activité benger
         </h1>
         <div class="text-lg text-gray-500 pr-2">
           Record de vitesse
@@ -22,7 +22,7 @@ import banane from "@/assets/banane.png";
         <h1 class="text-xl">
           +10
         </h1>
-        <v-img :src="banane" class="h-6 w-6"/>
+        <v-img :src="banane" class="h-6 w-6" :transition="false"/>
       </div>
       <div class="text-sm text-gray-500 flex justify-end">
         Aprèm, 14:12

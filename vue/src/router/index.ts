@@ -1,11 +1,34 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = [
-  { path: '/', component: () => import('../views/Home.vue') },
-  { path: '/login', component: () => import('../views/Login.vue') },
-  { path: '/scoreboard', component: () => import('../views/Scoreboard.vue') },
-  { path: '/score_details', component: () => import('../views/ScoreDetails.vue') },
-  { path: '/qrcode', component: () => import('../views/QRCode.vue') },
+  {
+    path: '/', component: () => import('../views/Home.vue'),
+    meta: {}
+  },
+  {
+    path: '/login', component: () => import('../views/Login.vue'),
+    meta: {
+      fullpage: true,
+    }
+  },
+  {
+    path: '/scoreboard', component: () => import('../views/Scoreboard.vue'),
+    meta: {
+      title: 'Classement',
+    }
+  },
+  {
+    path: '/score_details', component: () => import('../views/ScoreDetails.vue'),
+    meta: {
+      title: 'Historique des scores',
+    }
+  },
+  {
+    path: '/qrcode', component: () => import('../views/QRCode.vue'),
+    meta: {
+      title: 'QR Code',
+    }
+  },
 
   // Fallback to home
   {

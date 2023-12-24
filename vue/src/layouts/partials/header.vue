@@ -26,7 +26,7 @@ const props = defineProps<{
       {{ back }}
     </h1>
 
-    <div class="h-full flex justify-end items-center space-x-6 mr-2"
+    <div class="h-full flex justify-end items-center mr-2"
          v-if="back == null">
       <v-btn icon variant="text" rounded="lg">
         <v-icon size="32">
@@ -39,6 +39,36 @@ const props = defineProps<{
           mdi-facebook
         </v-icon>
       </v-btn>
+
+      <!--      notifications s-->
+
+      <v-btn icon variant="text" rounded="lg">
+        <v-badge dot color="red" v-if="true">
+          <v-icon size="32">
+            mdi-bell
+          </v-icon>
+        </v-badge>
+
+        <v-icon size="32" v-else>
+          mdi-bell
+        </v-icon>
+
+        <v-menu activator="parent" close-on-back scrim="9CA38F">
+          <v-list density="compact">
+            <v-list-subheader>Notifications</v-list-subheader>
+            <v-list-item value>
+              <v-list-item-title>
+                <div class="flex items-center justify-between">
+                  Test
+                  <v-badge inline color="red" dot v-if="true"/>
+                </div>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-btn>
+
+
     </div>
 
   </div>

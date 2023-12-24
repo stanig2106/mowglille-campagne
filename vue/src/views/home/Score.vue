@@ -16,7 +16,7 @@ import banane from "@/assets/banane.png";
           </h2>
         </template>
         <template v-slot:append>
-          <v-img :src="banane" class="h-6 w-6 mr-3"/>
+          <v-img :src="banane" class="h-6 w-6 mr-3" :transition="false"/>
         </template>
       </v-btn>
     </div>
