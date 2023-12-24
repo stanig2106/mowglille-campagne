@@ -54,7 +54,7 @@ const props = defineProps<{
           mdi-bell
         </v-icon>
 
-        <v-menu activator="parent" close-on-back scrim="9CA38F">
+        <v-menu activator="parent" close-on-back scrim="#00000000">
           <v-list density="compact">
             <v-list-subheader>Notifications</v-list-subheader>
             <v-list-item value>
