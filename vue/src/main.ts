@@ -40,6 +40,8 @@ axios.interceptors.request.use(config => {
 
   if (csrfToken)
     config.headers['X-CSRF-Token'] = csrfToken;
+  else
+    window.location.reload();
 
   config.url = `/api${config.url}`;
 

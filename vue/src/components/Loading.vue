@@ -3,9 +3,9 @@ import loading_left from "@/assets/loading_left.png";
 import loading_right from "@/assets/loading_right.png";
 import logo_full from "@/assets/logo_full.webp";
 
-setTimeout(() => {
-  document.getElementById("loading-overlay")!.style.display = "none";
-}, 1000);
+setTimeout(() =>
+    document.getElementById("loading-overlay")!.style.display = "none",
+  1000);
 </script>
 
 <template>
