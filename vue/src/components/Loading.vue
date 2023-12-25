@@ -9,7 +9,7 @@ let loaded = ref(0);
 const load = async () => {
   await new Promise(resolve => setTimeout(resolve, 100))
 
-  document.body.style.opacity = "1";
+  document.getElementById("app")!.style.opacity = "1";
   const loading = document.getElementById("loading-overlay") as HTMLDivElement;
   loading.classList.remove("bg-black")
   loading.classList.add("all-loaded")
