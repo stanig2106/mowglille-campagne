@@ -7,6 +7,7 @@ import {onMounted, ref, watch} from "vue";
 let loaded = ref(0);
 
 const load = () => {
+  document.body.style.opacity = "1";
   const loading = document.getElementById("loading-overlay") as HTMLDivElement;
   loading.classList.remove("bg-black")
   loading.classList.add("all-loaded")
@@ -17,7 +18,6 @@ const load = () => {
 }
 
 window.addEventListener("load", () => {
-  // document.body.style.opacity = "1";
   if (loaded.value == 2)
     load()
   else
