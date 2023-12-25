@@ -4,10 +4,16 @@ import Footer from "@/layouts/partials/footer.vue";
 import {getCurrentInstance, ref} from "vue";
 import Loading from "@/components/Loading.vue";
 import router from "@/router";
+import axios from "axios";
 
 
 if (localStorage.getItem("token") == null)
   router.push("/login")
+
+axios.get("/check_token").catch(() => {
+  localStorage.removeItem("token")
+  router.push("/login")
+})
 
 const fullpage = ref(router.currentRoute.value.path == "/login");
 

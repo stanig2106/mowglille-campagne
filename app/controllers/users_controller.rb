@@ -1,4 +1,13 @@
 class UsersController < ApplicationController
+  def check_token
+    user = User.find_by(token: params[:token])
+    if user
+      render json: { ok: true }
+    else
+      render json: { ok: false }, status: 500
+    end
+  end
+
   def create
     user = User.create!(user_params)
     user.token = SecureRandom.hex(32) + user.id.to_s

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 
 import useCable from "@/router/cable";
@@ -24,14 +24,14 @@ function openFacebook() {
   <div class="bg-primary top-0 absolute h-16 w-full
               flex justify-between">
 
-    <h1 class="h-full flex items-center text-3xl italic mt-0.5 ml-4"
-        v-if="back == null">
+    <h1 v-if="back == null"
+        class="h-full flex items-center text-3xl italic mt-0.5 ml-4">
       MOWG'LILLE
     </h1>
 
-    <h1 class="h-full flex items-center text-3xl italic mt-0.5"
-        v-else>
-      <v-btn icon variant="text" rounded="lg"
+    <h1 v-else
+        class="h-full flex items-center text-3xl italic mt-0.5">
+      <v-btn icon rounded="lg" variant="text"
              @click="$router.go(-1)">
         <v-icon size="32">
           mdi-arrow-left
@@ -40,16 +40,16 @@ function openFacebook() {
       {{ back }}
     </h1>
 
-    <div class="h-full flex justify-end items-center mr-2"
-         v-if="back == null">
-      <v-btn icon variant="text" rounded="lg"
+    <div v-if="back == null"
+         class="h-full flex justify-end items-center mr-2">
+      <v-btn icon rounded="lg" variant="text"
              @click="openInstagram">
         <v-icon size="32">
           mdi-instagram
         </v-icon>
       </v-btn>
 
-      <v-btn icon variant="text" rounded="lg"
+      <v-btn icon rounded="lg" variant="text"
              @click="openFacebook">
         <v-icon size="32">
           mdi-facebook
@@ -58,14 +58,14 @@ function openFacebook() {
 
       <!--      notifications s-->
 
-      <v-btn icon variant="text" rounded="lg">
-        <v-badge dot color="red" v-if="true">
+      <v-btn icon rounded="lg" variant="text">
+        <v-badge v-if="true" color="red" dot>
           <v-icon size="32">
             mdi-bell
           </v-icon>
         </v-badge>
 
-        <v-icon size="32" v-else>
+        <v-icon v-else size="32">
           mdi-bell
         </v-icon>
 
@@ -76,7 +76,7 @@ function openFacebook() {
               <v-list-item-title>
                 <div class="flex items-center justify-between">
                   Test
-                  <v-badge inline color="red" dot v-if="true"/>
+                  <v-badge v-if="true" color="red" dot inline/>
                 </div>
               </v-list-item-title>
             </v-list-item>
@@ -88,7 +88,7 @@ function openFacebook() {
     </div>
 
   </div>
-  <div class="bg-primary top-0 z-10 sticky h-1" id="header-clip"/>
+  <div id="header-clip" class="bg-primary top-0 z-10 sticky h-1"/>
 </template>
 
 <style lang="scss">

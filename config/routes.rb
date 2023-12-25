@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get ".well-known/assetlinks.json", to: "home#assetlinks"
 
+  get "api/check_token", to: 'users#check_token'
   post "api/register", to: "users#create"
   get "api/qr_code", to: "users#qr_code"
   get "api/score", to: "users#score"
