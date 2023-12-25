@@ -9,6 +9,14 @@ const props = defineProps<{
 
 useCable("NotificationChannel")
 
+function openInstagram() {
+  window.open("https://www.instagram.com/mowglille/", "_blank")
+}
+
+function openFacebook() {
+  window.open("https://www.facebook.com/mowglille", "_blank")
+}
+
 
 </script>
 
@@ -34,13 +42,15 @@ useCable("NotificationChannel")
 
     <div class="h-full flex justify-end items-center mr-2"
          v-if="back == null">
-      <v-btn icon variant="text" rounded="lg">
+      <v-btn icon variant="text" rounded="lg"
+             @click="openInstagram">
         <v-icon size="32">
           mdi-instagram
         </v-icon>
       </v-btn>
 
-      <v-btn icon variant="text" rounded="lg">
+      <v-btn icon variant="text" rounded="lg"
+             @click="openFacebook">
         <v-icon size="32">
           mdi-facebook
         </v-icon>
