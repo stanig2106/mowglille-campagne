@@ -7,7 +7,11 @@ import {onMounted, ref, watch} from "vue";
 let loaded = ref(0);
 
 const load = async () => {
-  await new Promise(resolve => setTimeout(resolve, 100))
+  if (loaded.value != 2)
+    return
+  clearInterval(interval)
+
+  await new Promise(resolve => setTimeout(resolve, 200))
 
   document.getElementById("app")!.style.opacity = "1";
   const loading = document.getElementById("loading-overlay") as HTMLDivElement;
@@ -19,21 +23,18 @@ const load = async () => {
     1000);
 }
 
-window.addEventListener("load", () => {
-  if (loaded.value == 2)
-    load()
-  else
-    watch(loaded, () => loaded.value == 2 && load())
+const interval = setInterval(() => {
+  load()
+}, 100)
 
-}, {once: true});
 </script>
 
 <template>
   <div id="loading-overlay" class="absolute z-50 top-0 left-0 h-screen w-screen
           overflow-hidden select-none loading bg-black">
-    <v-img :src="loading_left" alt="loading" @load="loaded++"
+    <v-img :src="loading_left" alt="loading" @load="loaded++; load()"
            class="absolute top-0 -left-1 h-screen w-screen loading-left" cover/>
-    <v-img :src="loading_right" alt="loading" @load="loaded++"
+    <v-img :src="loading_right" alt="loading" @load="loaded++; load()"
            class="absolute top-0 -right-1 h-screen w-screen loading-right" cover/>
     <v-img :src="logo_full" alt="logo"
            class="absolute top-1/2 left-1/2 transform -translate-x-1/2
