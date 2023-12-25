@@ -1,9 +1,14 @@
 <script setup lang="ts">
 
 
+import useCable from "@/router/cable";
+
 const props = defineProps<{
   back: string | null
 }>()
+
+useCable("NotificationChannel")
+
 
 </script>
 

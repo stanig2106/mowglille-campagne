@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   root 'home#index'
+
+  mount ActionCable.server => '/cable'
+
   get ".well-known/assetlinks.json", to: "home#assetlinks"
+
   get '*path', to: 'home#index'
 
   namespace :api do

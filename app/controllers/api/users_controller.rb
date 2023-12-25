@@ -3,6 +3,8 @@ class Api::UsersController < ApplicationController
     user = User.create!(user_params)
     user.token = SecureRandom.hex(32) + user.id.to_s
     user.save!
+
+
     render json: { token: user.token }
   end
 

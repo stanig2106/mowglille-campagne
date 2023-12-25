@@ -14,6 +14,8 @@
   "dependencies": {
     "@mdi/font": "7.0.96",
     "@morev/vue-transitions": "^2.3.6",
+    "@rails/actioncable": "^7.1.2",
+    "@types/rails__actioncable": "^6.1.10",
     "@vueuse/core": "^10.7.0",
     "axios": "^1.6.2",
     "register-service-worker": "^1.7.2",

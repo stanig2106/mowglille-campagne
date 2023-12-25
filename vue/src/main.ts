@@ -16,12 +16,13 @@ import router from "@/router";
 
 const app = createApp(App)
 
+// Register plugins
 registerPlugins(app)
 
 app.use(router)
-app.mount('#app')
 
 
+// Axios
 import axios from 'axios';
 import './registerServiceWorker'
 
@@ -49,3 +50,7 @@ axios.interceptors.request.use(config => {
 }, error => {
   return Promise.reject(error);
 });
+
+
+// Mount the app
+app.mount('#app')
