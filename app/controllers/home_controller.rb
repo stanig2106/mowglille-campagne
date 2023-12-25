@@ -4,6 +4,8 @@ class HomeController < ApplicationController
 
     updated_html = html_content.gsub('!!CSRF-TOKEN!!', form_authenticity_token)
 
+    cookies[:csrf_token] = form_authenticity_token
+
     render html: updated_html.html_safe
   end
 
