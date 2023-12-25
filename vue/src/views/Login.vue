@@ -25,8 +25,6 @@ async function login() {
     image: image.value
   });
 
-  console.log(r.data.token)
-
   localStorage.setItem("token", r.data.token)
 
   await router.replace("/")

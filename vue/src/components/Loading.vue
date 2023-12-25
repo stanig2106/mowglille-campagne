@@ -2,10 +2,14 @@
 import loading_left from "@/assets/loading_left.png";
 import loading_right from "@/assets/loading_right.png";
 import logo_full from "@/assets/logo_full.webp";
+
+setTimeout(() => {
+  document.getElementById("loading-overlay")!.style.display = "none";
+}, 1000);
 </script>
 
 <template>
-  <div class="absolute z-50 top-0 left-0 h-screen w-screen overflow-hidden select-none loading">
+  <div id="loading-overlay" class="absolute z-50 top-0 left-0 h-screen w-screen overflow-hidden select-none loading">
     <img :src="loading_left" class="absolute top-0 -left-1 h-screen w-screen object-cover loading-left" alt="loading"/>
     <img :src="loading_right" class="absolute top-0 -right-1 h-screen w-screen object-cover loading-right" alt="loading"/>
     <img :src="logo_full" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-2/3 w-2/3 object-contain loading-logo" alt="logo"/>
