@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "api/rank", to: "users#rank"
   get "api/name", to: "users#name"
   get "api/scoreboard", to: "scoreboard#get_scoreboard"
+  get "api/score_details", to: "scoreboard#get_score_details"
 
   get "api/*path", to: "home#not_found_api"
 

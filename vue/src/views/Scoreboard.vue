@@ -13,7 +13,7 @@ axios.get("/name").then(({data}) => name.value = data.name)
 const rank = useStorage("rank", "-" as string | number)
 axios.get("/rank").then(({data}) => rank.value = data.rank)
 
-const scoreboard = ref(null as null | { name: string, score: number, rank: number }[])
+const scoreboard = ref(undefined as undefined | { name: string, score: number, rank: number }[])
 axios.get("/scoreboard").then(({data}) => scoreboard.value = data.scoreboard)
 
 </script>

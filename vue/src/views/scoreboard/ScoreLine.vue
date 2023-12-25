@@ -18,7 +18,7 @@ const props = defineProps<{
 
       <div class="flex flex-col gap-1 justify-center">
         <h1 class="text-3xl">
-          {{ rank == 0 ? "-" : "#" + rank }}
+          {{ rank == 0 ? "# -" : "#" + rank }}
         </h1>
         <div class="text-lg text-gray-500 pr-2 one-line">
           {{ name }}
