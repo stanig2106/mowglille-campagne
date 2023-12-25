@@ -29,9 +29,9 @@ window.addEventListener("load", () => {
 <template>
   <div id="loading-overlay" class="absolute z-50 top-0 left-0 h-screen w-screen
           overflow-hidden select-none loading bg-black">
-    <v-img :src="loading_left" alt="loading" @ended="loaded++"
+    <v-img :src="loading_left" alt="loading" @load="loaded++"
            class="absolute top-0 -left-1 h-screen w-screen loading-left" cover/>
-    <v-img :src="loading_right" alt="loading" @ended="loaded++"
+    <v-img :src="loading_right" alt="loading" @load="loaded++"
            class="absolute top-0 -right-1 h-screen w-screen loading-right" cover/>
     <v-img :src="logo_full" alt="logo"
            class="absolute top-1/2 left-1/2 transform -translate-x-1/2
