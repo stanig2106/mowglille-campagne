@@ -6,6 +6,7 @@ import {onMounted} from "vue";
 
 
 window.addEventListener("load", () => {
+  document.body.style.opacity = "1";
   const loading = document.getElementById("loading-overlay") as HTMLDivElement;
   loading.classList.remove("bg-black")
   loading.classList.add("all-loaded")
