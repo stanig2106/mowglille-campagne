@@ -12,7 +12,7 @@ async function generateQRCode() {
   <div class="bg-white rounded-t-2xl p-4 flex flex-col justify-center elevation-2 h-full gap-4"
        @click="generateQRCode">
     <div class="w-full mb-4">
-      <v-img :src="fake_qrcode" class="w-4/5 mx-auto"/>
+      <v-img :src="fake_qrcode" class="w-4/5 mx-auto max-h-[60vh]"/>
     </div>
 
     <h2 class="text-center text-2xl">

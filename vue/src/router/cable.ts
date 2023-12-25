@@ -15,7 +15,7 @@ type Callbacks = {
 }
 
 
-export default function useCable(channelName: string, {connected, disconnected, received}: Callbacks | {} = {}) {
+export default function useCable(channelName: string, {connected, disconnected, received}: Callbacks = {}) {
   const onConnected: ConnectionCallback[] = connected ? [connected] : []
   const onDisconnected: DisconnectionCallback[] = disconnected ? [disconnected] : []
   const onReceived: ReceivedCallback[] = received ? [received] : []
