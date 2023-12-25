@@ -6,7 +6,9 @@ import {onMounted, ref, watch} from "vue";
 
 let loaded = ref(0);
 
-const load = () => {
+const load = async () => {
+  await new Promise(resolve => setTimeout(resolve, 100))
+
   document.body.style.opacity = "1";
   const loading = document.getElementById("loading-overlay") as HTMLDivElement;
   loading.classList.remove("bg-black")
