@@ -1,7 +1,10 @@
 class HomeController < ApplicationController
   def index
-    cookies[:csrf_token] = form_authenticity_token
-    render file: 'public/index.html'
+    html_content = File.read('public/index.html')
+
+    updated_html = html_content.gsub('!!CSRF-TOKEN!!', form_authenticity_token)
+
+    render html: updated_html.html_safe
   end
 
   def assetlinks
