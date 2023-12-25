@@ -5,7 +5,10 @@ import {getCurrentInstance, ref} from "vue";
 import Loading from "@/components/Loading.vue";
 import router from "@/router";
 import axios from "axios";
+import getCsrfToken from "@/router/csrf";
 
+if (getCsrfToken() == null)
+  window.location.reload()
 
 if (localStorage.getItem("token") == null)
   router.push("/login")

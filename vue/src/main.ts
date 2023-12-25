@@ -25,19 +25,10 @@ app.use(router)
 // Axios
 import axios from 'axios';
 import './registerServiceWorker'
+import getCsrfToken from "@/router/csrf";
 
 axios.interceptors.request.use(config => {
-  const csrfToken = (() => {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-      let [key, value] = cookie.split('=');
-      if (key.trim() === 'csrf_token') {
-        return value.trim();
-      }
-    }
-    return null;
-  })();
-
+  const csrfToken = getCsrfToken()
   if (csrfToken)
     config.headers['X-CSRF-Token'] = csrfToken;
   else
