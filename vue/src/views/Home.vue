@@ -12,15 +12,15 @@ import OneLineBtn from "@/views/home/btns/OneLineBtn.vue";
     <CurrentEvent event_name="Le Livre de la Jungle"/>
     <div class="h-full bg-white rounded-t-2xl elevation-2 p-4 flex flex-col gap-2">
       <CollectionBtn class="w-full"/>
-      <div class="flex gap-2 >:flex-grow">
+      <div class="flex gap-2 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" icon="mdi-trophy" title="Liste des defis"/>
         <OneLineBtn :icon-size="32" icon="mdi-nintendo-game-boy" title="Jeu"/>
       </div>
-      <div class="flex gap-2 >:flex-grow">
+      <div class="flex gap-2 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" icon="mdi-calendar-clock" title="Planning"/>
         <OneLineBtn :icon-size="32" icon="mdi-script-text-outline" title="Programme" disabled/>
       </div>
-      <div class="flex gap-2 >:flex-grow">
+      <div class="flex gap-2 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" icon="mdi-image-frame" title="Trombi"/>
         <OneLineBtn :icon-size="32" icon="mdi-message-outline" title="Contact nous"/>
       </div>

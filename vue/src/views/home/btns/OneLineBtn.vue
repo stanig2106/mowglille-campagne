@@ -24,7 +24,7 @@ const emit = defineEmits<{
     <v-icon :size="props.iconSize">
       {{ props.icon }}
     </v-icon>
-    <h2 class="text-2xl font-bold one-line">
+    <h2 class="text-xl font-bold one-line">
       {{ props.title }}
     </h2>
   </div>

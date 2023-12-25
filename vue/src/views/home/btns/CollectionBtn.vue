@@ -13,7 +13,7 @@ const emit = defineEmits<{
       mdi-treasure-chest
     </v-icon>
     <div class="flex flex-col justify-center">
-      <h2 class="text-2xl font-bold">
+      <h2 class="text-xl font-bold">
         7 / 24 Pièces trouvées
       </h2>
       <h3 class="text-gray-500">
