@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  activity: one
+  score: 1
+  chest: MyString
+
+two:
+  activity: two
+  score: 1
+  chest: MyString

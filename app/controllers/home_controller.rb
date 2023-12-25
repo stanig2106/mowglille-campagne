@@ -7,4 +7,8 @@ class HomeController < ApplicationController
   def assetlinks
     render file: 'public/assetlinks.json'
   end
+
+  def not_found_api
+    render json: { error: 'Not found' }, status: 404
+  end
 end

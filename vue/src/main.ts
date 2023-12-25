@@ -43,6 +43,11 @@ axios.interceptors.request.use(config => {
 
   config.url = `/api${config.url}`;
 
+  config.params = {
+    token: localStorage.getItem('token'),
+    ...(config.params || {})
+  }
+
   if (process.env.DEV)
     config.baseURL = 'http://localhost:3000';
 

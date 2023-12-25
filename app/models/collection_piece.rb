@@ -1,0 +1,2 @@
+class CollectionPiece < ApplicationRecord
+end

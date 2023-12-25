@@ -1,5 +1,12 @@
 <script lang="ts" setup>
 import banane from "@/assets/banane.png";
+import {ref} from "vue";
+import axios from "axios";
+import {useStorage} from "@vueuse/core";
+
+const score = useStorage("score", "-" as string | number)
+axios.get("/score").then(({data}) => score.value = data.score)
+
 </script>
 
 <template>
@@ -12,7 +19,7 @@ import banane from "@/assets/banane.png";
              @click="$router.push('/score_details')">
         <template v-slot:prepend>
           <h2 class="text-3xl text-start w-full px-2">
-            123456
+            {{ score }}
           </h2>
         </template>
         <template v-slot:append>
@@ -28,7 +35,7 @@ import banane from "@/assets/banane.png";
     </v-btn>
 
     <v-btn icon rounded="lg" density="compact" size="64" variant="tonal"
-            @click="$router.push('/qrcode')">
+           @click="$router.push('/qrcode')">
       <v-icon size="52">
         mdi-qrcode
       </v-icon>

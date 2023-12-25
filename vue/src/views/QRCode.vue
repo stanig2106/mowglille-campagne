@@ -1,9 +1,31 @@
 <script setup lang="ts">
 
-import fake_qrcode from "@/assets/fake/QRCode.png";
+import axios from "axios";
+import {onUnmounted, ref} from "vue";
+import Qrious from "vue-qrious";
+
+
+const qr_code_content = ref("a".repeat(30))
+const loading = ref(true)
+
+// every 60 seconds
+const interval = setInterval(generateQRCode, 60 * 1000)
+
+onUnmounted(() => clearInterval(interval))
 
 async function generateQRCode() {
+  loading.value = true
+  const fake_loading = new Promise(resolve => setTimeout(resolve, 300))
+  const {data, status} = await axios.get("/qr_code")
+  if (status !== 200) return
+
+  await fake_loading
+
+  loading.value = false
+  qr_code_content.value = data.content
 }
+
+generateQRCode()
 
 </script>
 
@@ -12,7 +34,9 @@ async function generateQRCode() {
   <div class="bg-white rounded-t-2xl p-4 flex flex-col justify-center elevation-2 h-full gap-4"
        @click="generateQRCode">
     <div class="w-full mb-4">
-      <v-img :src="fake_qrcode" class="w-4/5 mx-auto max-h-[60vh]"/>
+      <qrious :value="qr_code_content" class="w-4/5 mx-auto max-h-[60vh]" id="qrcode"
+              :class="{ 'blur-md': loading }"
+      />
     </div>
 
     <h2 class="text-center text-2xl">
@@ -30,3 +54,9 @@ async function generateQRCode() {
 
 </template>
 
+
+<style lang="scss">
+#qrcode {
+  transition: filter 0.7s;
+}
+</style>

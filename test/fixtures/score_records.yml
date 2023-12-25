@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  event: one
+  challenge: one
+  activity: one
+  score: 1
+  date: 2023-12-25
+
+two:
+  user: two
+  event: two
+  challenge: two
+  activity: two
+  score: 1
+  date: 2023-12-25

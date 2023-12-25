@@ -10,9 +10,15 @@ Rails.application.routes.draw do
 
   get ".well-known/assetlinks.json", to: "home#assetlinks"
 
-  get '*path', to: 'home#index'
+  post "api/register", to: "users#create"
+  get "api/qr_code", to: "users#qr_code"
+  get "api/score", to: "users#score"
+  get "api/rank", to: "users#rank"
+  get "api/name", to: "users#name"
+  get "api/scoreboard", to: "scoreboard#get_scoreboard"
 
-  namespace :api do
-    post "register", to: "users#create"
-  end
+  get "api/*path", to: "home#not_found_api"
+
+  # all path except api/* will be handled by home#index
+  get "*path", to: "home#index"
 end
