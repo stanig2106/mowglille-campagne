@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Header from "@/layouts/partials/header.vue";
 import Footer from "@/layouts/partials/footer.vue";
-import {getCurrentInstance, ref} from "vue";
+import {getCurrentInstance, onMounted, ref} from "vue";
 import Loading from "@/components/Loading.vue";
 import router from "@/router";
 import axios from "axios";
@@ -23,6 +23,7 @@ router.beforeEach((to, from, next) => {
   currentTitle.value = to.meta.title as string | null
   next()
 })
+
 
 
 
