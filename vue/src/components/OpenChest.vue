@@ -57,9 +57,12 @@ onMounted(() => {
       }
       video_intro.onended(() => {
         playing = "loop"
-        video_loop.loop()
+        video_loop.play()
         video_intro.hide()
       })
+
+      if (video_loop.time() > video_loop.duration() - 0.2)
+        video_loop.time(0)
 
       if (playing == "loop") {
         p.image(video_loop, 0, 0, video_width, video_height)
