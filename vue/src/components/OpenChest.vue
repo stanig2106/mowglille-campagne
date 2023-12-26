@@ -15,7 +15,7 @@ const props = defineProps<{
 const done = ref(false)
 
 const emit = defineEmits<{
-  done: () => void
+  done: []
 }>()
 
 let click = {
