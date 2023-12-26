@@ -2,6 +2,10 @@
 
 
 import useCable from "@/router/cable";
+import fake_profile from "@/assets/fake/profile.jpeg"
+import {ref} from "vue";
+
+const has_notif = ref(true)
 
 const props = defineProps<{
   back: string | null
@@ -41,47 +45,11 @@ function openFacebook() {
     </h1>
 
     <div v-if="back == null"
-         class="h-full flex justify-end items-center mr-2">
-      <v-btn icon rounded="lg" variant="text"
-             @click="openInstagram">
-        <v-icon size="32">
-          mdi-instagram
-        </v-icon>
-      </v-btn>
+         class="h-full flex justify-end items-center mr-3">
 
-      <v-btn icon rounded="lg" variant="text"
-             @click="openFacebook">
-        <v-icon size="32">
-          mdi-facebook
-        </v-icon>
-      </v-btn>
-
-      <!--      notifications s-->
-
-      <v-btn icon rounded="lg" variant="text">
-        <v-badge v-if="true" color="red" dot>
-          <v-icon size="32">
-            mdi-bell
-          </v-icon>
-        </v-badge>
-
-        <v-icon v-else size="32">
-          mdi-bell
-        </v-icon>
-
-        <v-menu activator="parent" close-on-back scrim="#00000000">
-          <v-list density="compact">
-            <v-list-subheader>Notifications</v-list-subheader>
-            <v-list-item value>
-              <v-list-item-title>
-                <div class="flex items-center justify-between">
-                  Test
-                  <v-badge v-if="true" color="red" dot inline/>
-                </div>
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+      <v-btn icon variant="text">
+        <v-img :src="fake_profile" class="rounded-full"
+               style="width: 40px; height: 40px"/>
       </v-btn>
 
 
