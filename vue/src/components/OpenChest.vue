@@ -19,7 +19,7 @@ const emit = defineEmits<{
 }>()
 
 let click = {
-  first: document.body.hasAttribute("interacted")
+  first: true
 }
 onMounted(() => {
 
