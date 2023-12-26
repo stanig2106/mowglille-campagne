@@ -3,12 +3,21 @@
 import OpenChest from "@/components/OpenChest.vue";
 import {ref} from "vue";
 import ChestHistory from "@/views/collection/ChestHistory.vue";
+import intro_video from "@/assets/chest/intro.mp4";
+import loop_video from "@/assets/chest/loop.mp4";
+import epic_video from "@/assets/chest/epic.mp4";
 
 const chests = ref([1])
 
 const chestHistories = ref([])
 
 const opening = ref(false)
+
+// fetch videos for caching
+fetch(intro_video)
+fetch(loop_video)
+fetch(epic_video)
+
 
 </script>
 
