@@ -14,6 +14,10 @@ const props = defineProps<{
 
 const done = ref(false)
 
+const emit = defineEmits<{
+  done: () => void
+}>()
+
 let click = {
   first: document.body.hasAttribute("interacted")
 }
@@ -89,6 +93,7 @@ onMounted(() => {
         playing = "none"
         video_opening.hide()
         done.value = true
+        emit("done")
       })
 
 

@@ -4,9 +4,11 @@ import OpenChest from "@/components/OpenChest.vue";
 import {ref} from "vue";
 import ChestHistory from "@/views/collection/ChestHistory.vue";
 
-const chests = ref([])
+const chests = ref([1])
 
 const chestHistories = ref([])
+
+const opening = ref(false)
 
 </script>
 
@@ -17,7 +19,7 @@ const chestHistories = ref([])
       <v-btn density="comfortable" icon rounded="lg" variant="flat">
         <v-icon>mdi-history</v-icon>
 
-        <v-dialog activator="parent" persistent>
+        <v-dialog activator="parent" close-on-back>
           <template #default="{isActive}">
             <div class="h-[80vh] w-[90vw] bg-white elevation-4 rounded-2xl p-4 flex flex-col justify-between">
               <div class="flex flex-col gap-4">
@@ -43,12 +45,14 @@ const chestHistories = ref([])
     </h2>
 
     <div class="flex gap-4 overflow-x-auto">
-      <v-icon v-for="chest in chests" :key="chest" size="96">
+      <v-icon v-for="chest in chests" :key="chest" size="96" @click="opening = true">
         mdi-treasure-chest
       </v-icon>
       <h4 v-if="chests.length == 0" class="text-center w-full px-4">
         Vous n'avez pas de coffre à ouvrir, faites des activités pour en gagner !
       </h4>
+
+      <open-chest v-if="opening" rarity="epic" @done="opening = false; chests = []"/>
     </div>
   </div>
 
