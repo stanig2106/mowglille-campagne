@@ -5,7 +5,7 @@ import loop_video from "@/assets/chest/loop.mp4"
 import epic_video from "@/assets/chest/epic.mp4"
 
 import p5 from "p5"
-import {onMounted, ref} from "vue";
+import {onMounted, onUnmounted, ref, watch} from "vue";
 import router from "@/router";
 
 const props = defineProps<{
@@ -19,8 +19,7 @@ let click = {
 }
 onMounted(() => {
 
-
-  new p5((p: p5) => {
+  let sketch : p5 | undefined = new p5((p: p5) => {
     let video_intro: p5.MediaElement
     let video_loop: p5.MediaElement
     let video_opening: p5.MediaElement
@@ -41,6 +40,12 @@ onMounted(() => {
       p.createCanvas(p.windowWidth, p.windowHeight, document.getElementById("canvas") as HTMLElement)
       video_width = p.windowWidth
       video_height = p.windowHeight
+    }
+
+    p.remove = () => {
+      video_intro.remove()
+      video_loop.remove()
+      video_opening.remove()
     }
 
     p.draw = () => {
@@ -89,6 +94,18 @@ onMounted(() => {
 
     }
 
+  })
+
+  onUnmounted(() => {
+    sketch?.remove()
+    sketch = undefined
+  })
+
+  watch(done, (value) => {
+    if (value) {
+      sketch?.remove()
+      sketch = undefined
+    }
   })
 })
 
