@@ -24,7 +24,11 @@ import OneLineBtn from "@/views/home/btns/OneLineBtn.vue";
         <OneLineBtn :icon-size="32" icon="mdi-image-frame" title="Trombi"/>
         <OneLineBtn :icon-size="32" icon="mdi-message-outline" title="Contact nous"/>
       </div>
-      <OneLineBtn :icon-size="32" icon="mdi-image-multiple" title="Galerie" disabled/>
+      <div class="flex gap-2 >:flex-grow w-full">
+        <OneLineBtn :icon-size="32" disabled icon="mdi-image-multiple" title="Galerie"/>
+        <OneLineBtn :icon-size="32" icon="mdi-link-variant" title="Liens utiles"
+                    @click="() => $router.push('/links')"/>
+      </div>
 
     </div>
   </div>

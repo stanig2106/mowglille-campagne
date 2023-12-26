@@ -29,6 +29,12 @@ const routes = [
       title: 'QR Code',
     }
   },
+  {
+    path: '/links', component: () => import('../views/Links.vue'),
+    meta: {
+      title: 'Liens utiles',
+    }
+  },
 
   // Fallback to home
   {
