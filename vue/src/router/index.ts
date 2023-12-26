@@ -30,6 +30,12 @@ const routes = [
     }
   },
   {
+    path: '/collection', component: () => import('../views/Collection.vue'),
+    meta: {
+      title: 'Collection',
+    }
+  },
+  {
     path: '/links', component: () => import('../views/Links.vue'),
     meta: {
       title: 'Liens utiles',
