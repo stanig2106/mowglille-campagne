@@ -3,7 +3,12 @@ self.addEventListener('install', function (event) {
     caches.open('mowglille-cache').then(function (cache) {
       return cache.addAll([
         '/',
-        '/index.html'
+        '/index.html',
+        '/epic.mp4',
+        '/intro.mp4',
+        '/logo.png',
+        '/manifest.json',
+        '/favicon.ico',
       ]);
     })
   );
