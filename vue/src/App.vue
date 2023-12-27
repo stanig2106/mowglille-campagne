@@ -61,11 +61,20 @@ router.beforeEach((to, from, next) => {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "vuetify";
+@import "@mdi/font/fonts/materialdesignicons-webfont.ttf";
+@import "@mdi/font/fonts/materialdesignicons-webfont.woff";
+@import "@mdi/font/fonts/materialdesignicons-webfont.woff2";
+@import "@mdi/font/fonts/materialdesignicons-webfont.eot";
 
 @font-face {
-  font-family: "QuintoAndatTextos-Regular";
-  src: url("assets/fonts/QuintoAndarTextos-Regular.woff2") format("woff2");
+  font-family: "Material Design Icons";
+  src: url("@mdi/font/fonts/materialdesignicons-webfont.eot");
+  src: url("@mdi/font/fonts/materialdesignicons-webfont.eot") format("embedded-opentype"),
+  url("@mdi/font/fonts/materialdesignicons-webfont.woff2") format("woff2"),
+  url("@mdi/font/fonts/materialdesignicons-webfont.woff") format("woff"),
+  url("@mdi/font/fonts/materialdesignicons-webfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
