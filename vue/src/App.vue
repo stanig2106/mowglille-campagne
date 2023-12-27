@@ -1,15 +1,22 @@
 <script lang="ts" setup>
 import Header from "@/layouts/partials/header.vue";
 import Footer from "@/layouts/partials/footer.vue";
-import {getCurrentInstance, onMounted, ref} from "vue";
+import {getCurrentInstance, onMounted, provide, ref} from "vue";
 import Loading from "@/components/Loading.vue";
 import router from "@/router";
-import axios from "axios";
+import axios, {AxiosError, HttpStatusCode} from "axios";
 
 if (localStorage.getItem("token") == null)
   router.push("/login")
 
-axios.get("/check_token").catch(() => {
+const offline = ref(false)
+provide("offline", {offline, updateOffline: (value: boolean) => offline.value = value})
+
+axios.get("/check_token").catch((reason: AxiosError) => {
+  if (reason.code == "ERR_NETWORK") {
+    offline.value = true
+    return
+  }
   localStorage.removeItem("token")
   router.push("/login")
 })
