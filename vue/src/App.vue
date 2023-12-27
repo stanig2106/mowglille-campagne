@@ -61,10 +61,6 @@ router.beforeEach((to, from, next) => {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "@mdi/font/fonts/materialdesignicons-webfont.ttf";
-@import "@mdi/font/fonts/materialdesignicons-webfont.woff";
-@import "@mdi/font/fonts/materialdesignicons-webfont.woff2";
-@import "@mdi/font/fonts/materialdesignicons-webfont.eot";
 
 @font-face {
   font-family: "Material Design Icons";
