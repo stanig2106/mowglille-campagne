@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import Header from "@/layouts/partials/header.vue";
-import Footer from "@/layouts/partials/footer.vue";
-import {getCurrentInstance, onMounted, provide, ref} from "vue";
+import {provide, ref} from "vue";
 import Loading from "@/components/Loading.vue";
 import router from "@/router";
-import axios, {AxiosError, HttpStatusCode} from "axios";
+import axios, {AxiosError} from "axios";
 import {offlineKey} from "@/router/keys";
 
 if (localStorage.getItem("token") == null)
@@ -117,18 +116,5 @@ button {
   text-overflow: ellipsis;
 }
 
-// incognito mode
-
-//img, video {
-//  filter: blur(40px);
-//}
-//
-//body {
-//  background: #065223 !important;
-//}
-//
-//h1 {
-//  filter: blur(40px);
-//}
 </style>
 
