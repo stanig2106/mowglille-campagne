@@ -63,22 +63,6 @@ router.beforeEach((to, from, next) => {
 @tailwind utilities;
 
 @font-face {
-  font-family: "MDI";
-  src: url("@mdi/font/fonts/materialdesignicons-webfont.eot");
-  src: url("@mdi/font/fonts/materialdesignicons-webfont.eot") format("embedded-opentype"),
-  url("@mdi/font/fonts/materialdesignicons-webfont.woff2") format("woff2"),
-  url("@mdi/font/fonts/materialdesignicons-webfont.woff") format("woff"),
-  url("@mdi/font/fonts/materialdesignicons-webfont.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-.mdi:before,.mdi-set {
-  font: 24px/1 Material Design Icons, MDI;
-}
-
-
-@font-face {
   font-family: "QuintoAndatTextos-Bold";
   src: url("assets/fonts/QuintoAndarTextos-Bold.woff2") format("woff2");
 }

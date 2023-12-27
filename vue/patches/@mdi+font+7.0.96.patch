@@ -1,0 +1,35 @@
+diff --git a/node_modules/@mdi/font/css/materialdesignicons.css b/node_modules/@mdi/font/css/materialdesignicons.css
+index f379d87..0ffed52 100644
+--- a/node_modules/@mdi/font/css/materialdesignicons.css
++++ b/node_modules/@mdi/font/css/materialdesignicons.css
+@@ -1,8 +1,8 @@
+ /* MaterialDesignIcons.com */
+ @font-face {
+   font-family: "Material Design Icons";
+-  src: url("../fonts/materialdesignicons-webfont.eot?v=7.0.96");
+-  src: url("../fonts/materialdesignicons-webfont.eot?#iefix&v=7.0.96") format("embedded-opentype"), url("../fonts/materialdesignicons-webfont.woff2?v=7.0.96") format("woff2"), url("../fonts/materialdesignicons-webfont.woff?v=7.0.96") format("woff"), url("../fonts/materialdesignicons-webfont.ttf?v=7.0.96") format("truetype");
++  src: url("../fonts/materialdesignicons-webfont.eot");
++  src: url("../fonts/materialdesignicons-webfont.eot") format("embedded-opentype"), url("../fonts/materialdesignicons-webfont.woff2") format("woff2"), url("../fonts/materialdesignicons-webfont.woff") format("woff"), url("../fonts/materialdesignicons-webfont.ttf") format("truetype");
+   font-weight: normal;
+   font-style: normal;
+ }
+diff --git a/node_modules/@mdi/font/scss/_path.scss b/node_modules/@mdi/font/scss/_path.scss
+index 37d371a..ac8eb36 100644
+--- a/node_modules/@mdi/font/scss/_path.scss
++++ b/node_modules/@mdi/font/scss/_path.scss
+@@ -1,10 +1,10 @@
+ @font-face {
+   font-family: '#{$mdi-font-name}';
+-  src: url('#{$mdi-font-path}/#{$mdi-filename}-webfont.eot?v=#{$mdi-version}');
+-  src: url('#{$mdi-font-path}/#{$mdi-filename}-webfont.eot?#iefix&v=#{$mdi-version}') format('embedded-opentype'),
+-    url('#{$mdi-font-path}/#{$mdi-filename}-webfont.woff2?v=#{$mdi-version}') format('woff2'),
+-    url('#{$mdi-font-path}/#{$mdi-filename}-webfont.woff?v=#{$mdi-version}') format('woff'),
+-    url('#{$mdi-font-path}/#{$mdi-filename}-webfont.ttf?v=#{$mdi-version}') format('truetype');
++  src: url('#{$mdi-font-path}/#{$mdi-filename}-webfont.eot');
++  src: url('#{$mdi-font-path}/#{$mdi-filename}-webfont.eot') format('embedded-opentype'),
++    url('#{$mdi-font-path}/#{$mdi-filename}-webfont.woff2') format('woff2'),
++    url('#{$mdi-font-path}/#{$mdi-filename}-webfont.woff') format('woff'),
++    url('#{$mdi-font-path}/#{$mdi-filename}-webfont.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+ }
