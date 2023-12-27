@@ -62,6 +62,7 @@ router.beforeEach((to, from, next) => {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "vuetify";
 
 @font-face {
   font-family: "QuintoAndatTextos-Regular";
