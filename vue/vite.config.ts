@@ -29,23 +29,12 @@ export default defineConfig({
   },
   plugins: [
     VitePWA({
-      includeAssets: [
-        'favicon.ico',
-        '/chest/epic.mp4',
-        '/chest/intro.mp4',
-        '/chest/loop.mp4',
-      ],
       workbox: {
-        runtimeCaching: [
-          {
-            urlPattern: /\*/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'cache',
-            },
-          },
+        globPatterns: [
+          "**/*"
         ],
-      },
+        globDirectory: 'dist/',
+      }
     }),
     vue({
       template: { transformAssetUrls },
