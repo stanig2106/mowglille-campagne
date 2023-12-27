@@ -10,4 +10,8 @@ class HomeController < ApplicationController
   def not_found_api
     render json: { error: 'Not found' }, status: 404
   end
+
+  def version
+    render json: { version: BUILD_ID }
+  end
 end

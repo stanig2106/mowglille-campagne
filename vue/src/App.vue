@@ -31,9 +31,6 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-
-
-
 </script>
 
 <template>
