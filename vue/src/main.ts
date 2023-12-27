@@ -4,8 +4,6 @@
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
 
-import "./registerServiceWorker.js"
-
 // Plugins
 import {registerPlugins} from '@/plugins'
 
@@ -26,7 +24,6 @@ app.use(router)
 
 // Axios
 import axios from 'axios';
-import './registerServiceWorker'
 
 axios.interceptors.request.use(config => {
 

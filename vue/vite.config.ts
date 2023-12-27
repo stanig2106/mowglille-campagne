@@ -2,6 +2,9 @@
 import vue from '@vitejs/plugin-vue'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
+import {VitePWA} from 'vite-plugin-pwa'
+
+
 import fs from 'fs'
 
 // Utilities
@@ -10,7 +13,40 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/p5')) {
+            return 'p5';
+          }
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        }
+      }
+    }
+  },
   plugins: [
+    VitePWA({
+      includeAssets: [
+        'favicon.ico',
+        '/chest/epic.mp4',
+        '/chest/intro.mp4',
+        '/chest/loop.mp4',
+      ],
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /\*/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'cache',
+            },
+          },
+        ],
+      },
+    }),
     vue({
       template: { transformAssetUrls },
     }),
