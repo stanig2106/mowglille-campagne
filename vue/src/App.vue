@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
 @tailwind utilities;
 
 @font-face {
-  font-family: "Material Design Icons";
+  font-family: "MDI";
   src: url("@mdi/font/fonts/materialdesignicons-webfont.eot");
   src: url("@mdi/font/fonts/materialdesignicons-webfont.eot") format("embedded-opentype"),
   url("@mdi/font/fonts/materialdesignicons-webfont.woff2") format("woff2"),
@@ -72,6 +72,11 @@ router.beforeEach((to, from, next) => {
   font-weight: normal;
   font-style: normal;
 }
+
+.mdi:before,.mdi-set {
+  font: 24px/1 MDI !important;
+}
+
 
 @font-face {
   font-family: "QuintoAndatTextos-Bold";
