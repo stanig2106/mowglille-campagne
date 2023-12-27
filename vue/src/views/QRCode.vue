@@ -1,23 +1,29 @@
 <script setup lang="ts">
 
 import axios from "axios";
-import {onUnmounted, ref} from "vue";
+import {inject, onUnmounted, ref} from "vue";
 import Qrious from "vue-qrious";
+import {offlineKey} from "@/router/keys";
 
+const {offline} = inject(offlineKey)!;
 
+const offline_qr_code = "0".repeat(16) + "&" +
+  
 const qr_code_content = ref("a".repeat(30))
 const loading = ref(true)
+
 
 // every 60 seconds
 const interval = setInterval(generateQRCode, 60 * 1000)
 
 onUnmounted(() => clearInterval(interval))
 
-async function generateQRCode() {
+async function generateQRCode(): Promise<any> {
   loading.value = true
   const fake_loading = new Promise(resolve => setTimeout(resolve, 300))
+
   const {data, status} = await axios.get("/qr_code")
-  if (status !== 200) return
+  if (status !== 200) return setTimeout(generateQRCode, 1000)
 
   await fake_loading
 
@@ -30,7 +36,6 @@ generateQRCode()
 </script>
 
 <template>
-
   <div class="bg-white rounded-t-2xl p-4 flex flex-col justify-center elevation-2 h-full gap-4"
        @click="generateQRCode">
     <div class="w-full mb-4">
