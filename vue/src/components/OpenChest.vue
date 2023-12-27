@@ -1,8 +1,5 @@
 <script lang="ts" setup>
 
-import intro_video from "@/assets/chest/intro.mp4"
-import loop_video from "@/assets/chest/loop.mp4"
-import epic_video from "@/assets/chest/epic.mp4"
 
 import p5 from "p5"
 import {onMounted, onUnmounted, ref, watch} from "vue";
@@ -35,9 +32,9 @@ onMounted(() => {
 
 
     p.preload = () => {
-      video_intro = p.createVideo(intro_video)
-      video_loop = p.createVideo(loop_video)
-      video_opening = p.createVideo(epic_video)
+      video_intro = p.createVideo("/chest/intro.mp4")
+      video_loop = p.createVideo("/chest/loop.mp4")
+      video_opening = p.createVideo("/chest/epic.mp4")
     }
 
     p.setup = () => {

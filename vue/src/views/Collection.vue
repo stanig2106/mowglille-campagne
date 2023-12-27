@@ -3,9 +3,6 @@
 import OpenChest from "@/components/OpenChest.vue";
 import {ref} from "vue";
 import ChestHistory from "@/views/collection/ChestHistory.vue";
-import intro_video from "@/assets/chest/intro.mp4";
-import loop_video from "@/assets/chest/loop.mp4";
-import epic_video from "@/assets/chest/epic.mp4";
 
 const chests = ref([1])
 
@@ -16,17 +13,6 @@ const opening = ref(false)
 </script>
 
 <template>
-  <div class="absolute top-[200vh] left-[200vh] bg-red">
-    <video autoplay muted preload="auto">
-      <source :src="intro_video">
-    </video>
-    <video autoplay muted preload="auto">
-      <source :src="loop_video">
-    </video>
-    <video autoplay muted preload="auto">
-      <source :src="epic_video">
-    </video>
-  </div>
   <div class="bg-white rounded-2xl p-4 flex flex-col gap-2 elevation-2">
     <h2 class="text-xl flex justify-between items-center gap-2">
       Vos coffres à ouvrir
