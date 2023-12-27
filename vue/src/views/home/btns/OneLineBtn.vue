@@ -6,7 +6,7 @@ const props = withDefaults(defineProps<{
   title: string
   icon: string
   iconSize: number
-  disabled: boolean
+  disabled?: boolean
 }>(), {
   disabled: false
 })

@@ -5,12 +5,18 @@ import {getCurrentInstance, onMounted, provide, ref} from "vue";
 import Loading from "@/components/Loading.vue";
 import router from "@/router";
 import axios, {AxiosError, HttpStatusCode} from "axios";
+import {offlineKey} from "@/router/keys";
 
 if (localStorage.getItem("token") == null)
   router.push("/login")
 
 const offline = ref(false)
-provide("offline", {offline, updateOffline: (value: boolean) => offline.value = value})
+provide(offlineKey, {offline, updateOffline: (value: boolean) => offline.value = value})
+
+window.addEventListener("online", () => offline.value = false)
+
+window.addEventListener("offline", () => offline.value = true)
+
 
 axios.get("/check_token").catch((reason: AxiosError) => {
   if (reason.code == "ERR_NETWORK") {
@@ -23,11 +29,11 @@ axios.get("/check_token").catch((reason: AxiosError) => {
 
 const fullpage = ref(router.currentRoute.value.path == "/login");
 
-const currentTitle = ref<null | string>(null)
+const currentTitle = ref<undefined | string>(undefined)
 
 router.beforeEach((to, from, next) => {
   fullpage.value = (to.meta.fullpage ?? false) as boolean
-  currentTitle.value = to.meta.title as string | null
+  currentTitle.value = to.meta.title as string | undefined
   next()
 })
 

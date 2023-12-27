@@ -4,11 +4,12 @@
 import useCable from "@/router/cable";
 import fake_profile from "@/assets/fake/profile.jpeg"
 import {ref} from "vue";
+import OfflineIndicator from "@/components/OfflineIndicator.vue";
 
 const has_notif = ref(true)
 
 const props = defineProps<{
-  back: string | null
+  back: string | undefined
 }>()
 
 useCable("NotificationChannel")
@@ -28,7 +29,7 @@ function openFacebook() {
   <div class="bg-primary top-0 absolute h-16 w-full
               flex justify-between">
 
-    <h1 v-if="back == null"
+    <h1 v-if="back == undefined"
         class="h-full flex items-center text-3xl italic mt-0.5 ml-4">
       MOWG'LILLE
     </h1>
@@ -45,7 +46,8 @@ function openFacebook() {
     </h1>
 
     <div v-if="back == null"
-         class="h-full flex justify-end items-center mr-3">
+         class="h-full flex justify-end items-center mr-3 gap-2">
+      <offline-indicator/>
 
       <v-btn icon variant="text">
         <v-img :src="fake_profile" class="rounded-full"
