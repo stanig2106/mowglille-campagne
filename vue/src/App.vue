@@ -74,7 +74,7 @@ router.beforeEach((to, from, next) => {
 }
 
 .mdi:before,.mdi-set {
-  font: 24px/1 MDI !important;
+  font: 24px/1 Material Design Icons, MDI;
 }
 
 
