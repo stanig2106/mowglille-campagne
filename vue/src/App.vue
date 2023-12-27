@@ -80,6 +80,11 @@ html {
   font-weight: bolder;
 }
 
+img {
+  pointer-events: none;
+  -webkit-touch-callout: none;
+}
+
 #header-clip::before {
   display: none;
   content: "";
