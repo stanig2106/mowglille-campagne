@@ -4,9 +4,10 @@ self.addEventListener('install', function (event) {
       return cache.addAll([
         '/',
         '/index.html',
-        '/epic.mp4',
-        '/intro.mp4',
-        '/logo.png',
+        '/chest/epic.mp4',
+        '/chest/intro.mp4',
+        '/chest/loop.mp4',
+        '/service-worker.js',
         '/manifest.json',
         '/favicon.ico',
       ]);
