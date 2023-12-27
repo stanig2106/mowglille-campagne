@@ -1,1 +1,1 @@
-BUILD_ID = `git rev-parse HEAD `.chomp
+BUILD_ID = File.read('version.txt').strip
