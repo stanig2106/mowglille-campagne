@@ -72,7 +72,7 @@ function nextStep() {
       'bg-green-500': current_state === 'click',
       'bg-secondary': current_state === 'pause',
       'bg-gray-600': current_state === 'pause' && last_result < 0,
-    }" @click="nextStep">
+    }" @pointerdown="nextStep">
     <div v-if="!done">
       <div class="text-4xl text-white px-4 text-center items-center flex flex-col gap-6">
         <svg v-if="!started"
