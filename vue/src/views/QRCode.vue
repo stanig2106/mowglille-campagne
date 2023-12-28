@@ -23,7 +23,18 @@ updateUser().then((done) => {
   }
 })
 
-const offline_qr_code = "0".repeat(16) + "&" +
+function generateRandomString(length: number) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+const offline_qr_code = () => '&' +
+  generateRandomString(15) + "&" +
   id.value + "&" +
   publicToken.value + "&" +
   firstName.value + "&" +
@@ -32,8 +43,8 @@ const offline_qr_code = "0".repeat(16) + "&" +
   new Date().toISOString();
 
 
-const qr_code_content = ref(offline_qr_code)
-const loading = ref(true)
+const qr_code_content = ref(offline_qr_code())
+const loading = ref(null as boolean | null)
 
 
 // every 60 seconds
@@ -42,12 +53,12 @@ const interval = setInterval(generateQRCode, 60 * 1000)
 onUnmounted(() => clearInterval(interval))
 
 async function generateQRCode(): Promise<any> {
-  if (offline.value && !loading.value) return
+  if (loading.value) return
   loading.value = true
   const fake_loading = new Promise(resolve => setTimeout(resolve, 300))
 
   const content = await (async () => {
-    if (offline.value) return offline_qr_code
+    if (offline.value) return offline_qr_code()
     const {data, status} = await axios.get("/qr_code")
     if (status !== 200) {
       setTimeout(generateQRCode, 1000)
