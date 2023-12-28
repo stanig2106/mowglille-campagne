@@ -1,13 +1,14 @@
-[{
-  "relation": [
-    "delegate_permission/common.handle_all_urls"
-  ],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "fr.mowglille.twa",
-    "sha256_cert_fingerprints": [
-      "0D:32:DB:0D:36:1B:C7:BA:86:E6:CC:16:A8:10:1A:A9:73:30:E1:95:3D:7D:35:D1:4F:B1:90:1D:D5:79:E5:3C"
-    ]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "fr.mowglille.twa",
+      "sha256_cert_fingerprints": [
+        "61:70:05:A0:17:F3:57:97:91:C2:C4:AD:F3:23:26:93:EC:72:6C:48:EA:18:67:91:33:64:FC:0B:F5:6B:B5:BB"
+      ]
+    }
   }
-}
 ]
