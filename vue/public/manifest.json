@@ -493,10 +493,22 @@
     }
   ],
   "iarc_rating_id": "e10+",
-  "prefer_related_aplications": false,
   "scope_extensions": [
     {
       "origin": "mowglille.fr"
     }
-  ]
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.mtacorporation.vibly&amp;gl=FR",
+      "id": "com.mtacorporation.vibly"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/fr/app/vibly/id1580285465?l=en-GB",
+      "id": "id1580285465"
+    }
+  ],
+  "prefer_related_applications": false
 }
