@@ -77,7 +77,7 @@ html {
 }
 
 * {
-  touch-action: none;
+  touch-action: pan-x pan-y;
   user-select: none;
   font-family: "QuintoAndatTextos-Bold", sans-serif !important;
   font-weight: bolder;
