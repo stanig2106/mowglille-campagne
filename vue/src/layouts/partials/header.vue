@@ -10,24 +10,18 @@ const has_notif = ref(true)
 
 const props = defineProps<{
   back: string | undefined
+  density: "normal" | "compact"
 }>()
 
 useCable("NotificationChannel")
-
-function openInstagram() {
-  window.open("https://www.instagram.com/mowglille/", "_blank")
-}
-
-function openFacebook() {
-  window.open("https://www.facebook.com/mowglille", "_blank")
-}
 
 
 </script>
 
 <template>
-  <div class="bg-primary top-0 absolute h-16 w-full
-              flex justify-between">
+  <div class="bg-primary top-0 absolute w-full flex justify-between"
+       :class="{ 'h-16': density == 'normal', 'h-12': density == 'compact'}"
+  >
 
     <h1 v-if="back == undefined"
         class="h-full flex items-center text-3xl italic mt-0.5 ml-4">
@@ -58,7 +52,6 @@ function openFacebook() {
     </div>
 
   </div>
-  <div id="header-clip" class="bg-primary top-0 z-10 sticky h-1"/>
 </template>
 
 <style lang="scss">

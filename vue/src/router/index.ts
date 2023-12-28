@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
+import games from "@/router/games";
 
 const routes = [
   {
@@ -41,6 +42,9 @@ const routes = [
       title: 'Liens utiles',
     }
   },
+
+  ...games,
+
 
   // Fallback to home
   {

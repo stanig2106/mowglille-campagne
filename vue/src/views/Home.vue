@@ -17,7 +17,8 @@ import router from "@/router";
       <CollectionBtn class="w-full" @click="router.push('/collection')"/>
       <div class="flex gap-2 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" icon="mdi-trophy" title="Liste des defis"/>
-        <OneLineBtn :icon-size="32" icon="mdi-nintendo-game-boy" title="Jeu"/>
+        <OneLineBtn :icon-size="32" icon="mdi-nintendo-game-boy" title="Jeu"
+                    @click="router.push('/games/human_benchmark')"/>
       </div>
       <div class="flex gap-2 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" icon="mdi-calendar-clock" title="Planning"/>

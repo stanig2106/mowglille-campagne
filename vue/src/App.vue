@@ -27,12 +27,14 @@ axios.get("/check_token").catch((reason: AxiosError) => {
 })
 
 const fullpage = ref(router.currentRoute.value.path == "/login");
+const density = ref("normal")
 
 const currentTitle = ref<undefined | string>(undefined)
 
 router.beforeEach((to, from, next) => {
   fullpage.value = (to.meta.fullpage ?? false) as boolean
   currentTitle.value = to.meta.title as string | undefined
+  density.value = to.meta.density as string | undefined ?? "normal"
   next()
 })
 
@@ -45,10 +47,13 @@ router.beforeEach((to, from, next) => {
     <router-view/>
   </v-app>
   <v-app v-else>
-    <v-main class="z-0 pt-16 bg-primary h-screen">
-      <Header :back="currentTitle"/>
+    <v-main class="z-0 bg-primary h-screen"
+    :class="{'pt-16': density == 'normal', 'pt-12': density == 'compact'}"
+    >
+      <Header :back="currentTitle" :density="density as any"/>
 
-      <div class="px-2 h-full rounded-t-3xl !overflow-y-auto">
+      <div class="h-full rounded-t-3xl !overflow-y-auto"
+           :class="{'px-2': density == 'normal'}">
         <router-view/>
       </div>
 
