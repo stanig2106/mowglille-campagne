@@ -1,11 +1,21 @@
 {
+  "id": "0",
+  "version": "1.0.0",
   "name": "Mowg'Lille - Campagne",
   "short_name": "Mowg'Lille",
   "theme_color": "#FFE860",
   "background_color": "#000000",
-  "display": "fullscreen",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/",
+  "author": "Stani GAM",
+  "license": "MIT",
+  "launch_handler": {
+    "client_mode": [
+      "focus-existing",
+      "auto"
+    ]
+  },
   "icons": [
     {
       "src": "img/icons/desktop/SmallTile.scale-100.png",
@@ -453,7 +463,8 @@
     },
     {
       "src": "img/icons/ios/1024.png",
-      "sizes": "1024x1024"
+      "sizes": "1024x1024",
+      "purpose": "any"
     },
     {
       "src": "img/icons/ios/1024.png",
@@ -472,5 +483,20 @@
   "categories": [
     "education",
     "entertainment"
+  ],
+  "screenshots": [
+    {
+      "src": "img/icons/ios/1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "platform": "ios"
+    }
+  ],
+  "iarc_rating_id": "e10+",
+  "prefer_related_aplications": false,
+  "scope_extensions": [
+    {
+      "origin": "mowglille.fr"
+    }
   ]
 }
