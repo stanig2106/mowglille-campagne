@@ -55,7 +55,7 @@ const average = computed(() => sum.value / results.value.length)
               text-white text-xl">
       Restant: {{ todo - results.length }}
     </div>
-    <div v-if="!started" class="flex flex-col justify-center">
+    <div v-if="!started && !done" class="flex flex-col justify-center">
       <div class="text-4xl text-white px-4 text-center items-center
       flex flex-col gap-6">
         {{ gameNames['aim_trainer'] }}
