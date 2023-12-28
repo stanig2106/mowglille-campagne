@@ -30,7 +30,6 @@ export default defineConfig({
   plugins: [
     VitePWA({
       workbox: {
-        mode: 'development',
         maximumFileSizeToCacheInBytes: 10_000_000, // 10MB
         globPatterns: [
           "**/*"

@@ -36,6 +36,12 @@ function nextStep() {
   }
 
   if (current_state.value === "pause") {
+    if (last_result.value < 0) {
+      last_result.value = 0
+      started.value = false
+      results.value = []
+      return
+    }
     started.value = true;
     return launch()
   }
