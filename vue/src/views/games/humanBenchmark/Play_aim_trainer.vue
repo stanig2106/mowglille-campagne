@@ -95,7 +95,7 @@ const average = computed(() => sum.value / results.value.length)
 
     <v-icon :style="{ top: top + '%', left: left + '%'}"
             class="-translate-x-1/2 -translate-y-1/2 absolute"
-            color="primary" size="20vw"
+            color="primary" size="124px"
             @click="nextStep">
       mdi-bullseye
     </v-icon>
