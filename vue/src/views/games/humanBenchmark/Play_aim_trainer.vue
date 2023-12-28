@@ -19,6 +19,7 @@ function set_random_position() {
 
 function nextStep() {
   if (!started.value) {
+    done.value = false
     started.value = true
     results.value = []
     last_time.value = Date.now()
@@ -27,6 +28,7 @@ function nextStep() {
   }
   if (results.value.length >= todo - 1) {
     done.value = true
+    started.value = false
     top.value = 50
     left.value = 50
     return
@@ -69,7 +71,7 @@ const average = computed(() => sum.value / results.value.length)
       flex flex-col gap-6 translate-y-[40vw]">
         {{ gameNames['aim_trainer'] }}
       </div>
-      <span class="text-xl text-white px-4 text-center items-center
+      <div class="text-xl text-white px-4 text-center items-center
                   flex flex-col gap-6 mt-[80vw]">
         <div>
           Vous avez touché {{ todo }} cibles en {{ (sum / 1000).toFixed(2) }} secondes.
@@ -88,14 +90,14 @@ const average = computed(() => sum.value / results.value.length)
           Cliquer sur la cible pour recommencer.
         </div>
 
-      </span>
+      </div>
 
 
     </div>
 
     <v-icon :style="{ top: top + '%', left: left + '%'}"
             class="-translate-x-1/2 -translate-y-1/2 absolute"
-            color="primary" size="124px"
+            color="primary" size="148px"
             @click="nextStep">
       mdi-bullseye
     </v-icon>
