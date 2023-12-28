@@ -70,7 +70,7 @@ function nextStep() {
        :class="{
       'bg-red-500': current_state === 'waiting',
       'bg-green-500': current_state === 'click',
-      'bg-secondary': current_state === 'pause',
+      'bg-secondary': current_state === 'pause' && last_result >= 0,
       'bg-gray-600': current_state === 'pause' && last_result < 0,
     }" @pointerdown="nextStep">
     <div v-if="!done">
