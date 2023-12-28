@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {computed, onMounted, onUnmounted, ref} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 
 const end_time = new Date("2023-12-30T00:00:00.000Z")
 
@@ -50,7 +50,7 @@ onUnmounted(() => interval && clearInterval(interval))
       </h4>
 
       <div class="flex flex-col gap-4 mt-4">
-        <v-btn color="primary" class="w-full" @click="$router.push('/games/human_benchmark')">
+        <v-btn color="primary" class="w-full" @click="$router.push('/games/human_benchmark/play')">
           Jouer
         </v-btn>
 
