@@ -1,15 +1,38 @@
 <script setup lang="ts">
 
 import axios from "axios";
-import {inject, onUnmounted, ref} from "vue";
+import {inject, onUnmounted, ref, watch} from "vue";
 import Qrious from "vue-qrious";
 import {offlineKey} from "@/router/keys";
+import {storeToRefs} from "pinia";
+import {useUserStore} from "@/stores/user_store";
 
 const {offline} = inject(offlineKey)!;
 
+const {firstName, lastName, score, publicToken, id} = storeToRefs(useUserStore())
+const {updateUser} = useUserStore()
+
+updateUser().then((done) => {
+  if (!done && !useUserStore().loaded) {
+    if (inject(offlineKey)?.offline.value) {
+      alert("Vous êtes hors ligne, vous ne pouvez pas récupérer vos données." +
+        "Veuillez vous connecter à internet pour récupérer vos données.")
+      return
+    }
+    alert("Une erreur est survenue lors de la récupération de vos données, veuillez réessayer plus tard.")
+  }
+})
+
 const offline_qr_code = "0".repeat(16) + "&" +
-  
-const qr_code_content = ref("a".repeat(30))
+  id.value + "&" +
+  publicToken.value + "&" +
+  firstName.value + "&" +
+  lastName.value + "&" +
+  score.value + "&" +
+  new Date().toISOString();
+
+
+const qr_code_content = ref(offline_qr_code)
 const loading = ref(true)
 
 
@@ -19,17 +42,28 @@ const interval = setInterval(generateQRCode, 60 * 1000)
 onUnmounted(() => clearInterval(interval))
 
 async function generateQRCode(): Promise<any> {
+  if (offline.value && !loading.value) return
   loading.value = true
   const fake_loading = new Promise(resolve => setTimeout(resolve, 300))
 
-  const {data, status} = await axios.get("/qr_code")
-  if (status !== 200) return setTimeout(generateQRCode, 1000)
+  const content = await (async () => {
+    if (offline.value) return offline_qr_code
+    const {data, status} = await axios.get("/qr_code")
+    if (status !== 200) {
+      setTimeout(generateQRCode, 1000)
+      return null
+    }
+    return data.content as string
+  })()
+  if (content == null) return
 
   await fake_loading
 
   loading.value = false
-  qr_code_content.value = data.content
+  qr_code_content.value = content
 }
+
+watch(offline, () => generateQRCode())
 
 generateQRCode()
 
@@ -38,8 +72,11 @@ generateQRCode()
 <template>
   <div class="bg-white rounded-t-2xl p-4 flex flex-col justify-center elevation-2 h-full gap-4"
        @click="generateQRCode">
+    <div v-if="offline" class="text-center text-md text-red-500">
+      QR Code hors ligne
+    </div>
     <div class="w-full mb-4">
-      <qrious :value="qr_code_content" class="w-4/5 mx-auto max-h-[60vh]" id="qrcode"
+      <qrious :value="qr_code_content" class="w-full mx-auto max-h-[60vh]" id="qrcode"
               :class="{ 'blur-md': loading }"
       />
     </div>

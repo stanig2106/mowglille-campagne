@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "api/check_token", to: 'users#check_token'
   post "api/register", to: "users#create"
   get "api/qr_code", to: "users#qr_code"
+  get "api/user", to: "users#show"
   get "api/score", to: "users#score"
   get "api/rank", to: "users#rank"
   get "api/name", to: "users#name"

@@ -12,15 +12,11 @@ import App from './App.vue'
 
 // Composables
 import {createApp} from 'vue'
-import router from "@/router";
 
 const app = createApp(App)
 
 // Register plugins
 registerPlugins(app)
-
-app.use(router)
-
 
 // Axios
 import axios from 'axios';

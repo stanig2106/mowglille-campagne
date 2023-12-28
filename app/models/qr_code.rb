@@ -8,6 +8,7 @@ class QrCode < ApplicationRecord
   def to_web
     token + "&" +
       user.id.to_s + "&" +
+      user.public_token + "&" +
       user.first_name.gsub("&", "") + "&" +
       user.last_name.gsub("&", "") + "&" +
       user.score.to_s + "&" +

@@ -3,9 +3,9 @@ import profile from "@/assets/fake/profile.jpeg";
 import banane from "@/assets/banane.png";
 
 const props = defineProps<{
-  rank: number | string,
+  rank: number | undefined,
   name: string,
-  score: number | string
+  score: number | undefined
 }>()
 </script>
 
@@ -18,7 +18,7 @@ const props = defineProps<{
 
       <div class="flex flex-col gap-1 justify-center">
         <h1 class="text-3xl">
-          {{ rank == 0 ? "# -" : "#" + rank }}
+          {{ rank == 0 || rank == undefined ? "# -" : "#" + rank }}
         </h1>
         <div class="text-lg text-gray-500 pr-2 one-line">
           {{ name }}
@@ -28,7 +28,7 @@ const props = defineProps<{
 
     <div class="bg-gray-400 bg-opacity-40 rounded-lg p-2 flex justify-end gap-2">
       <h1 class="text-xl">
-        {{ score }}
+        {{ score ?? "-" }}
       </h1>
       <v-img :src="banane" class="h-6 w-6" :transition="false"/>
     </div>

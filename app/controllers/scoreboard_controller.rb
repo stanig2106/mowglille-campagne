@@ -4,6 +4,7 @@ class ScoreboardController < ApplicationController
   end
 
   def get_score_details
+    # TODO !
     user = User.find_by!(token: params[:token])
     render json: { score_details: [] }
   end

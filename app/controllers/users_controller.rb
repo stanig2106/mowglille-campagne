@@ -11,10 +11,16 @@ class UsersController < ApplicationController
   def create
     user = User.create!(user_params)
     user.token = SecureRandom.hex(32) + user.id.to_s
+    user.public_token = SecureRandom.hex(32) + user.id.to_s
     user.save!
 
 
     render json: { token: user.token }
+  end
+
+  def show
+    user = User.find_by!(token: params[:token])
+    render json: user.instance_exec { { id:, public_token:, first_name:, last_name:, score:, rank: } }
   end
 
   def qr_code

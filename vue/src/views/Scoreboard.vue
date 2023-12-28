@@ -2,26 +2,46 @@
 import ScoreLine from "@/views/scoreboard/ScoreLine.vue";
 import {useStorage} from "@vueuse/core";
 import axios from "axios";
-import {ref} from "vue";
+import {inject, ref} from "vue";
+import {useUserStore} from "@/stores/user_store";
+import {storeToRefs} from "pinia";
+import {offlineKey} from "@/router/keys";
+import {useScoreboardStore} from "@/stores/scoreboard_store";
 
-const score = useStorage("score", "-" as string | number)
-axios.get("/score").then(({data}) => score.value = data.score)
+const {name, score, rank} = storeToRefs(useUserStore())
+const {updateUser} = useUserStore()
 
-const name = useStorage("name", "-" as string)
-axios.get("/name").then(({data}) => name.value = data.name)
+updateUser().then((done) => {
+  if (!done && !useUserStore().loaded) {
+    if (inject(offlineKey)?.offline.value) {
+      alert("Vous êtes hors ligne, vous ne pouvez pas récupérer vos données." +
+        "Veuillez vous connecter à internet pour récupérer vos données.")
+      return
+    }
+    alert("Une erreur est survenue lors de la récupération de vos données, veuillez réessayer plus tard.")
+  }
+})
 
-const rank = useStorage("rank", "-" as string | number)
-axios.get("/rank").then(({data}) => rank.value = data.rank)
+const {scoreboard} = storeToRefs(useScoreboardStore())
+const {updateScoreboard} = useScoreboardStore()
 
-const scoreboard = ref(undefined as undefined | { name: string, score: number, rank: number }[])
-axios.get("/scoreboard").then(({data}) => scoreboard.value = data.scoreboard)
+updateScoreboard().then((done) => {
+  if (!done && !useScoreboardStore().loaded) {
+    if (inject(offlineKey)?.offline.value) {
+      alert("Vous êtes hors ligne, vous ne pouvez pas récupérer les données du classement." +
+        "Veuillez vous connecter à internet pour récupérer les données du classement.")
+      return
+    }
+    alert("Une erreur est survenue lors de la récupération des données du classement, veuillez réessayer plus tard.")
+  }
+})
 
 </script>
 
 <template>
   <div class="flex flex-col gap-4 mb-2">
 
-    <h2 v-if="scoreboard == null" class="text-center text-2xl mt-4">
+    <h2 v-if="scoreboard == undefined" class="text-center text-2xl mt-4">
       Chargement...
     </h2>
 
@@ -38,6 +58,7 @@ axios.get("/scoreboard").then(({data}) => scoreboard.value = data.scoreboard)
   </div>
 
   <v-bottom-navigation height="124" class="!fixed bottom-0 rounded-t-xl" elevation="18">
-    <score-line :score="score" :name="name" :rank="rank" class="bg-white rounded-t-xl"/>
+    <score-line :score="score" :name="name" :rank="rank"
+                class="bg-white rounded-t-xl"/>
   </v-bottom-navigation>
 </template>

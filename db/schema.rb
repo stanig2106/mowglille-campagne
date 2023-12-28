@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_25_133218) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_27_233421) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -125,6 +125,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_133218) do
     t.string "last_name"
     t.string "first_name"
     t.string "token"
+    t.string "public_token"
   end
 
   add_foreign_key "activities", "events"
