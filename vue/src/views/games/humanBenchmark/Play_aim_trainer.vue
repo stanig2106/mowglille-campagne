@@ -79,7 +79,7 @@ const average = computed(() => sum.value / results.value.length)
       </div>
       <div v-if="!started && !done" class="flex flex-col justify-center">
         <div class="text-4xl text-white px-4 text-center items-center
-      flex flex-col gap-6">
+      flex flex-col mb-6">
           {{ gameNames['aim_trainer'] }}
         </div>
         <span class="text-xl text-white px-4 text-center items-center

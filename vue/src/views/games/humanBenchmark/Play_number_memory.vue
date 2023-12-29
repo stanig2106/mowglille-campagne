@@ -3,24 +3,89 @@
 import Keyboard from 'simple-keyboard';
 import "simple-keyboard/build/css/index.css";
 
-import {computed, onMounted, onUnmounted, ref} from "vue";
+import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {gameNames} from "./humanBenchmark";
+import {TransitionPresets, useTimestamp, useTransition} from "@vueuse/core";
 
+const time_show = 3000 // ms
+
+const round = ref(1)
 const started = ref(false);
+const show_number = ref(false)
+const ask_input = ref(false)
+const source_progress = ref(0)
+const show_result = ref(false)
+const done = ref(false)
+const progress = useTransition(source_progress, {
+  duration: time_show,
+  transition: TransitionPresets.linear,
+  onFinished() {
+    show_number.value = false
+    user_input.value = ""
+    ask_input.value = true
+    source_progress.value = 0
+  },
+  delay: 10,
+  disabled: computed(() => source_progress.value == 0)
+})
 
+const number = ref("")
+
+const timestamp = useTimestamp({interval: 1000})
+
+const user_input = ref("")
+
+watch(user_input, (value) => {
+  if (value.length >= round.value + 5)
+    user_input.value = value.slice(0, -1)
+})
+
+function nextStep(validate = false) {
+  if (validate) {
+    ask_input.value = false
+    show_result.value = true
+    done.value = user_input.value != number.value
+
+    return
+  }
+  show_result.value = false
+  if (!started.value)
+    round.value = 1
+
+  started.value = true
+  // generate a number with {round} digits
+  number.value = Math.floor(Math.random() * Math.pow(10, round.value)).toString()
+
+  show_number.value = true
+  source_progress.value = 100
+}
 
 let keyboard: Keyboard | null = null
 onMounted(() => {
   keyboard = new Keyboard("keyboard", {
+    theme: "hg-theme-default w-full absolute bottom-0 left-0 w-full",
+    onKeyPress(button) {
+      if (button == "{enter}")
+        user_input.value.length > 0 && nextStep(true)
+      else if (button == "{bksp}")
+        user_input.value = user_input.value.slice(0, -1)
+      else
+        user_input.value += button
+    },
     layout: {
       default: [
         "1 2 3",
         "4 5 6",
         "7 8 9",
         "{bksp} 0 {enter}",
-      ]
+      ],
+    },
+    display: {
+      "{bksp}": "⌫",
+      "{enter}": "Valider",
     },
   });
+  keyboard.render()
 });
 onUnmounted(() => keyboard?.destroy())
 
@@ -48,21 +113,92 @@ onUnmounted(() => keyboard?.destroy())
       </div>
 
       <div>
-        <v-btn class="w-full" color="primary" @click="started = true">
+        <v-btn class="w-full" color="primary" @click="() => nextStep(false)">
           Jouer
         </v-btn>
       </div>
     </template>
-    <template v-else>
 
-      <div id="keyboard"/>
+    <div v-else-if="show_number" class="flex flex-col items-center gap-4 w-full mb-12">
+      <div class="text-xl">
+        Mémorisez le nombre
+      </div>
+      <div class="text-4xl">
+        {{ number }}
+      </div>
+      <div class="w-3/4">
+        <v-progress-linear :model-value="progress"/>
+      </div>
+    </div>
 
+    <div v-else-if="ask_input" class="flex flex-col items-center gap-4 w-full mb-16">
+      <div class="text-xl">
+        Réécrivez le nombre
+      </div>
+      <div :class="{'pl-6': user_input.length > 0}"
+           class="bg-white rounded-2xl p-4 text-black
+          elevation-2 h-full gap-4 max-w-[95vw] text-4xl overflow-hidden" style="overflow-wrap: anywhere">
+        {{ user_input }}<span :class="{'text-white': timestamp % 2000 < 1000}" class="font-thin mb-2"
+                              style="font-family: sans-serif !important">&#124;</span>
+      </div>
+    </div>
+    <div :class="{'*:!text-black': ask_input}" class="text-transparent">
+      <div v-show="started && (ask_input || show_number)" class="keyboard"/>
+    </div>
 
-    </template>
+    <div v-if="show_result" class="flex flex-col items-center gap-2 w-full mb-16 >:text-center">
+        <h2 class="text-4xl absolute top-4 left-0 w-full text-center">
+          Round {{ round }}
+        </h2>
+
+      <div class="text-4xl mb-8">
+        {{ done ? "Incorrect" : "Correct" }}
+      </div>
+      <div class="text-xl">
+        Nombre:
+      </div>
+      <div class="text-2xl">
+        {{ number }}
+      </div>
+      <div class="w-3/4">
+        <v-progress-linear :model-value="progress"/>
+      </div>
+      <div class="text-xl">
+        Votre réponse:
+      </div>
+      <div class="text-2xl">
+        <span v-for="(c, index) in user_input" :key="index"
+              :class="{'line-through text-black': c != number[index]}">
+          {{ c }}
+        </span>
+      </div>
+      <span v-if="done" class="text-lg mt-6">
+        Votre score à été enregistré.
+      </span>
+
+      <div>
+        <v-btn v-if="done" class="w-full mt-4" color="primary"
+               @click="() => {started = false; show_result = false}">
+          Recommencer
+        </v-btn>
+        <v-btn v-else class="w-full mt-4" color="primary"
+               @click="() => {round++; nextStep(false)}">
+          Suivant
+        </v-btn>
+      </div>
+    </div>
 
 
   </div>
 
 </template>
 
+<style>
+.hg-theme-default .hg-button {
+  height: 55px;
+}
 
+.v-progress-linear {
+  transition: none !important;
+}
+</style>
