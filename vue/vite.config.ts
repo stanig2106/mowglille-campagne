@@ -16,9 +16,9 @@ import {fileURLToPath, URL} from 'node:url'
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
+    chunkSizeWarningLimit: 1200,
     rollupOptions: {
       plugins: [
-        obfuscator() as any,
 
         terser({
           compress: {
@@ -27,13 +27,16 @@ export default defineConfig({
         }) as any,
       ],
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules/p5')) {
+        manualChunks(id, api) {
+          if (id.includes('node_modules/p5'))
             return 'p5';
-          }
-          if (id.includes('node_modules')) {
+          if (id.includes('node_modules/simple-keyboard'))
+            return 'simple-keyboard';
+          if (id.includes('node_modules/qrious'))
+            return 'qrious';
+          if (id.includes('node_modules'))
             return 'vendor';
-          }
+          return "bundle"
         }
       }
     }
