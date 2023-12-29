@@ -13,7 +13,6 @@ const show_btn = ref(-1)
 const clicked = ref(-1)
 const round = computed(() => sequence.value.length)
 
-const good = ref(false)
 const bad = ref(false)
 const shadow_block = ref(false)
 
@@ -60,8 +59,6 @@ function nextStep(button?: number) {
       sequence.value.push(gen_next())
       show.value = true
       shadow_block.value = false
-      good.value = true
-      setTimeout(() => good.value = false, 300)
     }, 500)
   }
 }
@@ -94,7 +91,7 @@ function pos(i: number, j: number) {
 <template>
 
 
-  <div :class="{'opacity-90': good, '!bg-orange-700': bad, 'bg-secondary': !bad}" class="rounded-t-2xl p-4 flex flex-col justify-center text-white
+  <div :class="{'!bg-orange-400': show, '!bg-orange-700': bad, 'bg-secondary': !bad && !show}" class="rounded-t-2xl p-4 flex flex-col justify-center text-white
           items-center elevation-2 h-full gap-4 relative">
     <template v-if="!started">
       <svg class="pulse-faint hero-icon" color="white" fill="none" height="131" viewBox="0 0 100 131" width="100" xmlns="http://www.w3.org/2000/svg">
