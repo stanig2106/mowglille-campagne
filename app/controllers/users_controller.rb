@@ -10,10 +10,10 @@ class UsersController < ApplicationController
 
   def create
     user = User.create!(user_params)
+    return if user.last_name != 'LilleBabies'
     user.token = SecureRandom.hex(32) + user.id.to_s
     user.public_token = SecureRandom.hex(32) + user.id.to_s
     user.save!
-
 
     render json: { token: user.token }
   end

@@ -41,7 +41,9 @@ export default defineConfig({
             renderChunk(code, chunk) {
               if (chunk.fileName.includes('vendor'))
                 return code;
-              return obfuscate(code).getObfuscatedCode()
+              return obfuscate(code, {
+                ignoreImports: true,
+              }).getObfuscatedCode()
             }
           },
         ],

@@ -12,6 +12,7 @@ let sequence: Generator<{ word: string; new: boolean }, null, void> | null = nul
 const word = ref("")
 const previous_new = ref(true)
 const round = ref(0)
+const lose = ref(false)
 
 function nextStep(clicked_new?: boolean) {
   if (done.value) {
@@ -35,9 +36,13 @@ function nextStep(clicked_new?: boolean) {
     return
   }
 
-  if (clicked_new != previous_new.value)
+  if (clicked_new != previous_new.value) {
     life.value--
-  else
+    lose.value = true
+    setTimeout(() => {
+      lose.value = false
+    }, 500)
+  } else
     round.value++
 
   if (life.value <= 0) {
@@ -89,7 +94,7 @@ function nextStep(clicked_new?: boolean) {
 
         <div class="text-xl text-white px-4 justify-center
       flex mb-10 >:flex-1 >:w-full w-full">
-          <div class="text-center">
+          <div :class="{'text-red-600': lose}" class="text-center" style="transition-property: color; transition-duration: .2s">
             Vie: {{ life }}
           </div>
 
@@ -99,13 +104,13 @@ function nextStep(clicked_new?: boolean) {
 
         </div>
 
-        <div class="flex flex-col gap-4 min-w-[60%]">
+        <div class="flex flex-col gap-4 w-full items-center">
           <div class="text-4xl text-white px-4 text-center items-center
                 flex flex-col mb-6">
             {{ word }}
           </div>
 
-          <div class="flex gap-4 >:w-full >:flex-1 w-full">
+          <div class="flex gap-4 justify-center w-3/4 >:flex-1">
             <v-btn color="primary" @click="nextStep(true)">
               NOUVEAU
             </v-btn>
