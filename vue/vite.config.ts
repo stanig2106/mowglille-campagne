@@ -33,7 +33,6 @@ export default defineConfig({
             return 'vendor-qrious';
           if (id.includes('node_modules'))
             return 'vendor';
-          return "bundle"
         },
 
         plugins: [
