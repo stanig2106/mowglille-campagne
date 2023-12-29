@@ -86,6 +86,14 @@ function pos(i: number, j: number) {
   return 3 * (j - 1) + (i - 1) + 1
 }
 
+let resetClickTimeout: NodeJS.Timeout | null = null
+
+function resetClick() {
+  if (resetClickTimeout)
+    clearTimeout(resetClickTimeout)
+  resetClickTimeout = setTimeout(() => clicked.value = -1, 100)
+}
+
 </script>
 
 <template>
@@ -129,7 +137,7 @@ function pos(i: number, j: number) {
                    :class="{ '!bg-white !opacity-100': (pos(i, j) == clicked) || (pos(i, j) == show_btn) }"
                    class="rounded-lg h-[25vw] w-[25vw] bg-gray-300 opacity-40 flex justify-center items-center"
                    @pointerdown="() => {if (!show && !shadow_block) { nextStep(pos(i, j)); clicked = pos(i, j) }}"
-                   @pointerleave="clicked = -1"
+                   @pointerleave="resetClick"
               />
             </div>
           </div>
