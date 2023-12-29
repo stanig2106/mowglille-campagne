@@ -54,7 +54,12 @@ function nextStep(validate = false) {
 
   started.value = true
   // generate a number with {round} digits
-  number.value = Math.floor(Math.random() * Math.pow(10, round.value)).toString()
+  number.value = Array.from({length: round.value}, () =>
+    Math.floor(Math.random() * 10)).join("")
+  // if the number starts with 0, replace it with a random number between 1 and 9
+  if (number.value[0] == "0")
+    number.value = Math.floor(Math.random() * 9 + 1) +
+      number.value.slice(1)
 
   show_number.value = true
   source_progress.value = 100
@@ -147,9 +152,9 @@ onUnmounted(() => keyboard?.destroy())
     </div>
 
     <div v-if="show_result" class="flex flex-col items-center gap-2 w-full mb-16 >:text-center">
-        <h2 class="text-4xl absolute top-4 left-0 w-full text-center">
-          Round {{ round }}
-        </h2>
+      <h2 class="text-4xl absolute top-4 left-0 w-full text-center">
+        Round {{ round }}
+      </h2>
 
       <div class="text-4xl mb-8">
         {{ done ? "Incorrect" : "Correct" }}
@@ -168,9 +173,9 @@ onUnmounted(() => keyboard?.destroy())
       </div>
       <div class="text-2xl">
         <span v-for="(c, index) in user_input" :key="index"
-              :class="{'line-through text-black': c != number[index]}">
-          {{ c }}
-        </span>
+              :class="{'line-through text-black': c != number[index]}"
+        >{{ c }}</span><span v-for="index in number.length - user_input.length" :key="index"
+                             class="line-through text-black">?</span>
       </div>
       <span v-if="done" class="text-lg mt-6">
         Votre score à été enregistré.
@@ -196,6 +201,7 @@ onUnmounted(() => keyboard?.destroy())
 <style>
 .hg-theme-default .hg-button {
   height: 55px;
+  flex: 1 1 0;
 }
 
 .v-progress-linear {
