@@ -4,10 +4,7 @@ import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
 import {VitePWA} from 'vite-plugin-pwa'
 import {terser} from 'rollup-plugin-terser'
-import obfuscator from 'rollup-plugin-obfuscator';
-
-
-import fs from 'fs'
+import {obfuscate} from 'javascript-obfuscator'
 
 // Utilities
 import {defineConfig} from 'vite'
@@ -29,15 +26,26 @@ export default defineConfig({
       output: {
         manualChunks(id, api) {
           if (id.includes('node_modules/p5'))
-            return 'p5';
+            return 'vendor-p5';
           if (id.includes('node_modules/simple-keyboard'))
-            return 'simple-keyboard';
+            return 'vendor-simple-keyboard';
           if (id.includes('node_modules/qrious'))
-            return 'qrious';
+            return 'vendor-qrious';
           if (id.includes('node_modules'))
             return 'vendor';
           return "bundle"
-        }
+        },
+
+        plugins: [
+          {
+            name: "Obfuscator",
+            renderChunk(code, chunk) {
+              if (chunk.fileName.includes('vendor'))
+                return code;
+              return obfuscate(code).getObfuscatedCode()
+            }
+          },
+        ],
       }
     }
   },
