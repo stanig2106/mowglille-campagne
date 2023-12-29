@@ -1,20 +1,31 @@
 // Plugins
 import vue from '@vitejs/plugin-vue'
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
 import {VitePWA} from 'vite-plugin-pwa'
+import {terser} from 'rollup-plugin-terser'
+import obfuscator from 'rollup-plugin-obfuscator';
 
 
 import fs from 'fs'
 
 // Utilities
-import { defineConfig } from 'vite'
-import { fileURLToPath, URL } from 'node:url'
+import {defineConfig} from 'vite'
+import {fileURLToPath, URL} from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
     rollupOptions: {
+      plugins: [
+        obfuscator() as any,
+
+        terser({
+          compress: {
+            drop_console: ["log"],
+          }
+        }) as any,
+      ],
       output: {
         manualChunks(id) {
           if (id.includes('node_modules/p5')) {
@@ -38,7 +49,7 @@ export default defineConfig({
       }
     }),
     vue({
-      template: { transformAssetUrls },
+      template: {transformAssetUrls},
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     vuetify({
