@@ -25,6 +25,9 @@ async function login() {
     image: image.value
   });
 
+  if (r.status != 200 || r.data.token == undefined)
+    return alert("Erreur lors de l'inscription")
+
   localStorage.setItem("token", r.data.token)
 
   await router.replace("/")
@@ -36,11 +39,11 @@ async function login() {
 
   <div class="flex flex-col items-center justify-center h-full w-[100vw]">
     <LoginName v-model:first_name="first_name" v-model:last_name="last_name"
-               @continue="() => first_step = false"
+               :class="`animation1 ${first_step ? 'on' : 'off'}`"
                class="w-[90%]"
-               :class="`animation1 ${first_step ? 'on' : 'off'}`"/>
-    <LoginImage v-model="image" class="w-[90%]" @continue="login"
-                :class="`animation2 ${first_step ? 'on' : 'off'}`"/>
+               @continue="() => first_step = false"/>
+    <LoginImage v-model="image" :class="`animation2 ${first_step ? 'on' : 'off'}`" class="w-[90%]"
+                @continue="login"/>
   </div>
 
 </template>
