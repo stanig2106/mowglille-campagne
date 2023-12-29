@@ -35,18 +35,18 @@ export default defineConfig({
             return 'vendor';
         },
 
-        plugins: [
-          {
-            name: "Obfuscator",
-            renderChunk(code, chunk) {
-              if (chunk.fileName.includes('vendor'))
-                return code;
-              return obfuscate(code, {
-                ignoreImports: true,
-              }).getObfuscatedCode()
-            }
-          },
-        ],
+        // plugins: [
+        //   {
+        //     name: "Obfuscator",
+        //     renderChunk(code, chunk) {
+        //       if (chunk.fileName.includes('vendor'))
+        //         return code;
+        //       return obfuscate(code, {
+        //         ignoreImports: true,
+        //       }).getObfuscatedCode()
+        //     }
+        //   },
+        // ],
       }
     }
   },
