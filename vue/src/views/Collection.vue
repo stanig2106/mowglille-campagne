@@ -3,6 +3,7 @@
 import OpenChest from "@/components/OpenChest.vue";
 import {ref} from "vue";
 import ChestHistory from "@/views/collection/ChestHistory.vue";
+import PieceViewer from "@/views/collection/PieceViewer.vue";
 
 const chests = ref([1])
 
@@ -60,6 +61,9 @@ const opening = ref(false)
     <h2 class="text-xl">
       Votre collection
     </h2>
+
+    <piece-viewer class="w-full h-full"/>
+
 
   </div>
 

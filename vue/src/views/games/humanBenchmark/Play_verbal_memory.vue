@@ -93,7 +93,7 @@ function nextStep(clicked_new?: boolean) {
       <div class="flex flex-col justify-center items-center gap-4 h-full w-full">
 
         <div class="text-xl text-white px-4 justify-center
-      flex mb-10 >:flex-1 >:w-full w-full">
+                  flex mb-10 >:flex-1 >:w-full w-full">
           <div :class="{'text-red-600': lose}" class="text-center" style="transition-property: color; transition-duration: .2s">
             Vie: {{ life }}
           </div>

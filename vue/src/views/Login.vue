@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Loading from "@/components/Loading.vue"
 
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import LoginImage from "@/views/LoginImage.vue";
 import LoginName from "@/views/LoginName.vue";
 import axios from "axios";
@@ -33,6 +33,8 @@ async function login() {
   await router.replace("/")
 }
 
+
+onMounted(() => document.querySelector("#downloading-label")?.remove())
 </script>
 
 <template>
@@ -43,7 +45,7 @@ async function login() {
                class="w-[90%]"
                @continue="() => first_step = false"/>
     <LoginImage v-model="image" :class="`animation2 ${first_step ? 'on' : 'off'}`" class="w-[90%]"
-                @continue="login"/>
+                @back="() => first_step = true" @continue="login"/>
   </div>
 
 </template>

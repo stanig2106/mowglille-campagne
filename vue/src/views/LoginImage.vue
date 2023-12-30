@@ -13,6 +13,7 @@ const props = defineProps<{
 const emits = defineEmits<{
   "update:modelValue": [any],
   continue: []
+  back: []
 }>();
 
 const image = useVModel(props, "modelValue", emits)
@@ -21,7 +22,12 @@ const image = useVModel(props, "modelValue", emits)
 
 <template>
   <v-card elevation="10" rounded="xl">
-    <div class="p-8 pb-2">
+    <div class="p-8 pb-2 relative">
+      <div class="absolute top-0 left-0">
+        <v-btn icon @click="$emit('back')" variant="text" rounded="0" class="!rounded-br-2xl">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+      </div>
       <v-img src="@/assets/logo_text.png" class="w-[45vw] mx-[15vw] -mt-2 mb-6" contain/>
 
       <div class="mb-2">
