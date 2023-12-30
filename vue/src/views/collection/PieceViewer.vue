@@ -6,7 +6,11 @@ const container = ref<HTMLDivElement | null>(null)
 
 const target = ref(null)
 
-const parallax = reactive(useParallax(target))
+const parallax = reactive(useParallax(target, {
+  deviceOrientationRollAdjust(i) {
+    return i + 1;
+  },
+}))
 
 const targetStyle: CSSProperties = {
   display: 'flex',
