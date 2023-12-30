@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useParallax} from "@vueuse/core";
+import {useDeviceOrientation, useParallax, watchThrottled} from "@vueuse/core";
 import {computed, CSSProperties, reactive, ref} from "vue";
 
 const container = ref<HTMLDivElement | null>(null)
@@ -11,6 +11,16 @@ const parallax = reactive(useParallax(target, {
     return i + 1;
   },
 }))
+
+const {
+  isAbsolute,
+  alpha,
+  beta,
+  gamma,
+} = useDeviceOrientation()
+
+const tilt = ref(0)
+watchThrottled(gamma, (value) => tilt.value = value || 0, {throttle: 500})
 
 const infoStyle = computed(() => ({
   opacity: 0.4,
@@ -50,28 +60,28 @@ const containerStyle: CSSProperties = {
 
 const layer0 = computed(() => ({
   ...layerBase,
-  transform: `translateX(${parallax.tilt * 10}px) translateY(${
+  transform: `translateX(${tilt.value * 10}px) translateY(${
     parallax.roll * 10
   }px) scale(1.33)`,
 }))
 
 const layer1 = computed(() => ({
   ...layerBase,
-  transform: `translateX(${parallax.tilt * 20}px) translateY(${
+  transform: `translateX(${tilt.value * 20}px) translateY(${
     parallax.roll * 20
   }px) scale(1.33)`,
 }))
 
 const layer2 = computed(() => ({
   ...layerBase,
-  transform: `translateX(${parallax.tilt * 30}px) translateY(${
+  transform: `translateX(${tilt.value * 30}px) translateY(${
     parallax.roll * 30
   }px) scale(1.33)`,
 }))
 
 const layer3 = computed(() => ({
   ...layerBase,
-  transform: `translateX(${parallax.tilt * 40}px) translateY(${
+  transform: `translateX(${tilt.value * 40}px) translateY(${
     parallax.roll * 40
   }px) scale(1.33)`,
 }))
@@ -88,7 +98,7 @@ const cardStyle = computed(() => ({
   transition: '.3s ease-out all',
   boxShadow: '0 0 20px 0 rgba(255, 255, 255, 0.25)',
   transform: `rotateX(${parallax.roll * 20}deg) rotateY(${
-    parallax.tilt * 20
+    tilt.value * 20
   }deg)`,
 }))
 
@@ -98,7 +108,12 @@ const cardStyle = computed(() => ({
 <template>
 
   <div ref="target" :style="targetStyle">
-    <pre :style="infoStyle">{{ {roll: parallax.roll, tilt: parallax.tilt} }}</pre>
+    <pre :style="infoStyle">{{
+        {
+          roll: parallax.roll, p_tilt: parallax.tilt,
+          alpha, beta, gamma, isAbsolute, tilt
+        }
+      }}</pre>
 
     <div :style="containerStyle">
       <div :style="cardStyle">
