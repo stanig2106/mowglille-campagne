@@ -12,6 +12,14 @@ const parallax = reactive(useParallax(target, {
   },
 }))
 
+const infoStyle = computed(() => ({
+  opacity: 0.4,
+  top: '20px',
+  left: '40px',
+  position: 'inherit',
+} as CSSProperties))
+
+
 const targetStyle: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
@@ -90,6 +98,8 @@ const cardStyle = computed(() => ({
 <template>
 
   <div ref="target" :style="targetStyle">
+    <pre :style="infoStyle">{{ {roll: parallax.roll, tilt: parallax.tilt} }}</pre>
+
     <div :style="containerStyle">
       <div :style="cardStyle">
         <div :style="cardWindowStyle">
