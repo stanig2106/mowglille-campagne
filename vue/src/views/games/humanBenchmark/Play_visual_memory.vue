@@ -38,6 +38,7 @@ function nextStep(button?: number) {
   if (!started.value) {
     started.value = true
     sequence.value = gen(size.value, round.value + 2)
+    shadow_block.value = true
     setTimeout(showSequence, 500)
     return
   }
@@ -48,6 +49,7 @@ function nextStep(button?: number) {
     done.value = false
     started.value = false
     round.value = 1
+    size.value = 3
     return
   }
 
