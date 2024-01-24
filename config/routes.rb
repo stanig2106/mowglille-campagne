@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   root 'home#index'
+  get "cla_login", to: "home#cla_login"
+
   get "*path", to: "home#index"
 end
