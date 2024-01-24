@@ -2,6 +2,9 @@ class User < ApplicationRecord
 
   has_many :score_records
   has_many :qr_codes, dependent: :destroy
+  belongs_to :cla_info
+
+  delegate :first_name, :last_name, :school_email, :cursus, :promo, to: :cla_info
 
   def score
     score_records.sum(:score)

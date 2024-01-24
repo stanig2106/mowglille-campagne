@@ -3,6 +3,8 @@ class HomeController < ApplicationController
     render file: 'public/index.html'
   end
 
+
+
   def assetlinks
     render file: 'public/assetlinks.json'
   end

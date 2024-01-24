@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  get "cla_login", to: "users#cla_login"
+
   mount ActionCable.server => '/cable'
 
   get ".well-known/assetlinks.json", to: "home#assetlinks"

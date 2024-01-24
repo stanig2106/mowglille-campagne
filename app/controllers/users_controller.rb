@@ -8,13 +8,25 @@ class UsersController < ApplicationController
     end
   end
 
-  def create
-    user = User.create!(user_params)
-    user.token = SecureRandom.hex(32) + user.id.to_s
-    user.public_token = SecureRandom.hex(32) + user.id.to_s
-    user.save!
+  def cla_login
+    info = ClaInfo.create_by_token(params[:ticket])
 
-    render json: { token: user.token }
+    cookies[:token] = { value: nil, expires: 1.year.ago }
+
+    return redirect_to root_path if info == nil
+
+    user = info.user
+    if user == nil
+      user = User.new
+      user.cla_info = info
+      user.token = SecureRandom.hex(32) + user.id.to_s
+      user.public_token = SecureRandom.hex(32) + user.id.to_s
+      user.save!
+      user
+    end
+
+    cookies[:token] = { value: user.token, expires: 1.year.from_now }
+    redirect_to root_path
   end
 
   def show
@@ -44,9 +56,4 @@ class UsersController < ApplicationController
     render json: { name: user.name }
   end
 
-  private
-
-  def user_params
-    params.permit(:last_name, :first_name)
-  end
 end

@@ -1,63 +1,35 @@
 <script lang="ts" setup>
-import Loading from "@/components/Loading.vue"
-
 import {onMounted, ref} from "vue";
-import LoginImage from "@/views/LoginImage.vue";
-import LoginName from "@/views/LoginName.vue";
-import axios from "axios";
 import router from "@/router";
 
-const first_step = ref(true);
-
-const last_name = ref("");
-const first_name = ref("");
-
-const image = ref(null);
+const cla_login_url = "https://centralelilleassos.fr/authentification/mowglille" as const
 
 if (localStorage.getItem("token") != null)
   router.replace("/")
 
-
-async function login() {
-  const r = await axios.post("/register", {
-    first_name: first_name.value,
-    last_name: last_name.value,
-    image: image.value
-  });
-
-  if (r.status != 200 || r.data.token == undefined)
-    return alert("Erreur lors de l'inscription")
-
-  localStorage.setItem("token", r.data.token)
-
-  await router.replace("/")
+function login() {
+  window.location.href = "https://centralelilleassos.fr/authentification/mowglille"
 }
-
 
 onMounted(() => document.querySelector("#downloading-label")?.remove())
 </script>
 
 <template>
 
-  <!--  <div class="flex flex-col items-center justify-center h-full w-[100vw]">-->
-  <!--    <LoginName v-model:first_name="first_name" v-model:last_name="last_name"-->
-  <!--               :class="`animation1 ${first_step ? 'on' : 'off'}`"-->
-  <!--               class="w-[90%]"-->
-  <!--               @continue="() => first_step = false"/>-->
-  <!--    <LoginImage v-model="image" :class="`animation2 ${first_step ? 'on' : 'off'}`" class="w-[90%]"-->
-  <!--                @back="() => first_step = true" @continue="login"/>-->
-  <!--  </div>-->
-
   <div class="flex flex-col items-center justify-center h-full w-[100vw]">
     <v-card elevation="10" rounded="xl">
       <div class="p-8">
-        <v-img src="@/assets/logo_text.png" class="w-[45vw] mx-[15vw] -mt-2 mb-6" contain/>
+        <v-img class="w-[45vw] mx-[15vw] -mt-2 mb-6" contain src="@/assets/logo_text.png"/>
 
 
-        <h1>
-          
-
-        </h1>
+        <div class="text-center mt-8 bt-4">
+          <h3 class="text-xl font-extrabold text-center mb-4">
+            Connectez vous pour continuer
+          </h3>
+          <v-btn color="#BE3E1D" size="x-large" @click="login">
+            Connection avec <br/> CLA
+          </v-btn>
+        </div>
 
       </div>
 

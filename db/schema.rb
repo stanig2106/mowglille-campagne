@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_27_233421) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_24_164533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_233421) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_chests_on_user_id"
+  end
+
+  create_table "cla_infos", force: :cascade do |t|
+    t.string "username"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "school_email"
+    t.string "cursus"
+    t.string "promo"
   end
 
   create_table "collection_pieces", force: :cascade do |t|
@@ -122,10 +131,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_233421) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "last_name"
-    t.string "first_name"
     t.string "token"
     t.string "public_token"
+    t.bigint "cla_info_id"
+    t.index ["cla_info_id"], name: "index_users_on_cla_info_id"
   end
 
   add_foreign_key "activities", "events"
@@ -140,4 +149,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_233421) do
   add_foreign_key "score_records", "challenges"
   add_foreign_key "score_records", "events"
   add_foreign_key "score_records", "users"
+  add_foreign_key "users", "cla_infos"
 end
