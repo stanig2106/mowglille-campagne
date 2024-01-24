@@ -1,30 +1,7 @@
 <script lang="ts" setup>
-import Header from "@/layouts/partials/header.vue";
-import {provide, ref} from "vue";
-import Loading from "@/components/Loading.vue";
+import {ref} from "vue";
 import router from "@/router";
-import axios, {AxiosError} from "axios";
-import {offlineKey} from "@/router/keys";
 
-if (localStorage.getItem("token") == null)
-  router.push("/login")
-
-const offline = ref(false)
-provide(offlineKey, {offline, updateOffline: (value: boolean) => offline.value = value})
-
-window.addEventListener("online", () => offline.value = false)
-
-window.addEventListener("offline", () => offline.value = true)
-
-
-axios.get("/check_token").catch((reason: AxiosError) => {
-  if (reason.code == "ERR_NETWORK") {
-    offline.value = true
-    return
-  }
-  localStorage.removeItem("token")
-  router.push("/login")
-})
 
 const fullpage = ref(router.currentRoute.value.path == "/login");
 const density = ref("normal")
@@ -41,25 +18,9 @@ router.beforeEach((to, from, next) => {
 </script>
 
 <template>
-  <Loading/>
 
-  <v-app v-if="fullpage" class="bg-transparent">
+  <v-app class="bg-transparent">
     <router-view/>
-  </v-app>
-  <v-app v-else>
-    <v-main class="z-0 bg-primary h-screen"
-    :class="{'pt-16': density == 'normal', 'pt-12': density == 'compact'}"
-    >
-      <Header :back="currentTitle" :density="density as any"/>
-
-      <div class="h-full rounded-t-3xl !overflow-y-auto"
-           :class="{'px-2': density == 'normal'}">
-        <router-view/>
-      </div>
-
-
-
-    </v-main>
   </v-app>
 </template>
 
@@ -75,7 +36,7 @@ router.beforeEach((to, from, next) => {
 }
 
 html {
-  @apply bg-primary overflow-hidden;
+  //@apply bg-primary overflow-hidden;
 }
 
 * {
@@ -88,18 +49,6 @@ html {
 img {
   pointer-events: none;
   -webkit-touch-callout: none;
-}
-
-#header-clip::before {
-  display: none;
-  content: "";
-  @apply absolute top-0 left-0 h-8 w-8 bg-primary;
-}
-
-#header-clip::after {
-  display: none;
-  content: "";
-  @apply absolute top-0 right-0 h-8 w-8 bg-primary;
 }
 
 button {

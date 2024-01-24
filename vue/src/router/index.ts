@@ -1,51 +1,10 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import games from "@/router/games";
 
 const routes = [
   {
     path: '/', component: () => import('../views/Home.vue'),
     meta: {}
   },
-  {
-    path: '/login', component: () => import('../views/Login.vue'),
-    meta: {
-      fullpage: true,
-    }
-  },
-  {
-    path: '/scoreboard', component: () => import('../views/Scoreboard.vue'),
-    meta: {
-      title: 'Classement',
-    }
-  },
-  {
-    path: '/score_details', component: () => import('../views/ScoreDetails.vue'),
-    meta: {
-      title: 'Historique des scores',
-    }
-  },
-  {
-    path: '/qrcode', component: () => import('../views/QRCode.vue'),
-    meta: {
-      title: 'QR Code',
-    }
-  },
-  {
-    path: '/collection', component: () => import('../views/Collection.vue'),
-    meta: {
-      title: 'Collection',
-    }
-  },
-  {
-    path: '/links', component: () => import('../views/Links.vue'),
-    meta: {
-      title: 'Liens utiles',
-    }
-  },
-
-  ...games,
-
-
   // Fallback to home
   {
     path: '/:pathMatch(.*)*',
