@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {onMounted, onUnmounted, ref} from "vue";
 
@@ -41,7 +41,7 @@ onUnmounted(() => interval && clearInterval(interval))
 
     <div class="flex flex-col justify-center items-center gap-4 h-full">
 
-      <v-icon size="168" color="primary">
+      <v-icon color="primary" size="168">
         mdi-lightning-bolt
       </v-icon>
 
@@ -50,13 +50,18 @@ onUnmounted(() => interval && clearInterval(interval))
       </h4>
 
       <div class="flex flex-col gap-4 mt-4">
-        <v-btn color="primary" class="w-full" @click="$router.push('/games/human_benchmark/play')">
+        <v-btn class="w-full" color="primary" @click="$router.push('/games/human_benchmark/play')">
           Jouer
         </v-btn>
 
-        <v-btn variant="tonal"
-               class="w-full" @click="$router.push('/games/human_benchmark/classement')">
+        <v-btn class="w-full"
+               variant="tonal" @click="$router.push('/games/human_benchmark/classement')">
           Classement
+        </v-btn>
+
+        <v-btn class="w-full"
+               variant="text" @click="$router.push('/games/safari_sprint')">
+          Safari Sprint ?
         </v-btn>
       </div>
 

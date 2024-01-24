@@ -27,4 +27,18 @@ export default [
       density: 'compact',
     }
   })),
+
+
+  {
+    path: '/games/safari_sprint', component: () => import('../views/games/safariSprint/Index.vue'),
+    meta: {
+      title: 'Safari Sprint',
+    }
+  },
+  // {
+  //   path: '/games/safari_sprint/play', component: () => import('../views/games/safariSprint/Play.vue'),
+  //   meta: {
+  //     title: 'Safari Sprint',
+  //   }
+  // }
 ]

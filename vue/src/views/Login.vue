@@ -39,15 +39,30 @@ onMounted(() => document.querySelector("#downloading-label")?.remove())
 
 <template>
 
-  <div class="flex flex-col items-center justify-center h-full w-[100vw]">
-    <LoginName v-model:first_name="first_name" v-model:last_name="last_name"
-               :class="`animation1 ${first_step ? 'on' : 'off'}`"
-               class="w-[90%]"
-               @continue="() => first_step = false"/>
-    <LoginImage v-model="image" :class="`animation2 ${first_step ? 'on' : 'off'}`" class="w-[90%]"
-                @back="() => first_step = true" @continue="login"/>
-  </div>
+  <!--  <div class="flex flex-col items-center justify-center h-full w-[100vw]">-->
+  <!--    <LoginName v-model:first_name="first_name" v-model:last_name="last_name"-->
+  <!--               :class="`animation1 ${first_step ? 'on' : 'off'}`"-->
+  <!--               class="w-[90%]"-->
+  <!--               @continue="() => first_step = false"/>-->
+  <!--    <LoginImage v-model="image" :class="`animation2 ${first_step ? 'on' : 'off'}`" class="w-[90%]"-->
+  <!--                @back="() => first_step = true" @continue="login"/>-->
+  <!--  </div>-->
 
+  <div class="flex flex-col items-center justify-center h-full w-[100vw]">
+    <v-card elevation="10" rounded="xl">
+      <div class="p-8">
+        <v-img src="@/assets/logo_text.png" class="w-[45vw] mx-[15vw] -mt-2 mb-6" contain/>
+
+
+        <h1>
+          
+
+        </h1>
+
+      </div>
+
+    </v-card>
+  </div>
 </template>
 
 <style lang="scss">

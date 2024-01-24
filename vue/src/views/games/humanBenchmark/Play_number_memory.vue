@@ -43,7 +43,7 @@ watch(user_input, (value) => {
 function nextStep(validate = false) {
   if (show_number.value)
     return
-  
+
   if (validate) {
     ask_input.value = false
     show_result.value = true
