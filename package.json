@@ -16,6 +16,7 @@
     "@rails/actioncable": "^7.1.2",
     "@types/rails__actioncable": "^6.1.10",
     "@vueuse/core": "^10.7.0",
+    "@vueuse/router": "^10.7.2",
     "axios": "^1.6.2",
     "localforage": "^1.10.0",
     "p5": "^1.9.0",

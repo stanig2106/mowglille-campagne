@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  get "cla_login", to: "users#cla_login"
 
   mount ActionCable.server => '/cable'
 
@@ -14,6 +13,7 @@ Rails.application.routes.draw do
 
   get "api/version", to: "home#version"
   get "api/check_token", to: 'users#check_token'
+  get "api/cla_login", to: "users#cla_login"
   post "api/register", to: "users#create"
   get "api/qr_code", to: "users#qr_code"
   get "api/user", to: "users#show"

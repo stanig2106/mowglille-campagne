@@ -1,13 +1,33 @@
 <script lang="ts" setup>
 import Header from "@/layouts/partials/header.vue";
-import {provide, ref} from "vue";
+import {onMounted, provide, ref} from "vue";
 import Loading from "@/components/Loading.vue";
 import router from "@/router";
 import axios, {AxiosError} from "axios";
 import {offlineKey} from "@/router/keys";
 
-if (localStorage.getItem("token") == null)
-  router.push("/login")
+
+router.beforeEach((to, from, next) => {
+  if (to.path != "/login" && to.path != "/cla_login") {
+    if (localStorage.getItem("token") == null)
+      router.replace("/login")
+    else {
+      axios.get("/check_token").then(({data}) => {
+        if (!data.ok) {
+          localStorage.removeItem("token")
+          window.location.reload()
+        }
+      }).catch((reason: AxiosError) => {
+        if (reason.code == "ERR_NETWORK") {
+          offline.value = true
+          return
+        }
+      })
+      next()
+    }
+  } else
+    next()
+})
 
 const offline = ref(false)
 provide(offlineKey, {offline, updateOffline: (value: boolean) => offline.value = value})
@@ -16,15 +36,6 @@ window.addEventListener("online", () => offline.value = false)
 
 window.addEventListener("offline", () => offline.value = true)
 
-
-axios.get("/check_token").catch((reason: AxiosError) => {
-  if (reason.code == "ERR_NETWORK") {
-    offline.value = true
-    return
-  }
-  localStorage.removeItem("token")
-  router.push("/login")
-})
 
 const fullpage = ref(router.currentRoute.value.path == "/login");
 const density = ref("normal")
@@ -47,16 +58,15 @@ router.beforeEach((to, from, next) => {
     <router-view/>
   </v-app>
   <v-app v-else>
-    <v-main class="z-0 bg-primary h-screen"
-    :class="{'pt-16': density == 'normal', 'pt-12': density == 'compact'}"
+    <v-main :class="{'pt-16': density == 'normal', 'pt-12': density == 'compact'}"
+            class="z-0 bg-primary h-screen"
     >
       <Header :back="currentTitle" :density="density as any"/>
 
-      <div class="h-full rounded-t-3xl !overflow-y-auto"
-           :class="{'px-2': density == 'normal'}">
+      <div :class="{'px-2': density == 'normal'}"
+           class="h-full rounded-t-3xl !overflow-y-auto">
         <router-view/>
       </div>
-
 
 
     </v-main>

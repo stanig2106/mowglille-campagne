@@ -2,13 +2,14 @@
 import {onMounted, ref} from "vue";
 import router from "@/router";
 
-const cla_login_url = "https://centralelilleassos.fr/authentification/mowglille" as const
+const cla_url = "https://centralelilleassos.fr" as const
+const cla_id = "mowglille" as const
 
 if (localStorage.getItem("token") != null)
   router.replace("/")
 
 function login() {
-  window.location.href = "https://centralelilleassos.fr/authentification/mowglille"
+  window.location.href = cla_url + "/authentification/" + cla_id
 }
 
 onMounted(() => document.querySelector("#downloading-label")?.remove())

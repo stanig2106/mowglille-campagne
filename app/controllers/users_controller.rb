@@ -2,18 +2,18 @@ class UsersController < ApplicationController
   def check_token
     user = User.find_by(token: params[:token])
     if user
+      puts "User #{user.id} is connected"
       render json: { ok: true }
     else
-      render json: { ok: false }, status: 500
+      puts "User not found"
+      render json: { ok: false }
     end
   end
 
   def cla_login
     info = ClaInfo.create_by_token(params[:ticket])
 
-    cookies[:token] = { value: nil, expires: 1.year.ago }
-
-    return redirect_to root_path if info == nil
+    return render json: { error: 'Unknown token' } if info == nil
 
     user = info.user
     if user == nil
@@ -25,8 +25,7 @@ class UsersController < ApplicationController
       user
     end
 
-    cookies[:token] = { value: user.token, expires: 1.year.from_now }
-    redirect_to root_path
+    render json: { token: user.token }
   end
 
   def show

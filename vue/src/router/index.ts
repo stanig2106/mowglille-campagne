@@ -7,6 +7,12 @@ const routes = [
     meta: {}
   },
   {
+    path: '/cla_login', component: () => import('../views/CLALogin.vue'),
+    meta: {
+      fullpage: true,
+    }
+  },
+  {
     path: '/login', component: () => import('../views/Login.vue'),
     meta: {
       fullpage: true,
