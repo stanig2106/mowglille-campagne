@@ -7,26 +7,24 @@ import axios, {AxiosError} from "axios";
 import {offlineKey} from "@/router/keys";
 
 
-router.beforeEach((to, from, next) => {
-  if (to.path != "/login" && to.path != "/cla_login") {
-    if (localStorage.getItem("token") == null)
-      router.replace("/login")
-    else {
-      axios.get("/check_token").then(({data}) => {
-        if (!data.ok) {
-          localStorage.removeItem("token")
-          window.location.reload()
-        }
-      }).catch((reason: AxiosError) => {
-        if (reason.code == "ERR_NETWORK") {
-          offline.value = true
-          return
-        }
-      })
-      next()
+router.afterEach(() => {
+  if (router.currentRoute.value.path == "/login" || router.currentRoute.value.path == "/cla_login")
+    return
+
+  if (localStorage.getItem("token") == null)
+    return router.replace("/login")
+
+  axios.get("/check_token").then(({data}) => {
+    if (!data.ok) {
+      localStorage.removeItem("token")
+      window.location.reload()
     }
-  } else
-    next()
+  }).catch((reason: AxiosError) => {
+    if (reason.code == "ERR_NETWORK") {
+      offline.value = true
+      return
+    }
+  })
 })
 
 const offline = ref(false)
