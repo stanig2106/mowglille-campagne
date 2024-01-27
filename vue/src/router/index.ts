@@ -5,6 +5,13 @@ const routes = [
     path: '/', component: () => import('../views/Home.vue'),
     meta: {}
   },
+  {
+    path: '/privacy', component: () => import('../views/Privacy.vue'),
+  },
+  {
+    path: '/legal', component: () => import('../views/Legal.vue'),
+  },
+
   // Fallback to home
   {
     path: '/:pathMatch(.*)*',

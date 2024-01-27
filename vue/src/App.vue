@@ -39,18 +39,6 @@ html {
   //@apply bg-primary overflow-hidden;
 }
 
-* {
-  touch-action: pan-x pan-y;
-  user-select: none;
-  font-family: "QuintoAndatTextos-Bold", sans-serif !important;
-  font-weight: bolder;
-}
-
-img {
-  pointer-events: none;
-  -webkit-touch-callout: none;
-}
-
 button {
   text-transform: none !important;
 }

@@ -8,6 +8,6 @@ class HomeController < ApplicationController
   def cla_login
     return redirect_to root_path if params[:ticket] == nil
 
-    redirect_to "#{LOGIN_DEST}?token=#{params[:ticket]}", allow_other_host: true
+    redirect_to "#{LOGIN_DEST}?ticket=#{params[:ticket]}", allow_other_host: true
   end
 end
