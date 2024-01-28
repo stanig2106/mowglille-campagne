@@ -7,10 +7,8 @@ import axios from "axios";
 const ticket = useRouteQuery('ticket') as Ref<string | null>
 
 if (ticket.value == null) {
-  alert("NO TICKET")
   router.replace("/login")
 } else {
-  alert("TICKET " + ticket.value)
   axios.get("/cla_login", {params: {ticket: ticket.value}}).then(({data}) => {
     if (data.ok) {
       localStorage.setItem("token", data.token)

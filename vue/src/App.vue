@@ -11,22 +11,20 @@ router.afterEach(() => {
   if (router.currentRoute.value.path == "/login" || router.currentRoute.value.path == "/cla_login")
     return
 
-  alert("CHECK TOKEN")
-
   if (localStorage.getItem("token") == null)
     return router.replace("/login")
-    axios.get("/check_token").then(({data}) => {
-      if (!data.ok) {
-        localStorage.removeItem("token")
-        // window.location.reload()
-        alert("RELOAD")
-      }
-    }).catch((reason: AxiosError) => {
-      if (reason.code == "ERR_NETWORK") {
-        offline.value = true
-        return
-      }
-    })
+
+  axios.get("/check_token").then(({data}) => {
+    if (!data.ok) {
+      localStorage.removeItem("token")
+      window.location.reload()
+    }
+  }).catch((reason: AxiosError) => {
+    if (reason.code == "ERR_NETWORK") {
+      offline.value = true
+      return
+    }
+  })
 })
 
 const offline = ref(false)

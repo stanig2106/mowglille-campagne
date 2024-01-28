@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def cla_login
     info = ClaInfo.create_by_token(params[:ticket])
 
-    return render json: { error: 'Unknown token' } if info == nil
+    return render json: { error: 'Unknown token', ok: false } if info == nil
 
     user = info.user
     if user == nil
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       user
     end
 
-    render json: { token: user.token }
+    render json: { token: user.token, ok: true }
   end
 
   def show
