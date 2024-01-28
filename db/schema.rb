@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_24_164533) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_28_215702) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,6 +98,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_164533) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "game_scores", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "game_name", null: false
+    t.integer "score", null: false
+    t.boolean "pb", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_game_scores_on_user_id"
+  end
+
   create_table "qr_codes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "token"
@@ -142,6 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_164533) do
   add_foreign_key "chests", "users"
   add_foreign_key "collections", "collection_pieces"
   add_foreign_key "collections", "users"
+  add_foreign_key "game_scores", "users"
   add_foreign_key "qr_codes", "users"
   add_foreign_key "rewards", "activity_rewards"
   add_foreign_key "rewards", "users"

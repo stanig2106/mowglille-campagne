@@ -4,6 +4,9 @@
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
 
+import DisableDevtool from 'disable-devtool';
+
+
 // Plugins
 import {registerPlugins} from '@/plugins'
 
@@ -20,6 +23,7 @@ registerPlugins(app)
 
 // Axios
 import axios from 'axios';
+import disableDevtool from "disable-devtool";
 
 axios.interceptors.request.use(config => {
 
@@ -56,3 +60,17 @@ axios.get('/version').then(res => {
   localStorage.setItem('version', res.data.version)
   window.location.reload()
 }).catch()
+
+
+disableDevtool({
+  ignore: () => {
+    return window.location.href.includes('localhost')
+  },
+  disableMenu: false,
+  url: 'https://mowglille.fr',
+  ondevtoolopen(type, next) {
+    axios.post('/devtool', {type}).then(() => next()).catch(() => next())
+  },
+  md5: 'b07ced62f40a7559f6bdc8150ccfa3eb',
+  tkName: 'devtool',
+})

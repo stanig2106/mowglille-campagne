@@ -13,14 +13,13 @@ const props = defineProps<{
   density: "normal" | "compact"
 }>()
 
-useCable("NotificationChannel")
-
+// useCable("NotificationChannel")
 
 </script>
 
 <template>
-  <div class="bg-primary top-0 absolute w-full flex justify-between"
-       :class="{ 'h-16': density == 'normal', 'h-12': density == 'compact'}"
+  <div :class="{ 'h-16': density == 'normal', 'h-12': density == 'compact'}"
+       class="bg-primary top-0 absolute w-full flex justify-between"
   >
 
     <h1 v-if="back == undefined"

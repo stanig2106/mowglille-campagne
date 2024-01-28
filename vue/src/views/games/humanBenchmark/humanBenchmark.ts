@@ -18,3 +18,5 @@ export const gameNames = {
   verbal_memory: "Mémoire verbale",
   visual_memory: "Mémoire visuelle",
 } as const;
+
+

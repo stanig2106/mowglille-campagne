@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get "api/scoreboard", to: "scoreboard#get_scoreboard"
   get "api/score_details", to: "scoreboard#get_score_details"
 
+  post "api/games/score", to: "games#save_score"
+
   get "api/*path", to: "home#not_found_api"
 
   # all path except api/* will be handled by home#index

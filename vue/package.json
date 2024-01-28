@@ -20,6 +20,8 @@
     "@vueuse/core": "^10.7.0",
     "@vueuse/router": "^10.7.2",
     "axios": "^1.6.2",
+    "crypto-js": "^4.2.0",
+    "disable-devtool": "^0.3.7",
     "localforage": "^1.10.0",
     "p5": "^1.9.0",
     "patch-package": "^8.0.0",
@@ -37,6 +39,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.21.4",
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^18.15.0",
     "@types/p5": "^1.7.6",
     "@vitejs/plugin-vue": "^4.0.0",

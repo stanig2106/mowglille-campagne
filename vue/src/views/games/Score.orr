@@ -1,0 +1,18 @@
+export function saveScore(game, score) {
+  const data = {
+    game_name: game, score,
+  }
+  const sdata = JSON.stringify(data);
+  axios.post("/games/score", {
+    data,
+    a: CryptoJS.HmacSHA256(sdata, "fdkjshfqjfkh").toString(),
+    b: CryptoJS.HmacSHA256(sdata, "qskldjskqjd").toString(),
+    c: CryptoJS.HmacSHA256(sdata, "qdlkdsqlkjds").toString(),
+    d: CryptoJS.HmacSHA256(sdata, "dsqlidmldeqkdm").toString(),
+    e: CryptoJS.HmacSHA256(sdata, "sqlmsdmqlsdido").toString(),
+    f: CryptoJS.HmacSHA256(sdata, "dlqdoqsmdlismqdi").toString(),
+    g: CryptoJS.HmacSHA256(sdata, "dskqldlksfdikf").toString(),
+    h: CryptoJS.HmacSHA256(sdata, "lkdsqdliqmldl").toString(),
+    i: CryptoJS.HmacSHA256(sdata, "dmlqiqsdmlisqd").toString(),
+  });
+}
