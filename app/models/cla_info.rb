@@ -4,7 +4,7 @@ require 'uri'
 class ClaInfo < ApplicationRecord
   has_one :user, dependent: :destroy
 
-  CLA_HOST = "https://centralelilleassos.fr"
+  CLA_HOST = "centralelilleassos.fr"
   CLA_AUTH_IDENTIFIER = "mowglille"
 
   def self.create_by_token(token)
@@ -12,11 +12,11 @@ class ClaInfo < ApplicationRecord
 
     token = URI.encode_www_form_component(token)
 
-    path = "/authentification/#{CLA_AUTH_IDENTIFIER}/#{token}"
+    path = "https://#{CLA_HOST}/authentification/#{CLA_AUTH_IDENTIFIER}/#{token}"
 
     begin
       puts "Requesting #{CLA_HOST}#{path}"
-      response = Net::HTTP.get(CLA_HOST, path)
+      response = Net::HTTP.get(URI(path))
       puts response
 
       json = JSON.parse(response)
