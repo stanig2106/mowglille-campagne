@@ -4,7 +4,7 @@ require 'uri'
 class ClaInfo < ApplicationRecord
   has_one :user, dependent: :destroy
 
-  CLA_HOST = "centralelilleassos.fr"
+  CLA_HOST = "https://centralelilleassos.fr"
   CLA_AUTH_IDENTIFIER = "mowglille"
 
   def self.create_by_token(token)
