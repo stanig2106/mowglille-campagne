@@ -17,7 +17,6 @@ class ClaInfo < ApplicationRecord
     response = Net::HTTP.get(URI(url))
 
     json = JSON.parse(response)
-    puts json
     return nil unless json['success']
 
     cla_info = ClaInfo.find_or_initialize_by(username: json['username'])
