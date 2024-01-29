@@ -42,7 +42,7 @@ const props = defineProps<{
          class="h-full flex justify-end items-center mr-3 gap-2">
       <offline-indicator/>
 
-      <v-btn icon variant="text">
+      <v-btn icon variant="text" @click="$router.push('/profile')">
         <v-img :src="fake_profile" class="rounded-full"
                style="width: 40px; height: 40px"/>
       </v-btn>

@@ -5,6 +5,7 @@ import CurrentEvent from "@/views/home/CurrentEvent.vue";
 import CollectionBtn from "@/views/home/btns/CollectionBtn.vue";
 import OneLineBtn from "@/views/home/btns/OneLineBtn.vue";
 import router from "@/router";
+import event_bg from '@/assets/fake/event_bg.png'
 
 
 </script>
@@ -12,7 +13,7 @@ import router from "@/router";
 <template>
   <div class="flex flex-col gap-4 h-full overflow-auto">
     <Score/>
-    <CurrentEvent event_name="Le Livre de la Jungle"/>
+    <CurrentEvent :background_url="event_bg" event_name="Le Livre de la Jungle" event_type="Aprèm"/>
     <div class="h-full bg-white rounded-t-2xl elevation-2 p-4 flex flex-col gap-2">
       <CollectionBtn class="w-full" @click="router.push('/collection')"/>
       <div class="flex gap-2 >:flex-grow w-full">
@@ -22,7 +23,7 @@ import router from "@/router";
       </div>
       <div class="flex gap-2 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" icon="mdi-calendar-clock" title="Planning"/>
-        <OneLineBtn :icon-size="32" icon="mdi-script-text-outline" title="Programme" disabled/>
+        <OneLineBtn :icon-size="32" disabled icon="mdi-script-text-outline" title="Programme"/>
       </div>
       <div class="flex gap-2 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" icon="mdi-image-frame" title="Trombi"/>

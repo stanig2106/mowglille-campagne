@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import profile from "@/assets/fake/profile.jpeg";
-import banane from "@/assets/banane.png";
+import honey from "@/assets/honey.png";
 
 </script>
 
@@ -22,7 +22,7 @@ import banane from "@/assets/banane.png";
         <h1 class="text-xl">
           +10
         </h1>
-        <v-img :src="banane" class="h-6 w-6" :transition="false"/>
+        <v-img :src="honey" class="h-6 w-6" :transition="false"/>
       </div>
       <div class="text-sm text-gray-500 flex justify-end">
         Aprèm, 14:12

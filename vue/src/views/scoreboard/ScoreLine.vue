@@ -1,6 +1,6 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import profile from "@/assets/fake/profile.jpeg";
-import banane from "@/assets/banane.png";
+import honey from "@/assets/honey.png";
 
 const props = defineProps<{
   rank: number | undefined,
@@ -13,7 +13,7 @@ const props = defineProps<{
   <div class="flex justify-between w-full h-full items-center px-4">
     <div class="flex gap-2 items-center">
       <div class="rounded-full overflow-hidden">
-        <v-img :src="profile" width="48" height="48"/>
+        <v-img :src="profile" height="48" width="48"/>
       </div>
 
       <div class="flex flex-col gap-1 justify-center">
@@ -30,7 +30,7 @@ const props = defineProps<{
       <h1 class="text-xl">
         {{ score ?? "-" }}
       </h1>
-      <v-img :src="banane" class="h-6 w-6" :transition="false"/>
+      <v-img :src="honey" :transition="false" class="h-6 w-6 mt-0.5"/>
     </div>
   </div>
 </template>

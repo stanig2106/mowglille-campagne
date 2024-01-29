@@ -3,16 +3,26 @@
 import EventAction from "@/views/home/event/EventAction.vue";
 
 const props = defineProps<{
+  event_type: string
   event_name: string
+  background_url: string
 }>()
 
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 px-4 py-2 pb-4 bg-red-600 bg-opacity-90 rounded-2xl elevation-2">
+  <div :style="{ backgroundImage: `url(${background_url})` }"
+       class="flex flex-col gap-2 px-4 py-2 pb-4 bg-green-600 bg-opacity-90 rounded-2xl elevation-2"
+       style=" background-size: cover; background-position: center; background-blend-mode: color;
+            background-color: rgba(0, 0, 0, 0.7);">
     <div class="flex flex-col">
-      <h2 class="text-gray-200 text-lg font-bold">
-        Actuellement :
+      <h2 class="text-gray-200 text-lg font-bold flex justify-between">
+        <div>
+          Actuellement :
+        </div>
+        <div>
+          {{ props.event_type }}
+        </div>
       </h2>
       <h3 class="text-white text-5xl text-uppercase">
         {{ props.event_name }}

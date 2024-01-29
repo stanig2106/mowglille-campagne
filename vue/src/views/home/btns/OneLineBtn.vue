@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import {defineProps, defineEmits, withDefaults} from "vue"
+import {withDefaults} from "vue"
 
 const props = withDefaults(defineProps<{
   title: string
@@ -18,8 +18,8 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div v-ripple="!disabled" class="bg-gray-200 flex gap-2 rounded-lg p-2 items-center"
-        :class="disabled ? 'opacity-40' : ''"
+  <div v-ripple="!disabled" :class="disabled ? 'opacity-40' : ''"
+       class="bg-gray-200 flex gap-2 rounded-lg p-2 items-center"
        @click="emit('click')">
     <v-icon :size="props.iconSize">
       {{ props.icon }}

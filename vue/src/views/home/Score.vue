@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import banane from "@/assets/banane.png";
-import {ref} from "vue";
+import honey from "@/assets/honey.png";
 import axios from "axios";
 import {useStorage} from "@vueuse/core";
 
@@ -23,7 +22,7 @@ axios.get("/score").then(({data}) => score.value = data.score)
           </h2>
         </template>
         <template v-slot:append>
-          <v-img :src="banane" class="h-6 w-6 mr-3" :transition="false"/>
+          <v-img :src="honey" class="h-6 w-6 mr-3" :transition="false"/>
         </template>
       </v-btn>
     </div>

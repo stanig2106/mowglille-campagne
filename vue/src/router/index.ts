@@ -31,6 +31,12 @@ const routes = [
     }
   },
   {
+    path: '/profile', component: () => import('../views/Profile.vue'),
+    meta: {
+      title: 'Profil',
+    }
+  },
+  {
     path: '/qrcode', component: () => import('../views/QRCode.vue'),
     meta: {
       title: 'QR Code',

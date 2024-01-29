@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import banane from "@/assets/banane.png";
+import honey from "@/assets/honey.png";
 </script>
 
 <template>
