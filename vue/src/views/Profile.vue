@@ -3,6 +3,7 @@ import {useUserStore} from "@/stores/user_store";
 import {useOnline} from "@vueuse/core";
 import DownloadSoutientActif from "@/views/profile/DownloadSoutientActif.vue";
 import {provide, ref} from "vue";
+import fake_pp from "@/assets/fake/profile.jpeg"
 
 const userStore = useUserStore()
 
@@ -19,12 +20,15 @@ provide("keep_open", keep_open)
 <template>
   <div class="bg-white rounded-t-2xl p-4 flex flex-col mt-[100px] elevation-2 min-h-[calc(100%-100px)] relative">
     <div class="z-10 rounded-full bg-red-500 w-2/3 aspect-square -mt-[100px] self-center relative">
-        <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
-          <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.png"/>
-          <v-dialog activator="parent" :persistent="keep_open" :close-on-back="false" :no-click-animation="true">
-            <download-soutient-actif/>
-          </v-dialog>
-        </v-btn>
+
+      <v-img :transition="false" class="w-full h-full rounded-full" :src="fake_pp"/>
+
+      <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
+        <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.png"/>
+        <v-dialog :close-on-back="false" :no-click-animation="true" :persistent="keep_open" activator="parent">
+          <download-soutient-actif :no-pp="false"/>
+        </v-dialog>
+      </v-btn>
 
       <v-btn class="absolute bottom-6 -right-2" color="white" icon rounded="lg">
         <v-icon color="black">mdi-pencil</v-icon>
@@ -44,7 +48,6 @@ provide("keep_open", keep_open)
         </div>
       </div>
     </div>
-
   </div>
 
 </template>
