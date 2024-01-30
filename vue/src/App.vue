@@ -5,7 +5,7 @@ import Loading from "@/components/Loading.vue";
 import router from "@/router";
 import axios, {AxiosError} from "axios";
 import {offlineKey} from "@/router/keys";
-import UseScreenSafeArea from "@vueuse/core";
+import { useScreenSafeArea } from '@vueuse/core'
 
 
 router.afterEach(() => {
@@ -51,7 +51,7 @@ router.beforeEach((to, from, next) => {
 
 <template>
   <Loading/>
-  <UseScreenSafeArea bottom top>
+  <useScreenSafeArea bottom top>
     <v-app v-if="fullpage" class="bg-transparent">
       <router-view/>
     </v-app>
@@ -69,7 +69,7 @@ router.beforeEach((to, from, next) => {
 
       </v-main>
     </v-app>
-  </UseScreenSafeArea>
+  </useScreenSafeArea>
 </template>
 
 
