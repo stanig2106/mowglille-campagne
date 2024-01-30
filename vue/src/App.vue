@@ -94,8 +94,8 @@ html {
 }
 
 img {
-  pointer-events: none;
-  -webkit-touch-callout: none;
+  pointer-events: none !important;
+  -webkit-touch-callout: none !important;
 }
 
 #header-clip::before {
