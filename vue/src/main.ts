@@ -51,7 +51,8 @@ axios.get('/version').then(res => {
   if (localStorage.getItem('version') === res.data.version)
     return
 
-  alert('A new version of the app is available, the page will reload to update it')
+  if (localStorage.getItem('version') !== null)
+    alert('A new version of the app is available, the app will reload to update it')
 
   navigator.serviceWorker.getRegistrations()
     .then(registrations =>
