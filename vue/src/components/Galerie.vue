@@ -45,7 +45,7 @@ onUnmounted(() => {
       :key="key"
       :data-pswp-height="image.height"
       :data-pswp-width="image.width"
-      :href="image.largeURL"
+      :data-pswp-src="image.largeURL"
       rel="noreferrer"
       target="_blank"
     >

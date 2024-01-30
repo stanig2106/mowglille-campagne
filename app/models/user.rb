@@ -4,7 +4,6 @@ class User < ApplicationRecord
   has_many :qr_codes, dependent: :destroy
   belongs_to :cla_info
 
-  # add_column :users, :staff_roles, :string, array: true, default: []
   STAFF_ROLES = {
     NEW_STAFF: "Create new staff",
 
@@ -22,6 +21,7 @@ class User < ApplicationRecord
     MANAGE_PHOTO: "Manage photo",
   }
   validate :staff_roles_are_valid
+
   def staff_roles_are_valid
     staff_roles.each do |role|
       errors.add(:staff_roles, "Invalid role: #{role}") \
@@ -32,7 +32,6 @@ class User < ApplicationRecord
   def has_staff_role?(role)
     staff_roles.include?(role)
   end
-
 
   delegate :first_name, :last_name, :school_email, :cursus, :promo, to: :cla_info
 
