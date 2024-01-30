@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import games from "@/router/games";
+import staff from "@/router/staff";
 
 const routes = [
   {
@@ -56,6 +57,7 @@ const routes = [
   },
 
   ...games,
+  ...staff,
 
 
   // Fallback to home

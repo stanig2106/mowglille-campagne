@@ -3,15 +3,17 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 import {inject, onMounted, onUnmounted, Ref, ref} from "vue";
 
-const props = defineProps<{
-  galleryId: string,
+const props = withDefaults(defineProps<{
+  galleryId?: string,
   images: {
     thumbnailURL: string,
     largeURL: string,
     width: number,
     height: number
   }[]
-}>();
+}>(), {
+  galleryId: Math.random().toString(36).substring(7)
+});
 
 const lightbox = ref<PhotoSwipeLightbox | null>(null);
 
@@ -52,3 +54,8 @@ onUnmounted(() => {
   </div>
 </template>
 
+<style>
+.pswp__button--zoom {
+  display: none !important;
+}
+</style>

@@ -4,6 +4,36 @@ class User < ApplicationRecord
   has_many :qr_codes, dependent: :destroy
   belongs_to :cla_info
 
+  # add_column :users, :staff_roles, :string, array: true, default: []
+  STAFF_ROLES = {
+    NEW_STAFF: "Create new staff",
+
+    CUSTOM_SCORE: "Add custom score",
+    SCORE: "Add legal score",
+    MANAGE_SCORE: "Manage legals score of activities",
+
+    CHALLENGE_MANAGE: "Manage challenge",
+    CHALLENGE_VALIDATION: "Validate challenge",
+
+    MANAGE_SOUND: "Manage sound",
+
+    MANAGE_CHAT: "Manage chat",
+
+    MANAGE_PHOTO: "Manage photo",
+  }
+  validate :staff_roles_are_valid
+  def staff_roles_are_valid
+    staff_roles.each do |role|
+      errors.add(:staff_roles, "Invalid role: #{role}") \
+        unless STAFF_ROLES.keys.include?(role.to_sym)
+    end
+  end
+
+  def has_staff_role?(role)
+    staff_roles.include?(role)
+  end
+
+
   delegate :first_name, :last_name, :school_email, :cursus, :promo, to: :cla_info
 
   def score

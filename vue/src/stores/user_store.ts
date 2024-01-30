@@ -12,6 +12,8 @@ export const useUserStore = defineStore("user", () => {
   const score = ref(undefined as number | undefined)
   const rank = ref(undefined as number | undefined)
 
+  const staffRoles = ref(undefined as string[] | undefined)
+
   async function updateUser() {
     const response = await axios.get("/user")
     if (response.status !== 200)
@@ -25,6 +27,7 @@ export const useUserStore = defineStore("user", () => {
     lastName.value = user.last_name
     score.value = user.score
     rank.value = user.rank
+    staffRoles.value = user.staff_roles
     return true
   }
 
@@ -35,7 +38,7 @@ export const useUserStore = defineStore("user", () => {
     loaded,
     id, publicToken,
     name, firstName, lastName,
-    score, rank,
+    score, rank, staffRoles,
     updateUser
   }
 })

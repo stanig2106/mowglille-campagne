@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def show
     user = User.find_by!(token: params[:token])
-    render json: user.instance_exec { { id:, public_token:, first_name:, last_name:, score:, rank: } }
+    render json: user.instance_exec { { id:, public_token:, first_name:, last_name:, score:, rank:, staff_roles: } }
   end
 
   def qr_code
