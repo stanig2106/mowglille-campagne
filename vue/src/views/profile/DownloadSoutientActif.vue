@@ -51,10 +51,24 @@ onMounted(() => {
     })
 
     download = () => {
-      const a = document.createElement('a');
-      a.href = canvas!.getElement().toDataURL('image/png');
-      a.download = 'soutien_actif_mowglille.png';
-      a.click();
+      // Obtenir l'URL de données du canvas
+      const dataURL = canvas!.getElement().toDataURL('image/png');
+
+      // Convertir l'URL de données en Blob
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', dataURL, true);
+      xhr.responseType = 'blob';
+      xhr.onload = function (e) {
+        if (this.status == 200) {
+          // Créer un lien pour le téléchargement
+          const blob = this.response;
+          const downloadLink = document.createElement('a');
+          downloadLink.href = window.URL.createObjectURL(blob);
+          downloadLink.download = 'soutien_actif_mowglille.png';
+          downloadLink.click();
+        }
+      };
+      xhr.send();
     }
   });
 
