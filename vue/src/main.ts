@@ -63,6 +63,7 @@ axios.get('/version').then(res => {
 }).catch()
 
 
+/*
 disableDevtool({
   ignore: () => {
     return window.location.href.includes('localhost')
@@ -75,3 +76,4 @@ disableDevtool({
   md5: 'b07ced62f40a7559f6bdc8150ccfa3eb',
   tkName: 'devtool',
 })
+*/
