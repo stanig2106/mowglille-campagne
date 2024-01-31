@@ -32,9 +32,13 @@ class User < ApplicationRecord
     end
   end
 
+
+
   def has_staff_role?(role)
-    staff_roles.include?(role)
+    staff_roles.include?(role.to_s)
   end
+
+  scope :staffers, -> { where.not(staff_roles: []) }
 
   delegate :first_name, :last_name, :school_email, :cursus, :promo, to: :cla_info
 

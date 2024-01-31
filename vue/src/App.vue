@@ -129,5 +129,9 @@ button {
   text-overflow: ellipsis;
 }
 
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
 </style>
 

@@ -5,4 +5,59 @@ export default [
       title: 'Espace staffeur',
     }
   },
+  {
+    path: "/staff/planning", component: () => import('../views/staff/Planning.vue'),
+    meta: {
+      title: "Voir les plannings",
+    },
+  },
+  {
+    path: "/staff/manage_staff", component: () => import('../views/staff/ManageStaff.vue'),
+    meta: {
+      title: "Gérer les staffeurs",
+    },
+  },
+  {
+    path: "/staff/activity", component: () => import('../views/staff/Activity.vue'),
+    meta: {
+      title: "Staff Activité en cours",
+    },
+  },
+  {
+    path: '/staff/offer', component: () => import('../views/staff/Offer.vue'),
+    meta: {
+      title: "Offrir du score",
+    },
+  },
+  {
+    path: '/staff/manage_score', component: () => import('../views/staff/ManageScore.vue'),
+    meta: {
+      title: "Gérer les activités",
+    },
+  },
+  {
+    path: '/staff/validate_challenge', component: () => import('../views/staff/ValidateChallenge.vue'),
+    meta: {
+      title: "Valider un challenge",
+    },
+  },
+  {
+    path: '/staff/manage_challenge', component: () => import('../views/staff/ManageChallenge.vue'),
+    meta: {
+      title: "Gérer les challenges",
+    },
+  },
+  {
+    path: '/staff/manage_sound', component: () => import('../views/staff/ManageSound.vue'),
+    meta: {
+      title: "Gérer les sons",
+    },
+  },
+  {
+    path: '/staff/manage_photo', component: () => import('../views/staff/ManagePhoto.vue'),
+    meta: {
+      title: "Gérer les albums",
+    },
+  },
+
 ]

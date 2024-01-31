@@ -17,9 +17,9 @@
     "@types/fabric": "^5.3.6",
     "@types/photoswipe": "^4.1.6",
     "@types/rails__actioncable": "^6.1.10",
+    "@vueuse/components": "^10.7.2",
     "@vueuse/core": "^10.7.0",
     "@vueuse/router": "^10.7.2",
-    "@vueuse/components": "^10.7.2",
     "axios": "^1.6.2",
     "crypto-js": "^4.2.0",
     "disable-devtool": "^0.3.7",
@@ -36,6 +36,7 @@
     "simple-keyboard": "^3.7.38",
     "vue": "^3.2.0",
     "vue-picture-input": "^3.0.1",
+    "vue-qrcode-reader": "^5.5.1",
     "vue-qrious": "^3.1.0",
     "vue-router": "^4.0.0",
     "vuetify": "^3.0.0"

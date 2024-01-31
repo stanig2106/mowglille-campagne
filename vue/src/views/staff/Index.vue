@@ -70,12 +70,6 @@ const staffs_action = [
     roles: ["MANAGE_SOUND"]
   },
   {
-    path: '/staff/manage_chat',
-    name: "Gérer le chat",
-    icon: "mdi-chat",
-    roles: ["MANAGE_CHAT"]
-  },
-  {
     path: '/staff/manage_photo',
     name: "Gérer les albums",
     icon: "mdi-camera",

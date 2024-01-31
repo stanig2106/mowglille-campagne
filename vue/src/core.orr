@@ -1,0 +1,12 @@
+import CryptoJS from 'crypto-js'
+
+const key = 'FKSffnKDxd'
+
+export function decrypt(encrypted) {
+  const bytes = CryptoJS.AES.decrypt(encrypted, key);
+  return bytes.toString(CryptoJS.enc.Utf8);
+}
+
+export function encrypt(plain) {
+  return CryptoJS.AES.encrypt(plain, key).toString();
+}

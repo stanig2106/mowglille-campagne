@@ -4,10 +4,11 @@ import axios from "axios";
 
 export const useUserStore = defineStore("user", () => {
   const loaded = ref(false)
-  const id = ref(undefined)
-  const publicToken = ref(undefined)
-  const firstName = ref(undefined)
-  const lastName = ref(undefined)
+  const id = ref(undefined as number | undefined)
+  const publicToken = ref(undefined as string | undefined)
+  const firstName = ref(undefined as string | undefined)
+  const lastName = ref(undefined as string | undefined)
+  const cursus = ref(undefined as string | undefined)
 
   const score = ref(undefined as number | undefined)
   const rank = ref(undefined as number | undefined)
@@ -25,6 +26,8 @@ export const useUserStore = defineStore("user", () => {
     publicToken.value = user.public_token
     firstName.value = user.first_name
     lastName.value = user.last_name
+    cursus.value = user.cursus
+
     score.value = user.score
     rank.value = user.rank
     staffRoles.value = user.staff_roles
@@ -37,7 +40,7 @@ export const useUserStore = defineStore("user", () => {
   return {
     loaded,
     id, publicToken,
-    name, firstName, lastName,
+    name, firstName, lastName, cursus,
     score, rank, staffRoles,
     updateUser
   }

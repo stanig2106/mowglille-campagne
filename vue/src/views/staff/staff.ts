@@ -1,0 +1,13 @@
+export const roles = [
+  "NEW_STAFF",
+  "SEE_PLANNING",
+  "MANAGE_PLANNING",
+  "CUSTOM_SCORE",
+  "SCORE",
+  "MANAGE_SCORE",
+  "CHALLENGE_MANAGE",
+  "CHALLENGE_VALIDATION",
+  "MANAGE_SOUND",
+  "MANAGE_CHAT",
+  "MANAGE_PHOTO",
+] as const

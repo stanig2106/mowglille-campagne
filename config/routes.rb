@@ -6,7 +6,6 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-
   mount ActionCable.server => '/cable'
 
   get ".well-known/assetlinks.json", to: "home#assetlinks"
@@ -16,12 +15,16 @@ Rails.application.routes.draw do
   get "api/cla_login", to: "users#cla_login"
   post "api/register", to: "users#create"
   get "api/qr_code", to: "users#qr_code"
+  get "api/users", to: "users#index"
   get "api/user", to: "users#show"
   get "api/score", to: "users#score"
   get "api/rank", to: "users#rank"
   get "api/name", to: "users#name"
   get "api/scoreboard", to: "scoreboard#get_scoreboard"
   get "api/score_details", to: "scoreboard#get_score_details"
+
+  get "api/staffers", to: "staffers#index"
+  put "api/staffers/:public_token", to: "staffers#update"
 
   post "api/games/score", to: "games#save_score"
 

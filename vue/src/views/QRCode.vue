@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import axios from "axios";
 import {inject, onUnmounted, ref, watch} from "vue";
@@ -6,10 +6,11 @@ import Qrious from "vue-qrious";
 import {offlineKey} from "@/router/keys";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user_store";
+import {encrypt} from "@/core";
 
 const {offline} = inject(offlineKey)!;
 
-const {firstName, lastName, score, publicToken, id} = storeToRefs(useUserStore())
+const {firstName, lastName, score, publicToken, id, cursus} = storeToRefs(useUserStore())
 const {updateUser} = useUserStore()
 
 updateUser().then((done) => {
@@ -25,7 +26,8 @@ updateUser().then((done) => {
 
 function generateRandomString(length: number) {
   let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters = encrypt('ABCDEFGHIJKLMNOPQRSTUVWXYZabcde' +
+    'fghijklmnopqrstuvwxyz0123456789flksdjflqsjkdflqsjkflfkj');
   const charactersLength = characters.length;
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -40,10 +42,11 @@ const offline_qr_code = () => '&' +
   firstName.value + "&" +
   lastName.value + "&" +
   score.value + "&" +
+  cursus.value + "&" +
   new Date().toISOString();
 
 
-const qr_code_content = ref(offline_qr_code())
+const qr_code_content = ref(encrypt(offline_qr_code()))
 const loading = ref(null as boolean | null)
 
 
@@ -71,7 +74,7 @@ async function generateQRCode(): Promise<any> {
   await fake_loading
 
   loading.value = false
-  qr_code_content.value = content
+  qr_code_content.value = encrypt(content)
 }
 
 watch(offline, () => generateQRCode())
@@ -87,8 +90,8 @@ generateQRCode()
       QR Code hors ligne
     </div>
     <div class="w-full mb-4">
-      <qrious :value="qr_code_content" class="w-full mx-auto max-h-[60vh]" id="qrcode"
-              :class="{ 'blur-md': loading }"
+      <qrious :size="1024" id="qrcode" :class="{ 'blur-md': loading }" :value="qr_code_content"
+              class="w-full mx-auto max-h-[60vh]"
       />
     </div>
 
