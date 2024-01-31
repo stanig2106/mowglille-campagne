@@ -60,7 +60,9 @@ router.beforeEach((to, from, next) => {
       <Header :back="currentTitle" :density="density as any"/>
 
       <div :class="{'px-2': density == 'normal'}"
-           class="h-full rounded-t-3xl !overflow-y-auto">
+           class="h-full rounded-t-3xl !overflow-y-auto"
+           style="padding-top: calc(env(safe-area-inset-top) + (env(safe-area-inset-top) / env(safe-area-inset-top)) * 10px)">
+
         <router-view/>
       </div>
 
