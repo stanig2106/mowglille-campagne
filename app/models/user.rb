@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
   has_many :score_records
   has_many :qr_codes, dependent: :destroy
-  belongs_to :cla_info
+  belongs_to :cla_info, dependent: :destroy
 
   STAFF_ROLES = {
     SEE_PLANNING: "See planning",

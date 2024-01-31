@@ -4,6 +4,8 @@ require 'uri'
 class ClaInfo < ApplicationRecord
   has_one :user, dependent: :destroy
 
+  validates :username, presence: true, uniqueness: true
+
   CLA_HOST = "centralelilleassos.fr"
   CLA_AUTH_IDENTIFIER = "mowglille"
 
@@ -19,12 +21,11 @@ class ClaInfo < ApplicationRecord
     json = JSON.parse(response)
     return nil unless json['success']
 
-    cla_info = ClaInfo.find_or_initialize_by(username: json['username'])
-    return cla_info unless cla_info.new_record?
-
     payload = json["payload"]
 
-    cla_info.username = payload["username"]
+    cla_info = ClaInfo.find_or_initialize_by(username: payload['username'])
+    return cla_info unless cla_info.new_record?
+
     cla_info.school_email = payload["emailSchool"]
     cla_info.first_name = payload["firstName"]
     cla_info.last_name = payload["lastName"]

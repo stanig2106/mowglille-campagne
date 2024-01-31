@@ -29,8 +29,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    render json: User.all.map { _1.instance_exec { { public_token:, name:, cursus: }}}
+    render json: User.all.map { _1.instance_exec { { public_token:, name:, cursus: } } }
   end
+
   def show
     user = User.find_by!(token: params[:token])
     render json: user.instance_exec { { id:, public_token:, first_name:, last_name:, score:, rank:, staff_roles:, cursus: } }
@@ -41,6 +42,15 @@ class UsersController < ApplicationController
     qr_code = QrCode.generate(user)
 
     render json: { content: qr_code.to_web }
+  end
+
+  def check_qr_code
+    return render json: {
+      error: 'Le QR code est invalide, veuillez en générer un nouveau',
+    } unless QrCode.is_valid(params[:content])
+
+    render json: { ok: true }
+
   end
 
   def score

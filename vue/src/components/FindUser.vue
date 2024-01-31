@@ -56,7 +56,7 @@ async function parseQrCode(content: string): Promise<FoundUser | { error: string
     return {error: "QR Code trop ancien, veuillez en générer un nouveau"}
 
   if (useOnline().value) {
-    const res = axios.get("/check_qr/" + content)
+    const res = axios.get("/check_qr_code/" + content)
       .catch(() => ({error: "Erreur inconnue, veuillez réessayer"}));
     const timeout = new Promise(resolve => setTimeout(resolve, 5000))
 
@@ -93,14 +93,24 @@ async function onScan(contents: DetectedBarcode[]) {
   qr_code_loading.value = true
 
   const parsed = await parseQrCode(content.rawValue)
+
+  qr_code_paused.value = false
   if ('error' in parsed) {
     qr_code_loading.value = false
-    qr_code_paused.value = false
     qr_code_error.value = parsed.error
     return
   }
 
   qr_code_scanned.value = parsed
+}
+
+function reset() {
+  qr_code_paused.value = false
+  qr_code_loading.value = false
+  qr_code_error.value = ""
+  qr_code_scanned.value = undefined
+  qr_code_certified.value = 'both_online'
+  mode.value = undefined
 }
 
 </script>
@@ -136,13 +146,22 @@ async function onScan(contents: DetectedBarcode[]) {
                 {{ qr_code_error }}
               </div>
               <div v-else class="flex flex-col items-center justify-center gap-2 p-4 h-full text-xl">
-                <v-icon>mdi-check-circle</v-icon>
-                Utilisateur trouvé
-                <div class="text-xl">
+                <v-icon color="green" size="large">mdi-check-circle</v-icon>
+                <div class="text-2xl mt-2">
                   {{ qr_code_scanned!.firstName }} {{ qr_code_scanned!.lastName }}
                 </div>
-                <div class="text-sm text-muted one-line">
+                <div class="text-md text-muted one-line">
                   {{ qr_code_scanned!.cursus }}
+                </div>
+
+                <div class="text-sm text-muted mt-4">
+                  {{
+                    qr_code_certified == 'both_online' ? 'Qr Code vérifié !' :
+                      qr_code_certified == 'both_offline' ? 'Qr code non vérifié (staffer et utilisateur hors ligne)' :
+                        qr_code_certified == 'staffer_online' ? 'Qr code hors ligne vérifié' :
+                          'Qr code vérifié par l\'utilisateur'
+                  }}
+
                 </div>
 
               </div>
@@ -151,7 +170,8 @@ async function onScan(contents: DetectedBarcode[]) {
         </v-card>
         <div :class="{'!flex-grow-0': mode == 'scan'}"
              class="flex gap-2 >:flex-1">
-          <v-card :ripple="mode != 'search'"
+          <v-card v-if="!(mode == 'scan' && qr_code_scanned)"
+                  :ripple="mode != 'search'"
                   @click="mode = 'search'">
             <div v-if="mode != 'search'"
                  class="flex flex-col items-center justify-center gap-2 p-4 h-full text-xl">
@@ -159,12 +179,19 @@ async function onScan(contents: DetectedBarcode[]) {
               Rechercher
             </div>
           </v-card>
-          <v-card v-if="mode == 'scan' && qr_code_error" @click="qr_code_error = ''; qr_code_loading = true">
+          <v-card v-if="mode == 'scan' && (qr_code_error || qr_code_scanned)" @click="qr_code_error = ''; qr_code_scanned = undefined; qr_code_loading = true">
             <div class="flex flex-col items-center justify-center gap-2 p-4 h-full text-xl">
               <v-icon>mdi-reload</v-icon>
               Réessayer
             </div>
           </v-card>
+          <v-card v-if="mode == 'scan' && qr_code_scanned" @click="model = qr_code_scanned; reset()">
+            <div class="flex flex-col items-center justify-center gap-2 p-4 h-full text-xl text-green">
+              <v-icon color="green">mdi-check</v-icon>
+              Valider
+            </div>
+          </v-card>
+
 
         </div>
       </div>

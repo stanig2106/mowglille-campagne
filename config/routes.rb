@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "api/cla_login", to: "users#cla_login"
   post "api/register", to: "users#create"
   get "api/qr_code", to: "users#qr_code"
+  get "api/check_qr_code/:content", to: "users#check_qr_code"
   get "api/users", to: "users#index"
   get "api/user", to: "users#show"
   get "api/score", to: "users#score"

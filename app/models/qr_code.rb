@@ -16,6 +16,25 @@ class QrCode < ApplicationRecord
       created_at.iso8601
   end
 
+  def self.is_valid(web_qr_code)
+    offline_qr = web_qr_code.start_with?("&")
+    web_qr_code = web_qr_code[1..] if offline_qr
+
+    token, user_id, public_token, * = web_qr_code.split("&")
+
+    qr_code = QrCode.find_by(token:)
+
+    return false if !offline_qr && !qr_code
+
+    offline_qr = false if qr_code
+
+    if offline_qr
+      return User.find_by(id: user_id, public_token:) != nil
+    else
+      return qr_code.to_web == web_qr_code
+    end
+  end
+
   def self.extract(web_qr_code)
     # Offline qr code /!\
     offline_qr = web_qr_code.start_with?("&")
@@ -24,6 +43,8 @@ class QrCode < ApplicationRecord
     token, user_id, public_token, * = web_qr_code.split("&")
 
     qr_code = QrCode.find_by(token:)
+    raise InvalidQrCode if !offline_qr && !qr_code
+
     offline_qr = false if qr_code
 
     if offline_qr
