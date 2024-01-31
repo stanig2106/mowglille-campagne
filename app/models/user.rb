@@ -5,6 +5,9 @@ class User < ApplicationRecord
   belongs_to :cla_info
 
   STAFF_ROLES = {
+    SEE_PLANNING: "See planning",
+    MANAGE_PLANNING: "Manage planning",
+
     NEW_STAFF: "Create new staff",
 
     CUSTOM_SCORE: "Add custom score",
