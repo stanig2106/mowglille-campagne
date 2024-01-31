@@ -21,8 +21,7 @@ const props = defineProps<{
 <template>
   <div :class="{ 'h-16': density == 'normal', 'h-12': density == 'compact'}"
        class="bg-primary top-0 absolute w-full flex justify-between"
-       style="margin-top: calc(env(safe-area-inset-top) + (env(safe-area-inset-top) / env(safe-area-inset-top)) * 10px)">
-    >
+       style="margin-top: env(safe-area-inset-top)">
 
     <h1 v-if="back == undefined"
         class="h-full flex items-center text-3xl italic mt-0.5 ml-4">

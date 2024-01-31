@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
 
       <div :class="{'px-2': density == 'normal'}"
            class="h-full rounded-t-3xl !overflow-y-auto"
-           style="padding-top: calc(env(safe-area-inset-top) + (env(safe-area-inset-top) / env(safe-area-inset-top)) * 10px)">
+           style="padding-top: env(safe-area-inset-top)">
 
         <router-view/>
       </div>
