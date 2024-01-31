@@ -5,7 +5,6 @@ import Loading from "@/components/Loading.vue";
 import router from "@/router";
 import axios, {AxiosError} from "axios";
 import {offlineKey} from "@/router/keys";
-import {UseScreenSafeArea} from '@vueuse/components'
 
 
 router.afterEach(() => {
@@ -51,25 +50,23 @@ router.beforeEach((to, from, next) => {
 
 <template>
   <Loading/>
-  <UseScreenSafeArea bottom top>
-    <v-app v-if="fullpage" class="bg-transparent">
-      <router-view/>
-    </v-app>
-    <v-app v-else>
-      <v-main :class="{'pt-16': density == 'normal', 'pt-12': density == 'compact'}"
-              class="z-0 bg-primary h-screen"
-      >
-        <Header :back="currentTitle" :density="density as any"/>
+  <v-app v-if="fullpage" class="bg-transparent">
+    <router-view/>
+  </v-app>
+  <v-app v-else>
+    <v-main :class="{'pt-16': density == 'normal', 'pt-12': density == 'compact'}"
+            class="z-0 bg-primary h-screen"
+    >
+      <Header :back="currentTitle" :density="density as any"/>
 
-        <div :class="{'px-2': density == 'normal'}"
-             class="h-full rounded-t-3xl !overflow-y-auto">
-          <router-view/>
-        </div>
+      <div :class="{'px-2': density == 'normal'}"
+           class="h-full rounded-t-3xl !overflow-y-auto">
+        <router-view/>
+      </div>
 
 
-      </v-main>
-    </v-app>
-  </UseScreenSafeArea>
+    </v-main>
+  </v-app>
 </template>
 
 
