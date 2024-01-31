@@ -5,7 +5,6 @@ import useCable from "@/router/cable";
 import fake_profile from "@/assets/fake/profile.jpeg"
 import {ref} from "vue";
 import OfflineIndicator from "@/components/OfflineIndicator.vue";
-import {useScreenSafeArea} from "@vueuse/core";
 
 const has_notif = ref(true)
 
@@ -16,19 +15,18 @@ const props = defineProps<{
 
 // useCable("NotificationChannel")
 
-const safeArea = useScreenSafeArea()
 
 </script>
 
 <template>
   <div :class="{ 'h-16': density == 'normal', 'h-12': density == 'compact'}"
        class="bg-primary top-0 absolute w-full flex justify-between"
-       :style="{paddingTop: safeArea.top + 'px'}"
+       style="padding-top: env(safe-area-inset-top)"
   >
 
     <h1 v-if="back == undefined"
         class="h-full flex items-center text-3xl italic mt-0.5 ml-4">
-      MOWG'LILLE {{ safeArea.top }}
+      MOWG'LILLE
     </h1>
 
     <h1 v-else
