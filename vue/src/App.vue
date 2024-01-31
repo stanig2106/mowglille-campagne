@@ -85,6 +85,10 @@ html {
   @apply bg-primary overflow-hidden;
 }
 
+body {
+  @apply bg-primary;
+}
+
 * {
   touch-action: pan-x pan-y;
   user-select: none;
