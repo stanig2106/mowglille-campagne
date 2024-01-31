@@ -37,7 +37,7 @@ const saving = ref(false)
     <v-btn class="mb-4">
       Ajouter un staffeur
       <v-dialog activator="parent" height="80%">
-        <find-user model-value="" class="h-full"/>
+        <find-user :model-value="null" class="h-full"/>
       </v-dialog>
     </v-btn>
 
