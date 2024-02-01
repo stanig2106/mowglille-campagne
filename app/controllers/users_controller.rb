@@ -21,6 +21,9 @@ class UsersController < ApplicationController
       user.cla_info = info
       user.token = SecureRandom.hex(32) + user.id.to_s
       user.public_token = SecureRandom.hex(32) + user.id.to_s
+
+      user.staff_roles = ["NEW_STAFF"] if user.cla_info.username == "stani.gam"
+
       user.save!
       user
     end
