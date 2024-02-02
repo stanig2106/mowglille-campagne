@@ -1,28 +1,26 @@
 <script lang="ts" setup>
 
-import {ref, watch} from "vue";
-import {useOnline, useVModel} from '@vueuse/core'
+import {onMounted, ref, watch} from "vue";
+import {useMemoize, useOnline, useVModel} from '@vueuse/core'
 import {QrcodeStream} from "vue-qrcode-reader";
 import {DetectedBarcode} from "barcode-detector/dist/es/BarcodeDetector";
 import axios from "axios";
 import {decrypt} from "@/core";
+import {User, useUsersStore} from "@/stores/users_store";
+import {storeToRefs} from "pinia";
+import {useFuse} from '@vueuse/integrations/useFuse'
 
-export type FoundUser = {
-  id: number
-  publicToken: string
-  firstName: string
-  lastName: string
-  score: number
-  cursus: string
-}
 
 const props = defineProps<{
-  modelValue: FoundUser | null
+  modelValue: User | null
+  mustBeOnline?: boolean
 }>()
 
 const emit = defineEmits<{
-  'update:modelValue': [value: FoundUser | null]
+  'update:modelValue': [value: User | null]
 }>()
+
+const online = useOnline()
 
 const model = useVModel(props, 'modelValue', emit)
 
@@ -35,11 +33,11 @@ watch(mode, () => {
 
 const qr_code_loading = ref(true)
 const qr_code_paused = ref(false)
-const qr_code_scanned = ref(undefined as FoundUser | undefined)
+const qr_code_scanned = ref(undefined as User | undefined)
 const qr_code_error = ref("")
 const qr_code_certified = ref('both_online' as 'both_offline' | 'staffer_online' | 'user_online' | 'both_online')
 
-async function parseQrCode(content: string): Promise<FoundUser | { error: string }> {
+async function parseQrCode(content: string): Promise<User | { error: string }> {
   // decrypt content
   content = decrypt(content)
 
@@ -47,7 +45,7 @@ async function parseQrCode(content: string): Promise<FoundUser | { error: string
     qr_code_certified.value = 'staffer_online'
     content = content.slice(1)
   }
-  const [token, id, publicToken,
+  const [_token, _id, publicToken,
     firstName, lastName, score,
     cursus, date] = content.split("&")
 
@@ -55,28 +53,27 @@ async function parseQrCode(content: string): Promise<FoundUser | { error: string
   if (new Date(date).getTime() < Date.now() - 5 * 60 * 1000)
     return {error: "QR Code trop ancien, veuillez en générer un nouveau"}
 
-  if (useOnline().value) {
+  const mark_staffer_offline = () => {
+    if (qr_code_certified.value == 'both_online')
+      qr_code_certified.value = 'user_online'
+    else if (qr_code_certified.value == 'staffer_online')
+      qr_code_certified.value = 'both_offline'
+  }
+
+  if (online.value) {
     const res = axios.get("/check_qr_code/" + content)
       .catch(() => ({error: "Erreur inconnue, veuillez réessayer"}));
     const timeout = new Promise(resolve => setTimeout(resolve, 5000))
 
     const winner = Promise.race([res, timeout])
-    const mark_staffer_offline = () => {
-      if (qr_code_certified.value == 'both_online')
-        qr_code_certified.value = 'user_online'
-      else if (qr_code_certified.value == 'staffer_online')
-        qr_code_certified.value = 'both_offline'
-    }
     if (winner != timeout) {
       const r = await res
       if ("error" in r || r.status !== 200) mark_staffer_offline()
       else if (r.data.error) return {error: r.data.error}
-    } else
-      mark_staffer_offline()
-  }
+    } else mark_staffer_offline()
+  } else mark_staffer_offline()
 
   return {
-    id: parseInt(id),
     publicToken,
     firstName,
     lastName,
@@ -104,7 +101,7 @@ async function onScan(contents: DetectedBarcode[]) {
   qr_code_scanned.value = parsed
 }
 
-function reset() {
+function reset_qr() {
   qr_code_paused.value = false
   qr_code_loading.value = false
   qr_code_error.value = ""
@@ -113,14 +110,28 @@ function reset() {
   mode.value = undefined
 }
 
+const {users} = storeToRefs(useUsersStore())
+useUsersStore().updateUsers()
+
+const selected_user = ref(undefined as User | undefined)
+
+watch(selected_user, () => {
+  console.log(selected_user.value)
+})
+
 </script>
 
 <template>
   <v-card>
     <v-card-title>
-      Identifier un utilisateur
+      Identifier un étudiant
     </v-card-title>
-    <v-card-text>
+    <v-card-text v-if="mustBeOnline && !online" class="text-center text-red flex-center">
+      <div class="text-xl">
+        Vous devez être connecté à internet pour effectuer cette action
+      </div>
+    </v-card-text>
+    <v-card-text v-else>
       <div class="flex flex-col gap-4 justify-between items-stretch h-full >:flex-grow">
         <v-card :class="{'!flex-grow-0': mode == 'search'}"
                 :ripple="mode != 'scan'"
@@ -157,11 +168,10 @@ function reset() {
                 <div class="text-sm text-muted mt-4">
                   {{
                     qr_code_certified == 'both_online' ? 'Qr Code vérifié !' :
-                      qr_code_certified == 'both_offline' ? 'Qr code non vérifié (staffer et utilisateur hors ligne)' :
+                      qr_code_certified == 'both_offline' ? 'Qr code non vérifié (staffer et étudiant hors ligne)' :
                         qr_code_certified == 'staffer_online' ? 'Qr code hors ligne vérifié' :
-                          'Qr code vérifié par l\'utilisateur'
+                          'Qr code vérifié par l\'étudiant'
                   }}
-
                 </div>
 
               </div>
@@ -178,21 +188,68 @@ function reset() {
               <v-icon>mdi-account-search</v-icon>
               Rechercher
             </div>
+            <div v-else class="h-full flex flex-col">
+              <div>
+                <v-autocomplete
+                  v-model="selected_user"
+                  :item-title="raw => raw.firstName + ' ' + raw.lastName"
+                  :item-value="raw => raw"
+                  :items="users"
+                  autofocus hide-no-data
+                  no-data-text="Aucun étudiant trouvé"
+                  placeholder="Rechercher un étudiant"
+                >
+                  <template #item="{item, index, props: {title, ...props}}">
+                    <v-list-item v-bind="props">
+                      <div class="flex justify-between items-center">
+                        <div>
+                          {{ item.raw.firstName }} {{ item.raw.lastName }}
+                        </div>
+                        <v-chip color="secondary">
+                          {{ item.raw.cursus }}
+                        </v-chip>
+                      </div>
+                    </v-list-item>
+                  </template>
+                </v-autocomplete>
+              </div>
+              <template v-if="selected_user">
+                <div class="flex-grow flex flex-col items-center justify-center gap-2 p-4 h-full text-xl">
+                  <v-icon color="green" size="large">mdi-check-circle</v-icon>
+                  <div class="text-2xl mt-2">
+                    {{ selected_user.firstName }} {{ selected_user.lastName }}
+                  </div>
+                  <div class="text-md text-muted one-line">
+                    {{ selected_user.cursus }}
+                  </div>
+                </div>
+                <div class="flex justify-between >:w-full >:flex-1 gap-6">
+                  <v-btn size="large" @click="selected_user = undefined">
+                    <v-icon>mdi-reload</v-icon>
+                    Annuler
+                  </v-btn>
+                  <v-btn size="large" @click="model = selected_user; selected_user = undefined">
+                    <v-icon color="green">mdi-check</v-icon>
+                    Valider
+                  </v-btn>
+                </div>
+              </template>
+            </div>
           </v-card>
-          <v-card v-if="mode == 'scan' && (qr_code_error || qr_code_scanned)" @click="qr_code_error = ''; qr_code_scanned = undefined; qr_code_loading = true">
+          <v-card v-if="mode == 'scan' && (qr_code_error || qr_code_scanned)"
+                  @click="qr_code_error = ''; qr_code_scanned = undefined; qr_code_loading = true">
             <div class="flex flex-col items-center justify-center gap-2 p-4 h-full text-xl">
               <v-icon>mdi-reload</v-icon>
               Réessayer
             </div>
           </v-card>
-          <v-card v-if="mode == 'scan' && qr_code_scanned" @click="model = qr_code_scanned; reset()">
+          <v-card v-if="mode == 'scan' && qr_code_scanned"
+                  @click="model = qr_code_scanned; reset_qr()">
             <div class="flex flex-col items-center justify-center gap-2 p-4 h-full text-xl text-green">
               <v-icon color="green">mdi-check</v-icon>
               Valider
             </div>
           </v-card>
-
-
         </div>
       </div>
     </v-card-text>
@@ -202,7 +259,6 @@ function reset() {
         Annuler
       </v-btn>
     </v-card-actions>
-
   </v-card>
 </template>
 

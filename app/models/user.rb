@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
-  has_many :score_records
+  has_many :game_scores, dependent: :destroy
+  has_many :score_records, dependent: :destroy
   has_many :qr_codes, dependent: :destroy
   belongs_to :cla_info, dependent: :destroy
 

@@ -37,12 +37,14 @@ const saving = ref(false)
     <v-btn class="mb-4">
       Ajouter un staffeur
       <v-dialog activator="parent" height="80%">
-        <find-user :model-value="null" class="h-full"/>
+        <template #default="{isActive}">
+          <find-user :model-value="null" class="h-full" must-be-online @update:modelValue="isActive.value = false "/>
+        </template>
       </v-dialog>
     </v-btn>
 
     <div v-for="staffer in staffers" :key="staffer.publicToken"
-         class="flex flex-row items-center justify-start gap-2">
+         class="flex flex-row items-center justify-start gap-2 mb-4">
       <div>
         <div class="text-xl">
           {{ staffer.name }}

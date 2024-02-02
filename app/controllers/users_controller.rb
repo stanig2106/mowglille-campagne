@@ -32,12 +32,28 @@ class UsersController < ApplicationController
   end
 
   def index
-    render json: User.all.map { _1.instance_exec { { public_token:, name:, cursus: } } }
+    return render json: { error: 'Not authorized' }, status: 401 \
+      unless %w[
+        NEW_STAFF CUSTOM_SCORE SCORE CHALLENGE_VALIDATION
+      ].any? { current_user!.staff_roles.include?(_1) }
+
+    return render json: { unchanged: true } if User.count == (params[:known_count] || "0").to_i
+
+    # export type User = {
+    #   publicToken: string
+    # firstName: string
+    # lastName: string
+    # score: number
+    # cursus: string
+    # }
+    render json: User.all.map { _1.instance_exec { {
+      publicToken: public_token, firstName: first_name, lastName: last_name,
+      score:, cursus:
+    } } }
   end
 
   def show
-    user = User.find_by!(token: params[:token])
-    render json: user.instance_exec { { id:, public_token:, first_name:, last_name:, score:, rank:, staff_roles:, cursus: } }
+    render json: current_user!.instance_exec { { id:, public_token:, first_name:, last_name:, score:, rank:, staff_roles:, cursus: } }
   end
 
   def qr_code

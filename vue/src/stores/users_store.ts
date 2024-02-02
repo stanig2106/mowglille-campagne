@@ -5,23 +5,31 @@ import {roles} from "@/views/staff/staff";
 
 export type User = {
   publicToken: string
-  name: string
-  formation: string
+  firstName: string
+  lastName: string
+  score: number
+  cursus: string
 }
 
 export const useUsersStore = defineStore(
   "users", () => {
     const loaded = ref(false)
-    const users = ref(undefined as User[] | undefined)
+    const users = ref([] as User[])
 
 
     async function updateUsers() {
-      const response = await axios.get("/users")
+      const response = await axios.get("/users",
+        {params: {known_count: users.value.length}})
+
       if (response.status !== 200)
         return false
 
       loaded.value = true
-      users.value = response.data.users
+
+      if (response.data.unchanged)
+        return true
+
+      users.value = response.data
 
       return true
     }
