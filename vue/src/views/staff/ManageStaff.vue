@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import {useUserStore} from "@/stores/user_store";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useStaffeursStore} from "@/stores/staffeurs_store";
 import {storeToRefs} from "pinia";
 import VConfirmBtn from "@/components/VConfirmBtn.vue";
 import axios from "axios";
 import {roles} from "@/views/staff/staff";
 import FindUser from "@/components/FindUser.vue";
+import {User} from "@/stores/users_store";
+import staff from "../../router/staff";
 
 const currentUser = useUserStore()
 currentUser.updateUser()
@@ -30,15 +32,60 @@ async function update_staffer(publicToken: string) {
 }
 
 const saving = ref(false)
+
+const staffer_to_add = ref(null as User | null)
+
+watch(staffer_to_add, () => {
+  if (staffer_to_add.value == null)
+    return
+  if (staffers.value?.map(s => s.publicToken).includes(staffer_to_add.value.publicToken))
+    staffer_to_add.value = null
+})
+
 </script>
 
 <template>
   <div class="bg-white rounded-t-2xl p-4 flex flex-col elevation-2 min-h-full relative">
-    <v-btn class="mb-4">
+    <v-btn class="mb-4" @click="edit_roles = []">
       Ajouter un staffeur
       <v-dialog activator="parent" height="80%">
         <template #default="{isActive}">
-          <find-user :model-value="null" class="h-full" must-be-online @update:modelValue="isActive.value = false "/>
+          <find-user v-if="staffer_to_add == null" v-model="staffer_to_add"
+                     class="h-full" must-be-online
+                     @update:modelValue="(u) => {isActive.value = u != null}"/>
+          <v-card v-else class="overflow-y-hidden">
+            <v-card-title>
+              Modifier {{ staffer_to_add.firstName }} {{ staffer_to_add.lastName }}
+            </v-card-title>
+            <v-card-text class="overflow-y-auto">
+              <v-form>
+                <v-checkbox v-for="role in roles" :key="role" :disabled="role == 'NEW_STAFF'"
+                            :label="role"
+                            :model-value="edit_roles.includes(role)" density="compact"
+                            hide-details
+                            @change="edit_roles = edit_roles.includes(role) ? edit_roles.filter(r => r != role) : [...edit_roles, role]"/>
+              </v-form>
+            </v-card-text>
+            <v-card-actions class="flex justify-end">
+              <v-btn :disabled=" edit_roles.length == roles.length - (edit_roles.includes('NEW_STAFF') ? 0 : 1)"
+                     color="black" @click="edit_roles = roles.filter(r => edit_roles.includes('NEW_STAFF') || r != 'NEW_STAFF')">
+                Sél. tout
+              </v-btn>
+              <v-spacer/>
+              <v-btn :loading="saving" color="secondary"
+                     @click="saving = true; update_staffer(staffer_to_add.publicToken)
+                             .then(() => isActive.value = saving = false).catch(() => saving = false)">
+                Enregistrer
+              </v-btn>
+              <v-btn :disabled="saving" @click="isActive.value = false">
+                Annuler
+              </v-btn>
+            </v-card-actions>
+
+
+          </v-card>
+
+
         </template>
       </v-dialog>
     </v-btn>
