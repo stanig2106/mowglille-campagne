@@ -133,5 +133,10 @@ button {
   @apply flex justify-center items-center;
 }
 
+.v-card * {
+  --v-focus-opacity: 0 !important;
+  --v-hover-opacity: 0 !important;
+}
+
 </style>
 

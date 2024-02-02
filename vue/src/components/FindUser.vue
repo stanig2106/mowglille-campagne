@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import {onMounted, ref, watch} from "vue";
+import {nextTick, onMounted, ref, watch} from "vue";
 import {useMemoize, useOnline, useVModel} from '@vueuse/core'
 import {QrcodeStream} from "vue-qrcode-reader";
 import {DetectedBarcode} from "barcode-detector/dist/es/BarcodeDetector";
@@ -8,12 +8,12 @@ import axios from "axios";
 import {decrypt} from "@/core";
 import {User, useUsersStore} from "@/stores/users_store";
 import {storeToRefs} from "pinia";
-import {useFuse} from '@vueuse/integrations/useFuse'
 
 
 const props = defineProps<{
   modelValue: User | null
   mustBeOnline?: boolean
+  hideCancel?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -115,9 +115,14 @@ useUsersStore().updateUsers()
 
 const selected_user = ref(undefined as User | undefined)
 
-watch(selected_user, () => {
-  console.log(selected_user.value)
-})
+function unfocus() {
+  nextTick(() => {
+    document.getElementById("validate")?.focus()
+  })
+}
+
+
+
 
 </script>
 
@@ -198,6 +203,7 @@ watch(selected_user, () => {
                   autofocus hide-no-data
                   no-data-text="Aucun étudiant trouvé"
                   placeholder="Rechercher un étudiant"
+                  @update:modelValue="unfocus"
                 >
                   <template #item="{item, index, props: {title, ...props}}">
                     <v-list-item v-bind="props">
@@ -213,27 +219,28 @@ watch(selected_user, () => {
                   </template>
                 </v-autocomplete>
               </div>
-              <template v-if="selected_user">
-                <div class="flex-grow flex flex-col items-center justify-center gap-2 p-4 h-full text-xl">
-                  <v-icon color="green" size="large">mdi-check-circle</v-icon>
-                  <div class="text-2xl mt-2">
-                    {{ selected_user.firstName }} {{ selected_user.lastName }}
-                  </div>
-                  <div class="text-md text-muted one-line">
-                    {{ selected_user.cursus }}
-                  </div>
+              <div :class="{'opacity-0': !selected_user}" class="flex-grow flex flex-col items-center justify-center gap-2
+                             p-4 h-full text-xl">
+                <v-icon color="green" size="large">mdi-check-circle</v-icon>
+                <div class="text-2xl mt-2">
+                  {{ selected_user?.firstName }} {{ selected_user?.lastName }}
+                  &nbsp;
                 </div>
-                <div class="flex justify-between >:w-full >:flex-1 gap-6">
-                  <v-btn size="large" @click="selected_user = undefined">
-                    <v-icon>mdi-reload</v-icon>
-                    Annuler
-                  </v-btn>
-                  <v-btn size="large" @click="model = selected_user; selected_user = undefined">
-                    <v-icon color="green">mdi-check</v-icon>
-                    Valider
-                  </v-btn>
+                <div class="text-md text-muted one-line">
+                  {{ selected_user?.cursus }} &nbsp;
                 </div>
-              </template>
+              </div>
+              <div class="flex justify-between >:w-full >:flex-1 gap-6">
+                <v-btn :class="{'opacity-0': !selected_user}" size="large" @click="selected_user = undefined">
+                  <v-icon>mdi-reload</v-icon>
+                  Annuler
+                </v-btn>
+                <v-btn v-if="selected_user" id="validate" size="large"
+                       @click="model = selected_user; selected_user = undefined">
+                  <v-icon color="green">mdi-check</v-icon>
+                  Valider
+                </v-btn>
+              </div>
             </div>
           </v-card>
           <v-card v-if="mode == 'scan' && (qr_code_error || qr_code_scanned)"
@@ -253,7 +260,7 @@ watch(selected_user, () => {
         </div>
       </div>
     </v-card-text>
-    <v-card-actions>
+    <v-card-actions v-if="!hideCancel">
       <v-spacer/>
       <v-btn @click="model = null">
         Annuler
