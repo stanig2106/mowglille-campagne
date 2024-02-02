@@ -35,7 +35,9 @@ const props = defineProps<{
           mdi-arrow-left
         </v-icon>
       </v-btn>
-      {{ back }}
+      <div class="one-line">
+        {{ back }}
+      </div>
     </h1>
 
     <div v-if="back == null"
