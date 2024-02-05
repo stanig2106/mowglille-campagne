@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import Header from "@/layouts/partials/header.vue";
-import {onMounted, provide, ref} from "vue";
+import {ref} from "vue";
 import Loading from "@/components/Loading.vue";
 import router from "@/router";
-import axios, {AxiosError} from "axios";
-import {offlineKey} from "@/router/keys";
+import axios from "axios";
+import {useOffline} from "@/router/offline";
 
 
 router.afterEach(() => {
@@ -19,18 +19,14 @@ router.afterEach(() => {
       localStorage.removeItem("token")
       window.location.reload()
     }
-  }).catch((reason: AxiosError) => {
-    if (reason.code == "ERR_NETWORK")
-      offline.value = true
   })
 })
 
-const offline = ref(false)
-provide(offlineKey, {offline, updateOffline: (value: boolean) => offline.value = value})
+const {updateOffline} = useOffline()
 
-window.addEventListener("online", () => offline.value = false)
+window.addEventListener("online", () => updateOffline(false))
 
-window.addEventListener("offline", () => offline.value = true)
+window.addEventListener("offline", () => updateOffline(true))
 
 
 const fullpage = ref(router.currentRoute.value.path == "/login");
@@ -44,7 +40,6 @@ router.beforeEach((to, from, next) => {
   density.value = to.meta.density as string | undefined ?? "normal"
   next()
 })
-
 
 </script>
 

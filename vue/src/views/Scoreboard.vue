@@ -1,19 +1,19 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import ScoreLine from "@/views/scoreboard/ScoreLine.vue";
 import {useStorage} from "@vueuse/core";
 import axios from "axios";
 import {inject, ref} from "vue";
 import {useUserStore} from "@/stores/user_store";
 import {storeToRefs} from "pinia";
-import {offlineKey} from "@/router/keys";
 import {useScoreboardStore} from "@/stores/scoreboard_store";
+import {useOffline} from "@/router/offline";
 
 const {name, score, rank} = storeToRefs(useUserStore())
 const {updateUser} = useUserStore()
 
 updateUser().then((done) => {
   if (!done && !useUserStore().loaded) {
-    if (inject(offlineKey)?.offline.value) {
+    if (useOffline().offline.value) {
       alert("Vous êtes hors ligne, vous ne pouvez pas récupérer vos données." +
         "Veuillez vous connecter à internet pour récupérer vos données.")
       return
@@ -27,7 +27,7 @@ const {updateScoreboard} = useScoreboardStore()
 
 updateScoreboard().then((done) => {
   if (!done && !useScoreboardStore().loaded) {
-    if (inject(offlineKey)?.offline.value) {
+    if (useOffline().offline.value) {
       alert("Vous êtes hors ligne, vous ne pouvez pas récupérer les données du classement." +
         "Veuillez vous connecter à internet pour récupérer les données du classement.")
       return
@@ -49,16 +49,16 @@ updateScoreboard().then((done) => {
       Personne n'a encore de points, soyez le premier !
     </h2>
 
-    <ScoreLine class="rounded-2xl py-2 elevation-2"
+    <ScoreLine v-for="user in scoreboard"
                v-else
-               v-for="user in scoreboard"
                :key="user.rank"
-               v-bind="user"
-               :class="user.rank <= 3 ? 'bg-red-500 *:text-white' : 'bg-white'"/>
+               :class="user.rank <= 3 ? 'bg-red-500 *:text-white' : 'bg-white'"
+               class="rounded-2xl py-2 elevation-2"
+               v-bind="user"/>
   </div>
 
-  <v-bottom-navigation height="124" class="!fixed bottom-0 rounded-t-xl" elevation="18">
-    <score-line :score="score" :name="name" :rank="rank"
+  <v-bottom-navigation class="!fixed bottom-0 rounded-t-xl" elevation="18" height="124">
+    <score-line :name="name" :rank="rank" :score="score"
                 class="bg-white rounded-t-xl"/>
   </v-bottom-navigation>
 </template>

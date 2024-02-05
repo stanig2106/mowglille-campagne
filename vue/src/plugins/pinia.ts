@@ -20,7 +20,7 @@ function toRawObject(obj: any) {
     return result;
   }
 
-  if (obj && obj.__v_isReactive)
+  if (obj?.__v_isReactive)
     return toRaw(obj);
 
   return obj;

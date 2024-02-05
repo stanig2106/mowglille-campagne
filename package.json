@@ -41,7 +41,8 @@
     "vue-qrcode-reader": "^5.5.1",
     "vue-qrious": "^3.1.0",
     "vue-router": "^4.0.0",
-    "vuetify": "^3.0.0"
+    "vuetify": "^3.0.0",
+    "workbox-precaching": "^7.0.0"
   },
   "devDependencies": {
     "@babel/types": "^7.21.4",

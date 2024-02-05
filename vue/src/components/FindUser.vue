@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 
 import {nextTick, onMounted, ref, watch} from "vue";
-import {useMemoize, useOnline, useVModel} from '@vueuse/core'
+import {useMemoize, useVModel} from '@vueuse/core'
 import {QrcodeStream} from "vue-qrcode-reader";
 import {DetectedBarcode} from "barcode-detector/dist/es/BarcodeDetector";
 import axios from "axios";
 import {decrypt} from "@/core";
 import {User, useUsersStore} from "@/stores/users_store";
 import {storeToRefs} from "pinia";
+import {useOnline} from "@/router/offline";
 
 
 const props = defineProps<{
@@ -20,7 +21,7 @@ const emit = defineEmits<{
   'update:modelValue': [value: User | null]
 }>()
 
-const online = useOnline()
+const {online} = useOnline()
 
 const model = useVModel(props, 'modelValue', emit)
 
@@ -120,8 +121,6 @@ function unfocus() {
     document.getElementById("validate")?.focus()
   })
 }
-
-
 
 
 </script>

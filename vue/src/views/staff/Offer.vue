@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import {useUserStore} from "@/stores/user_store";
-import {computed, ref, watch} from "vue";
+import {ref, watch} from "vue";
 import router from "@/router";
 import FindUser from "@/components/FindUser.vue";
 import {User} from "@/stores/users_store";
 import Chest, {Rarity} from "@/views/collection/Chest.vue";
 import {chestRarities} from "@/views/collection/chest";
 import axios from "axios";
-import {useOnline} from "@vueuse/core";
+import {useOnline} from "@/router/offline";
 
 const currentUser = useUserStore()
 currentUser.updateUser()
@@ -39,7 +39,7 @@ const done = ref(false)
 const error = ref(false)
 const offline_cached = ref(false)
 
-const online = useOnline()
+const {online} = useOnline()
 watch(user, async () => {
   if (user.value != null) {
     if (reason.value.length == 0 || !quantity.value && selected_chest.value.length == 0) {

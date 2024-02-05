@@ -6,16 +6,16 @@ import axios from "axios";
 import {inject, ref} from "vue";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user_store";
-import {offlineKey} from "@/router/keys";
 import {useScoreboardStore} from "@/stores/scoreboard_store";
 import {useScoreDetailsStore} from "@/stores/score_details_store";
+import {useOffline} from "@/router/offline";
 
 const {name, score, rank} = storeToRefs(useUserStore())
 const {updateUser} = useUserStore()
 
 updateUser().then((done) => {
   if (!done && !useUserStore().loaded) {
-    if (inject(offlineKey)?.offline.value) {
+    if (useOffline().offline.value) {
       alert("Vous êtes hors ligne, vous ne pouvez pas récupérer vos données." +
         "Veuillez vous connecter à internet pour récupérer vos données.")
       return
@@ -30,7 +30,7 @@ const {updateScoreDetails} = useScoreDetailsStore()
 updateScoreDetails().then((done) => {
 
   if (!done && !useScoreDetailsStore().loaded) {
-    if (inject(offlineKey)?.offline.value) {
+    if (useOffline().offline.value) {
       alert("Vous êtes hors ligne, vous ne pouvez pas récupérer les données." +
         "Veuillez vous connecter à internet pour récupérer les données.")
       return

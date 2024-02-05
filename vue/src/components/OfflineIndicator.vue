@@ -1,15 +1,11 @@
 <script lang="ts" setup>
-import {inject, ref} from "vue";
-import {offlineKey} from "@/router/keys";
+import {useOffline} from "@/router/offline";
 
-const {offline} = inject(offlineKey)!
-
-
-
+const {offline} = useOffline()
 </script>
 
 <template>
-  <v-btn color="red" icon rounded="lg" variant="text" v-if="offline">
+  <v-btn v-if="offline" color="red" icon rounded="lg" variant="text">
     <v-icon>mdi-wifi-off</v-icon>
     <v-menu activator="parent">
       <div class="relative bg-red-800 rounded-2xl p-4 pr-6

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import {useUserStore} from "@/stores/user_store";
-import {useOnline} from "@vueuse/core";
 import DownloadSoutientActif from "@/views/profile/DownloadSoutientActif.vue";
 import {provide, ref} from "vue";
 import fake_pp from "@/assets/fake/profile.jpeg"
@@ -10,8 +9,7 @@ import AccountSettings from "@/views/profile/AccountSettings.vue";
 
 const userStore = useUserStore()
 
-if (useOnline().value)
-  userStore.updateUser()
+userStore.updateUser()
 
 const keep_open = ref(false)
 

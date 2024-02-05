@@ -4,8 +4,6 @@
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
 
-import DisableDevtool from 'disable-devtool';
-
 
 // Plugins
 import {registerPlugins} from '@/plugins'
@@ -14,7 +12,7 @@ import {registerPlugins} from '@/plugins'
 import App from './App.vue'
 
 // Composables
-import {createApp} from 'vue'
+import {createApp, inject} from 'vue'
 
 const app = createApp(App)
 
@@ -24,6 +22,7 @@ registerPlugins(app)
 // Axios
 import axios from 'axios';
 import disableDevtool from "disable-devtool";
+import {startOnlineJobs, useOffline} from "@/router/offline";
 
 axios.interceptors.request.use(config => {
 
@@ -37,11 +36,25 @@ axios.interceptors.request.use(config => {
   if (process.env.DEV)
     config.baseURL = 'http://localhost:3000';
 
+  config.timeout = 5 * 1000; // 5 seconds
+
   return config;
 }, error => {
   return Promise.reject(error);
 });
 
+axios.interceptors.response.use(response => {
+  useOffline().updateOffline(false)
+  return response;
+}, error => {
+  if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK')
+    useOffline().updateOffline(true)
+  else
+    useOffline().updateOffline(false)
+  return Promise.reject(error);
+});
+
+startOnlineJobs()
 
 // Mount the app
 app.mount('#app')

@@ -3,19 +3,19 @@
 import axios from "axios";
 import {inject, onUnmounted, ref, watch} from "vue";
 import Qrious from "vue-qrious";
-import {offlineKey} from "@/router/keys";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user_store";
 import {encrypt} from "@/core";
+import {useOffline} from "@/router/offline";
 
-const {offline} = inject(offlineKey)!;
+const {offline} = useOffline();
 
 const {firstName, lastName, score, publicToken, id, cursus} = storeToRefs(useUserStore())
 const {updateUser} = useUserStore()
 
 updateUser().then((done) => {
   if (!done && !useUserStore().loaded) {
-    if (inject(offlineKey)?.offline.value) {
+    if (offline.value) {
       alert("Vous êtes hors ligne, vous ne pouvez pas récupérer vos données." +
         "Veuillez vous connecter à internet pour récupérer vos données.")
       return
