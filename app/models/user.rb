@@ -57,17 +57,17 @@ class User < ApplicationRecord
         .joins('LEFT JOIN (SELECT user_id, SUM(score) as sum_score FROM score_records GROUP BY user_id) scores ON scores.user_id = users.id')
         .where('users.id = ?', self.id)
         .first
-        .r
+      &.r || 0
   end
 
   def self.scoreboard
-    User.select('users.*, sum(score_records.score) as total_score, rank() over (order by sum(score_records.score) desc) as rank')
+    User.select('users.*, sum(score_records.score) as total_score, rank() over (order by sum(score_records.score) desc) as r')
         .joins('LEFT JOIN score_records ON score_records.user_id = users.id')
         .group('users.id')
         .having('sum(score_records.score) > 0')
         .map do |user|
       {
-        rank: user.rank,
+        rank: user.r,
         name: user.name,
         score: user.total_score
       }

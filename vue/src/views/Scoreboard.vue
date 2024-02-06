@@ -25,16 +25,7 @@ updateUser().then((done) => {
 const {scoreboard} = storeToRefs(useScoreboardStore())
 const {updateScoreboard} = useScoreboardStore()
 
-updateScoreboard().then((done) => {
-  if (!done && !useScoreboardStore().loaded) {
-    if (useOffline().offline.value) {
-      alert("Vous êtes hors ligne, vous ne pouvez pas récupérer les données du classement." +
-        "Veuillez vous connecter à internet pour récupérer les données du classement.")
-      return
-    }
-    alert("Une erreur est survenue lors de la récupération des données du classement, veuillez réessayer plus tard.")
-  }
-})
+updateScoreboard()
 
 </script>
 
@@ -52,7 +43,7 @@ updateScoreboard().then((done) => {
     <ScoreLine v-for="user in scoreboard"
                v-else
                :key="user.rank"
-               :class="user.rank <= 3 ? 'bg-red-500 *:text-white' : 'bg-white'"
+               :class="user.rank <= 3 ? 'bg-red-400 *:text-white' : 'bg-white'"
                class="rounded-2xl py-2 elevation-2"
                v-bind="user"/>
   </div>
