@@ -54,7 +54,6 @@ axios.interceptors.response.use(response => {
   return Promise.reject(error);
 });
 
-startOnlineJobs()
 
 // Mount the app
 app.mount('#app')
@@ -74,6 +73,8 @@ axios.get('/version').then(res => {
   localStorage.setItem('version', res.data.version)
   window.location.reload()
 }).catch()
+
+startOnlineJobs()
 
 
 /*

@@ -1,6 +1,16 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import profile from "@/assets/fake/profile.jpeg";
 import honey from "@/assets/honey.png";
+import {computed} from "vue";
+
+const props = defineProps<{
+  title: string,
+  subtitle: string,
+  score: number,
+  event: string,
+  hour: string
+}>()
+
 
 </script>
 
@@ -9,10 +19,10 @@ import honey from "@/assets/honey.png";
     <div class="flex gap-2 items-center">
       <div class="flex flex-col justify-center">
         <h1 class="text-xl">
-          Activité benger
+          {{ title }}
         </h1>
         <div class="text-lg text-gray-500 pr-2">
-          Record de vitesse
+          {{ subtitle }}
         </div>
       </div>
     </div>
@@ -20,12 +30,12 @@ import honey from "@/assets/honey.png";
     <div class="flex flex-col gap-1">
       <div class="bg-gray-400 bg-opacity-40 rounded-lg p-2 flex justify-end gap-2">
         <h1 class="text-xl">
-          +10
+          {{ score >= 0 ? ("+" + score) : score }}
         </h1>
-        <v-img :src="honey" class="h-6 w-6" :transition="false"/>
+        <v-img :src="honey" :transition="false" class="h-6 w-6"/>
       </div>
       <div class="text-sm text-gray-500 flex justify-end">
-        Aprèm, 14:12
+        {{ event }}, {{ hour }}
       </div>
     </div>
   </div>

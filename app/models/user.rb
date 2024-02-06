@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_many :qr_codes, dependent: :destroy
   belongs_to :cla_info, dependent: :destroy
 
+  has_many :chests, dependent: :destroy
+
   STAFF_ROLES = {
     SEE_PLANNING: "See planning",
     MANAGE_PLANNING: "Manage planning",
@@ -33,8 +35,6 @@ class User < ApplicationRecord
     end
   end
 
-
-
   def has_staff_role?(role)
     staff_roles.include?(role.to_s)
   end
@@ -53,11 +53,11 @@ class User < ApplicationRecord
 
   def rank
     return 0 if score == 0
-    User.select('users.*, rank() over (order by sum_score desc) as rank')
+    User.select('users.*, rank() over (order by sum_score desc) as r')
         .joins('LEFT JOIN (SELECT user_id, SUM(score) as sum_score FROM score_records GROUP BY user_id) scores ON scores.user_id = users.id')
         .where('users.id = ?', self.id)
         .first
-        .rank
+        .r
   end
 
   def self.scoreboard

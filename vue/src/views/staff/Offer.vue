@@ -7,7 +7,7 @@ import {User} from "@/stores/users_store";
 import Chest, {Rarity} from "@/views/collection/Chest.vue";
 import {chestRarities} from "@/views/collection/chest";
 import axios from "axios";
-import {useOnline} from "@/router/offline";
+import {doItOnline, useOnline} from "@/router/offline";
 
 const currentUser = useUserStore()
 currentUser.updateUser()
@@ -41,25 +41,30 @@ const offline_cached = ref(false)
 
 const {online} = useOnline()
 watch(user, async () => {
-  if (user.value != null) {
-    if (reason.value.length == 0 || !quantity.value && selected_chest.value.length == 0) {
-      error.value = true
-      return
-    }
-    if (online.value)
-      axios.post("/staff/offer", {
-        reason: reason.value,
-        user: user.value.publicToken,
-        quantity: quantity.value,
-        chests: selected_chest.value
-      }).then(() => done.value = true)
-        .catch(() => error.value = true)
-    else {
-      done.value = true
-      offline_cached.value = true
-    }
-
+  if (user.value == null)
+    return
+  if (reason.value.length == 0 || !quantity.value && selected_chest.value.length == 0) {
+    error.value = true
+    return
   }
+  doItOnline({
+    url: "/staff/offer",
+    method: "post",
+    data: {
+      reason: reason.value,
+      user: user.value.publicToken,
+      quantity: quantity.value,
+      chests: selected_chest.value
+    }
+  }, {
+    title: "Offrir des miels",
+    message: `Vous avez offert ${quantity.value} miels et ${
+      selected_chest.value.length} coffres à ${user.value.firstName}`
+  })
+
+  done.value = true
+  if (!online.value)
+    offline_cached.value = true
 })
 
 watch(done, () => {

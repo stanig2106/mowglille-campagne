@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import ScoreLine from "@/views/scoreDetails/ScoreLine.vue";
 import CurrentScore from "@/views/scoreboard/ScoreLine.vue";
 import {useStorage} from "@vueuse/core";
@@ -51,11 +51,13 @@ updateScoreDetails().then((done) => {
       Vous n'avez pas encore de points, gagnez des points en participant aux activités ou en jouant aux jeux !
     </h2>
 
-    <score-line v-else
+    <score-line v-for="scoreDetail in scoreDetails" v-else
+                :event="scoreDetail.event" :hour="scoreDetail.hour"
+                :score="scoreDetail.score" :subtitle="'Offert par: ' + scoreDetail.offered_by" :title="scoreDetail.title"
                 class="rounded-2xl py-2 bg-white elevation-2"/>
   </div>
 
-  <v-bottom-navigation height="124" class="!fixed bottom-0 rounded-t-xl" elevation="18">
-    <current-score :score="score" :name="name" :rank="rank"/>
+  <v-bottom-navigation class="!fixed bottom-0 rounded-t-xl" elevation="18" height="124">
+    <current-score :name="name" :rank="rank" :score="score"/>
   </v-bottom-navigation>
 </template>

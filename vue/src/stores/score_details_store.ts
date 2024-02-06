@@ -2,7 +2,13 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 import axios from "axios";
 
-export type ScoreDetails = {}[]
+export type ScoreDetails = {
+  event: string,
+  score: number,
+  hour: string,
+  offered_by: string,
+  title: string,
+}[]
 
 export const useScoreDetailsStore = defineStore("score_details", () => {
   const loaded = ref(false)

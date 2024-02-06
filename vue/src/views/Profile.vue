@@ -6,14 +6,16 @@ import fake_pp from "@/assets/fake/profile.jpeg"
 import Galerie from "@/components/Galerie.vue";
 import router from "@/router";
 import AccountSettings from "@/views/profile/AccountSettings.vue";
+import {useOnlineJobsStore} from "@/stores/online_jobs_store";
+import axios from "axios";
+import {doOnlineJobs} from "@/router/offline";
+import {storeToRefs} from "pinia";
 
 const userStore = useUserStore()
 
 userStore.updateUser()
 
-const keep_open = ref(false)
-
-provide("keep_open", keep_open)
+const {onlineJobs} = storeToRefs(useOnlineJobsStore())
 
 function logout() {
   localStorage.removeItem("token")
@@ -35,7 +37,7 @@ function logout() {
 
       <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
         <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.png"/>
-        <v-dialog :close-on-back="keep_open" :no-click-animation="true" :persistent="keep_open" activator="parent">
+        <v-dialog :no-click-animation="true" activator="parent">
           <download-soutient-actif :no-pp="false"/>
         </v-dialog>
       </v-btn>
@@ -70,15 +72,79 @@ function logout() {
       Espace staffeur
     </v-btn>
 
+    <v-spacer/>
 
-    <v-btn class="mt-auto" size="large" variant="tonal">
+    <v-btn v-if="onlineJobs.length != 0" class="mt-4" color="red" size="large" variant="tonal">
+      <v-icon>mdi-clock</v-icon>
+      Requête en attente ({{ onlineJobs.length }})
+      <v-dialog activator="parent">
+        <template #default="{isActive}">
+          <v-card loading>
+            <v-card-title>
+              <div class="flex justify-between items-center w-full gap-2">
+                Requêtes en attente
+                <v-btn density="comfortable" icon rounded="lg" @click="doOnlineJobs">
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
+              </div>
+            </v-card-title>
+            <div class="mt-2 p-4 border-b border-b-black">
+              Connectez vous à internet pour effectuer les requêtes en attente
+            </div>
+            <div class="p-4 overflow-y-auto">
+              <div v-for="job in onlineJobs" :key="JSON.stringify(job)" class="mb-2">
+                <div>
+                  {{ job.description.title }}
+                </div>
+                <span class="text-sm text-muted">
+                {{ job.description.message }}
+              </span>
+              </div>
+            </div>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn variant="text" @click="isActive.value = false">
+                Fermer
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>
+    </v-btn>
+
+
+    <v-btn class="mt-4" size="large" variant="tonal">
       <v-icon>mdi-cog</v-icon>
       Paramètres du compte
 
       <account-settings/>
     </v-btn>
 
-    <v-btn class="mt-4" color="red" size="large" variant="tonal" @click="logout">
+    <v-btn class="mt-4" color="red" size="large" variant="tonal">
+      <v-dialog activator="parent">
+        <template #default="{isActive}">
+          <v-card>
+            <v-card-title>
+              <div class="flex justify-between items-center w-full gap-2">
+                Déconnexion
+              </div>
+            </v-card-title>
+            <div class="mt-2 p-4">
+              Êtes-vous sûr de vouloir vous déconnecter ?
+            </div>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn variant="text" @click="isActive.value = false">
+                Annuler
+              </v-btn>
+              <v-btn color="red" @click="logout">
+                Déconnexion
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>
+
       <v-icon>mdi-logout</v-icon>
       Déconnexion
     </v-btn>

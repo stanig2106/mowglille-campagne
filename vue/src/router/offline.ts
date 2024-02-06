@@ -1,5 +1,6 @@
 import {computed, ref} from "vue";
-import {Axios, AxiosError} from "axios";
+import axios, {Axios, AxiosError, AxiosRequestConfig} from "axios";
+import {useOnlineJobsStore} from "@/stores/online_jobs_store";
 
 
 const offline = ref(false);
@@ -23,27 +24,26 @@ export function useOnline() {
 }
 
 
-// TODO: Use a store ?
-// true = done
-const onlineJobs: (() => boolean | void)[] = [];
+export function doItOnline(axiosQuery: AxiosRequestConfig, description: { title: string, message: string }) {
+  const onlineJobs = useOnlineJobsStore().onlineJobs
 
-export function doItOnline(job: () => boolean | void) {
-  onlineJobs.push(job);
+  onlineJobs.push({description, request: axiosQuery});
 }
 
-function doOnlineJobs() {
+
+export async function doOnlineJobs() {
+  await axios.get('/version')
   if (offline.value) return;
+
+  const onlineJobs = useOnlineJobsStore().onlineJobs
+
   const failedJobs: typeof onlineJobs = [];
-  onlineJobs.forEach(job => {
-    try {
-      if (job() === false) failedJobs.push(job);
-    } catch (e) {
-      if (e instanceof AxiosError && (e.code === 'ECONNABORTED' || e.code === 'ERR_NETWORK'))
-        failedJobs.push(job);
-      else
-        throw e;
-    }
-  })
+  for await (const job of onlineJobs) {
+    await axios(job.request).catch((error: AxiosError) => {
+      if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK')
+        return failedJobs.push(job);
+    })
+  }
   onlineJobs.length = 0;
   failedJobs.forEach(job => onlineJobs.push(job));
 }

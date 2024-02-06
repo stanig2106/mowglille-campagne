@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_31_161005) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_06_211846) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -129,16 +129,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_31_161005) do
 
   create_table "score_records", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "event_id"
     t.bigint "challenge_id"
     t.bigint "activity_id"
     t.integer "score"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "reason"
+    t.bigint "offered_by_id"
     t.index ["activity_id"], name: "index_score_records_on_activity_id"
     t.index ["challenge_id"], name: "index_score_records_on_challenge_id"
-    t.index ["event_id"], name: "index_score_records_on_event_id"
+    t.index ["offered_by_id"], name: "index_score_records_on_offered_by_id"
     t.index ["user_id"], name: "index_score_records_on_user_id"
   end
 
@@ -161,7 +162,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_31_161005) do
   add_foreign_key "rewards", "users"
   add_foreign_key "score_records", "activities"
   add_foreign_key "score_records", "challenges"
-  add_foreign_key "score_records", "events"
   add_foreign_key "score_records", "users"
+  add_foreign_key "score_records", "users", column: "offered_by_id"
   add_foreign_key "users", "cla_infos"
 end
