@@ -41,6 +41,12 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
+if ('serviceWorker' in navigator && 'SyncManager' in window) {
+  alert("Service Worker and SyncManager are supported")
+} else {
+  alert("Service Worker and SyncManager are not supported")
+}
+
 </script>
 
 <template>
