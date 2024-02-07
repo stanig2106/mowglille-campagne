@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   has_one_attached :profile_picture
 
   has_many :game_scores, dependent: :destroy
@@ -70,7 +72,8 @@ class User < ApplicationRecord
       {
         rank: user.r,
         name: user.name,
-        score: user.total_score
+        score: user.total_score,
+        pp: user.profile_picture.attached? ? user.profile_picture : nil
       }
     end
   end

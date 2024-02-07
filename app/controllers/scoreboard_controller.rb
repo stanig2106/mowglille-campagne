@@ -1,6 +1,10 @@
 class ScoreboardController < ApplicationController
   def get_scoreboard
-    render json: { scoreboard: User.scoreboard }
+    render json: {
+      scoreboard: User.scoreboard.map { {
+        **_1, pp: _1[:pp] ? url_for(_1[:pp]) : nil
+      } }
+    }
   end
 
   def get_score_details

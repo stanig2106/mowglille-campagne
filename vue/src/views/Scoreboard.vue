@@ -8,7 +8,7 @@ import {storeToRefs} from "pinia";
 import {useScoreboardStore} from "@/stores/scoreboard_store";
 import {useOffline} from "@/router/offline";
 
-const {name, score, rank} = storeToRefs(useUserStore())
+const {name, score, rank, pp} = storeToRefs(useUserStore())
 const {updateUser} = useUserStore()
 
 updateUser().then((done) => {
@@ -44,12 +44,15 @@ updateScoreboard()
                v-else
                :key="user.rank"
                :class="user.rank <= 3 ? 'bg-red-400 *:text-white' : 'bg-white'"
+
+               :profile_picture="user.pp ?? null"
                class="rounded-2xl py-2 elevation-2"
                v-bind="user"/>
   </div>
 
   <v-bottom-navigation class="!fixed bottom-0 rounded-t-xl" elevation="18" height="124">
-    <score-line :name="name" :rank="rank" :score="score"
+    <score-line :name="name" :profile_picture="pp ?? null" :rank="rank"
+                :score="score"
                 class="bg-white rounded-t-xl"/>
   </v-bottom-navigation>
 </template>

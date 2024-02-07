@@ -6,6 +6,7 @@ export type Scoreboard = {
   rank: number
   score: number
   name: string
+  pp: string | null
 }[]
 
 export const useScoreboardStore = defineStore("scoreboard", () => {
