@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
 </script>
 
 <template>
-  <Loading/>
+<!--  <Loading/>-->
   <v-app v-if="fullpage" class="bg-transparent">
     <router-view/>
   </v-app>
