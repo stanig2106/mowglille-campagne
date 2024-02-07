@@ -53,7 +53,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: current_user!.instance_exec { { id:, public_token:, first_name:, last_name:, score:, rank:, staff_roles:, cursus: } }
+    pp = current_user!.profile_picture.attached? ? url_for(current_user!.profile_picture) : nil
+    render json: current_user!.instance_exec { {
+      id:, public_token:, first_name:,
+      last_name:, score:, rank:,
+      staff_roles:, cursus:, pp: } }
   end
 
   def qr_code
@@ -87,4 +91,23 @@ class UsersController < ApplicationController
     render json: { name: user.name }
   end
 
+  def update_profile_picture
+    # Vérifie que le fichier est une image
+    unless params[:file].content_type.start_with?('image/')
+      return render json: { ok: false, error: "Le fichier n'est pas une image." }
+    end
+
+    ext = File.extname(params[:file].original_filename)
+
+    new_filename = "profile-picture-#{current_user!.public_token}#{ext}"
+    params[:file].original_filename = new_filename
+
+    current_user!.profile_picture.attach(params[:file])
+
+    if current_user!.save
+      render json: { ok: true }
+    else
+      render json: { ok: false, error: "Problème lors de la sauvegarde du profil." }
+    end
+  end
 end

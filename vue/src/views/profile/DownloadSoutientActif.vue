@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 
 
-import fake_pp from "@/assets/fake/profile.jpeg"
 import overlay from "@/assets/fake/overlay_soutien_actif.png";
 
 import {fabric} from "fabric";
 import {onMounted, onUnmounted, ref, watch} from "vue";
 
 const props = defineProps<{
-  noPp: boolean
+  pp: string | null
 }>();
 
 let download = () => {
@@ -17,7 +16,7 @@ let download = () => {
 let canvas = undefined as fabric.Canvas | undefined;
 
 onMounted(() => {
-  if (props.noPp) return;
+  if (props.pp == null) return;
 
   canvas = new fabric.Canvas(document.getElementById('soutien_preview') as HTMLCanvasElement, {
     containerClass: '!w-full !h-full',
@@ -26,7 +25,7 @@ onMounted(() => {
 
   // canvas.setBackgroundImage() TODO: ARTHUR
 
-  fabric.Image.fromURL(fake_pp, (img) => {
+  fabric.Image.fromURL(props.pp, (img) => {
     img?.set({
       originX: 'left',
       originY: 'top',
@@ -111,7 +110,7 @@ const size = ref(100);
         gagnez 10% de miel en plus si vous l'utiliser sur facebook !
       </h3>
 
-      <template v-if="!noPp">
+      <template v-if="pp == null">
         <div class="w-full aspect-square mt-4">
           <canvas id="soutien_preview" class="!w-full !h-full border border-black"
                   height="1024" width="1024"/>

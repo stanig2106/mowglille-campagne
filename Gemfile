@@ -72,3 +72,5 @@ group :test do
   gem "selenium-webdriver"
 
 end
+
+gem 'aws-sdk', '~> 3.0', '>= 3.0.1'

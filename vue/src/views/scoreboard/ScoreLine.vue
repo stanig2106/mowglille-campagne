@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import profile from "@/assets/fake/profile.jpeg";
+import default_picture from "@/assets/default_pp.png";
 import honey from "@/assets/honey.png";
 
 const props = defineProps<{
   rank: number | undefined,
   name: string,
-  score: number | undefined
+  score: number | undefined,
+  profile_picture: string | null
 }>()
 </script>
 
@@ -13,7 +14,7 @@ const props = defineProps<{
   <div class="flex justify-between w-full h-full items-center px-4">
     <div class="flex gap-2 items-center">
       <div class="rounded-full overflow-hidden">
-        <v-img :src="profile" height="48" width="48"/>
+        <v-img :src="profile_picture ?? default_picture" height="48" width="48"/>
       </div>
 
       <div class="flex flex-col gap-1 justify-center">

@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_one_attached :profile_picture
 
   has_many :game_scores, dependent: :destroy
   has_many :score_records, dependent: :destroy

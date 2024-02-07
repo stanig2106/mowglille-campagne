@@ -2,7 +2,6 @@
 import {useUserStore} from "@/stores/user_store";
 import DownloadSoutientActif from "@/views/profile/DownloadSoutientActif.vue";
 import {provide, ref} from "vue";
-import fake_pp from "@/assets/fake/profile.jpeg"
 import Galerie from "@/components/Galerie.vue";
 import router from "@/router";
 import AccountSettings from "@/views/profile/AccountSettings.vue";
@@ -21,16 +20,34 @@ function logout() {
   localStorage.removeItem("token")
   router.push("/")
 }
+
+const ppInput = ref<HTMLInputElement | null>(null)
+
+async function uploadPP() {
+  const file = ppInput.value!.files?.[0]
+  if (!file)
+    return
+  const formData = new FormData()
+  formData.append("file", file)
+  await axios.post("/update_profile_picture", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  }).then(() => {
+    userStore.updateUser()
+  }).catch()
+  ppInput.value!.form!.reset()
+}
 </script>
 
 
 <template>
   <div class="bg-white rounded-t-2xl p-4 flex flex-col mt-[100px] elevation-2 min-h-[calc(100%-100px)] relative">
-    <div class="z-10 rounded-full bg-red-500 w-2/3 aspect-square -mt-[100px] self-center relative">
+    <div class="z-10 rounded-full bg-gray-200 w-2/3 aspect-square -mt-[100px] self-center relative">
 
-      <galerie :images="[{
-        thumbnailURL: fake_pp,
-        largeURL: fake_pp,
+      <galerie v-if="userStore.pp" :images="[{
+        thumbnailURL: userStore.pp,
+        largeURL: userStore.pp,
         width: 1080,
         height: 1080
       }]" class="w-full h-full rounded-full overflow-hidden"/>
@@ -38,12 +55,16 @@ function logout() {
       <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
         <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.png"/>
         <v-dialog :no-click-animation="true" activator="parent">
-          <download-soutient-actif :no-pp="false"/>
+          <download-soutient-actif :pp="userStore.pp ?? null"/>
         </v-dialog>
       </v-btn>
 
-      <v-btn class="absolute bottom-6 -right-2" color="white" icon rounded="lg">
+      <v-btn class="absolute bottom-6 -right-2" color="white" for="ppInput" icon
+             rounded="lg" tag="label">
         <v-icon color="black">mdi-pencil</v-icon>
+        <form class="absolute -top-[100vh]">
+          <input id="ppInput" ref="ppInput" accept="image/*" class="absolute -top-full -left-full" type="file" @change="uploadPP"/>
+        </form>
       </v-btn>
     </div>
     <div class="bg-gray-200 -mt-4 pt-6 p-2 px-8 rounded-md">

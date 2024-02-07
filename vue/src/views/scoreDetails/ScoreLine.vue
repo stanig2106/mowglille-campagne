@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import profile from "@/assets/fake/profile.jpeg";
 import honey from "@/assets/honey.png";
 import {computed} from "vue";
 

@@ -13,6 +13,8 @@ export const useUserStore = defineStore("user", () => {
   const score = ref(undefined as number | undefined)
   const rank = ref(undefined as number | undefined)
 
+  const pp = ref(undefined as string | null | undefined)
+
   const staffRoles = ref(undefined as string[] | undefined)
 
   async function updateUser() {
@@ -31,6 +33,7 @@ export const useUserStore = defineStore("user", () => {
     score.value = user.score
     rank.value = user.rank
     staffRoles.value = user.staff_roles
+    pp.value = user.pp
     return true
   }
 
@@ -42,6 +45,7 @@ export const useUserStore = defineStore("user", () => {
     id, publicToken,
     name, firstName, lastName, cursus,
     score, rank, staffRoles,
+    pp,
     updateUser
   }
 })

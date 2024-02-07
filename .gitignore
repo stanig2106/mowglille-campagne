@@ -33,3 +33,4 @@ version.txt
 /config/master.key
 
 node_modules
+.env

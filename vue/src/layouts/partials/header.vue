@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 
+import default_picture from "@/assets/default_pp.png";
 
 import useCable from "@/router/cable";
-import fake_profile from "@/assets/fake/profile.jpeg"
 import {ref} from "vue";
 import OfflineIndicator from "@/components/OfflineIndicator.vue";
+import {useUserStore} from "@/stores/user_store";
 
 const has_notif = ref(true)
 
@@ -15,6 +16,8 @@ const props = defineProps<{
 
 // useCable("NotificationChannel")
 
+const userStore = useUserStore()
+userStore.updateUser()
 
 </script>
 
@@ -45,7 +48,7 @@ const props = defineProps<{
       <offline-indicator/>
 
       <v-btn icon variant="text" @click="$router.push('/profile')">
-        <v-img :src="fake_profile" class="rounded-full"
+        <v-img :src="userStore.pp ?? default_picture" class="rounded-full bg-gray-200"
                style="width: 40px; height: 40px"/>
       </v-btn>
 
