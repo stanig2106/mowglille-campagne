@@ -93,8 +93,8 @@ async function uploadPP() {
       Espace staffeur
     </v-btn>
 
-    <input class="mt-8 h-8 p-2" placeholder="TEST MOI 1" style="border: black 1px solid" type="text">
-    <v-text-field class="mt-4" placeholder="TEST MOI 2"/>
+    <input class="mt-8 h-8 p-2" placeholder="TEST MOI 3" style="border: black 1px solid" type="text">
+    <v-text-field class="mt-4" placeholder="TEST MOI 4"/>
 
     <v-spacer/>
 
