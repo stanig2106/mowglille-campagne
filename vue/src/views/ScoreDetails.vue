@@ -10,7 +10,7 @@ import {useScoreboardStore} from "@/stores/scoreboard_store";
 import {useScoreDetailsStore} from "@/stores/score_details_store";
 import {useOffline} from "@/router/offline";
 
-const {name, score, rank} = storeToRefs(useUserStore())
+const {name, score, rank, pp} = storeToRefs(useUserStore())
 const {updateUser} = useUserStore()
 
 updateUser().then((done) => {
@@ -58,6 +58,6 @@ updateScoreDetails().then((done) => {
   </div>
 
   <v-bottom-navigation class="!fixed bottom-0 rounded-t-xl" elevation="18" height="124">
-    <current-score :name="name" :rank="rank" :score="score"/>
+    <current-score :name="name" :rank="rank" :score="score" :profile_picture="pp ?? null"/>
   </v-bottom-navigation>
 </template>
