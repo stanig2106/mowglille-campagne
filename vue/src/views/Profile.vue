@@ -50,7 +50,7 @@ async function uploadPP() {
         largeURL: userStore.pp,
         width: 1080,
         height: 1080
-      }]" class="w-full h-full rounded-full overflow-hidden"/>
+      }]" class="w-full h-full rounded-full overflow-hidden absolute top-0 left-0"/>
 
       <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
         <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.png"/>

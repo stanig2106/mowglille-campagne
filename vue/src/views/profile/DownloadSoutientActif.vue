@@ -110,7 +110,7 @@ const size = ref(100);
         gagnez 10% de miel en plus si vous l'utiliser sur facebook !
       </h3>
 
-      <template v-if="pp == null">
+      <template v-if="pp != null">
         <div class="w-full aspect-square mt-4">
           <canvas id="soutien_preview" class="!w-full !h-full border border-black"
                   height="1024" width="1024"/>
