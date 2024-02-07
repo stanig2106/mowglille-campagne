@@ -59,7 +59,7 @@ async function uploadPP() {
         </v-dialog>
       </v-btn>
 
-      <v-btn class="absolute bottom-6 -right-2" color="white" for="ppInput" icon
+      <v-btn class="absolute bottom-6 -right-2 overflow-hidden" color="white" for="ppInput" icon
              rounded="lg" tag="label">
         <v-icon color="black">mdi-pencil</v-icon>
         <form class="absolute -top-[100vh]">
