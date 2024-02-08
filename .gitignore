@@ -34,3 +34,5 @@ version.txt
 
 node_modules
 .env
+
+firebase-credentials.json

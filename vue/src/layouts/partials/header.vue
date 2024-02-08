@@ -6,6 +6,7 @@ import useCable from "@/router/cable";
 import {ref} from "vue";
 import OfflineIndicator from "@/components/OfflineIndicator.vue";
 import {useUserStore} from "@/stores/user_store";
+import router from "@/router";
 
 const has_notif = ref(true)
 
@@ -18,6 +19,9 @@ const props = defineProps<{
 
 const userStore = useUserStore()
 userStore.updateUser()
+
+const goBackOrGoHome = () => window.history.length > 1 ?
+  router.back() : router.replace("/");
 
 </script>
 
@@ -33,7 +37,7 @@ userStore.updateUser()
     <h1 v-else
         class="h-full flex items-center text-3xl italic mt-0.5">
       <v-btn icon rounded="lg" variant="text"
-             @click="$router.go(-1)">
+             @click="goBackOrGoHome">
         <v-icon size="32">
           mdi-arrow-left
         </v-icon>

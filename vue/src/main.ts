@@ -55,6 +55,15 @@ axios.interceptors.response.use(response => {
 });
 
 
+window.addEventListener('push-notification', (e: any) => {
+  alert("window")
+  alert(JSON.stringify(e))
+})
+document.addEventListener('push-notification', (e: any) => {
+  alert("document")
+  alert(JSON.stringify(e))
+})
+
 // Mount the app
 app.mount('#app')
 
