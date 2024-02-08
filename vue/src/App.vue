@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
 </script>
 
 <template>
-<!--  <Loading/>-->
+  <!--  <Loading/>-->
   <v-app v-if="fullpage" class="bg-transparent">
     <router-view/>
   </v-app>
@@ -89,6 +89,10 @@ body {
   user-select: none;
   font-family: "QuintoAndatTextos-Bold", sans-serif !important;
   font-weight: bolder;
+}
+
+input, textarea, select, button {
+  user-select: text;
 }
 
 img {
