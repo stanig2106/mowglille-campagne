@@ -93,9 +93,6 @@ async function uploadPP() {
       Espace staffeur
     </v-btn>
 
-    <input class="mt-8 h-8 p-2" placeholder="TEST MOI 3" style="border: black 1px solid" type="text">
-    <v-text-field class="mt-4" placeholder="TEST MOI 4"/>
-
     <v-spacer/>
 
     <v-btn v-if="onlineJobs.length != 0" class="mt-4" color="red" size="large" variant="tonal">

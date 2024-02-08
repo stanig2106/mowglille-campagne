@@ -13,16 +13,7 @@ const {offline} = useOffline();
 const {firstName, lastName, score, publicToken, id, cursus} = storeToRefs(useUserStore())
 const {updateUser} = useUserStore()
 
-updateUser().then((done) => {
-  if (!done && !useUserStore().loaded) {
-    if (offline.value) {
-      alert("Vous êtes hors ligne, vous ne pouvez pas récupérer vos données." +
-        "Veuillez vous connecter à internet pour récupérer vos données.")
-      return
-    }
-    alert("Une erreur est survenue lors de la récupération de vos données, veuillez réessayer plus tard.")
-  }
-})
+updateUser()
 
 function generateRandomString(length: number) {
   let result = '';
@@ -55,16 +46,16 @@ const interval = setInterval(generateQRCode, 60 * 1000)
 
 onUnmounted(() => clearInterval(interval))
 
-async function generateQRCode(): Promise<any> {
-  if (loading.value) return
+async function generateQRCode(force = false): Promise<any> {
+  if (loading.value && !force) return
   loading.value = true
   const fake_loading = new Promise(resolve => setTimeout(resolve, 300))
 
   const content = await (async () => {
     if (offline.value) return offline_qr_code()
-    const {data, status} = await axios.get("/qr_code")
+    const {data, status} = await axios.get("/qr_code").catch(() => ({data: undefined, status: 500}))
     if (status !== 200) {
-      setTimeout(generateQRCode, 1000)
+      setTimeout(() => generateQRCode(true), 300)
       return null
     }
     return data.content as string
@@ -90,7 +81,7 @@ generateQRCode()
       QR Code hors ligne
     </div>
     <div class="w-full mb-4">
-      <qrious :size="1024" id="qrcode" :class="{ 'blur-md': loading }" :value="qr_code_content"
+      <qrious id="qrcode" :class="{ 'blur-md': loading }" :size="1024" :value="qr_code_content"
               class="w-full mx-auto max-h-[60vh]"
       />
     </div>
