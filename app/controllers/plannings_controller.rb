@@ -1,5 +1,28 @@
 class PlanningsController < ApplicationController
   def get_planning
+    days = [
+      {
+        dayOfWeek: 'Mer.',
+        date: '06/03',
+      },
+      {
+        dayOfWeek: 'Jeu.',
+        date: '07/03',
+      },
+      {
+        dayOfWeek: 'Ven.',
+        date: '08/03',
+      },
+      {
+        dayOfWeek: 'Sam.',
+        date: '09/03',
+      }
+    ]
+
+    render json: {
+      sheet_link: PlanningUrl.get,
+      days:
+    }
 
   end
 

@@ -9,6 +9,7 @@ export default [
     path: "/staff/planning", component: () => import('../views/staff/Planning.vue'),
     meta: {
       title: "Voir les plannings",
+      density: 'compact',
     },
   },
   {
