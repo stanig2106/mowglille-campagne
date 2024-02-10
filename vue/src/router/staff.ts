@@ -12,6 +12,12 @@ export default [
     },
   },
   {
+    path: "/staff/manage_planning", component: () => import('../views/staff/ManagePlanning.vue'),
+    meta: {
+      title: "Gérer les plannings",
+    },
+  },
+  {
     path: "/staff/manage_staff", component: () => import('../views/staff/ManageStaff.vue'),
     meta: {
       title: "Gérer les staffeurs",
@@ -38,13 +44,13 @@ export default [
   {
     path: '/staff/validate_challenge', component: () => import('../views/staff/ValidateChallenge.vue'),
     meta: {
-      title: "Valider un challenge",
+      title: "Valider un défi",
     },
   },
   {
     path: '/staff/manage_challenge', component: () => import('../views/staff/ManageChallenge.vue'),
     meta: {
-      title: "Gérer les challenges",
+      title: "Gérer les défis",
     },
   },
   {

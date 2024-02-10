@@ -95,15 +95,19 @@ watch(done, () => {
     </v-card>
 
     <v-card title="Inclure un coffre dans le dons" variant="text">
-      <v-card-text>
-        <div class="flex justify-between gap-6">
-          <v-card v-for="rarity in chestRarities" :key="rarity"
-                  :variant="selected_chest.includes(rarity) ? 'tonal' : 'elevated'"
-                  class="focus:bg-inherit"
-                  elevation="4"
-                  @click="() => select_chest(rarity)">
-            <chest :rarity="rarity"/>
-          </v-card>
+      <v-card-text class="overflow-y-auto">
+        <div class="inline-flex justify-between gap-6 px-1">
+          <div v-for="rarity in chestRarities" :key="rarity" class="pt-2">
+            <v-card
+              :variant="selected_chest.includes(rarity) ? 'tonal' : 'elevated'"
+              class="focus:bg-inherit"
+              elevation="4"
+              @click="() => select_chest(rarity)">
+              <div class="">
+                <chest :rarity="rarity"/>
+              </div>
+            </v-card>
+          </div>
         </div>
       </v-card-text>
     </v-card>

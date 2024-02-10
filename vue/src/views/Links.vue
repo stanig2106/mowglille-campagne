@@ -43,6 +43,9 @@ const mailto = ref("mailto:contact@mowglille.fr")
             Arthur NOBREGA
           </a>
         </span>
+        <div class="flex flex-center mt-2">
+        <img src="https://wakatime.com/badge/user/cdd131f0-023c-4810-898a-52d5ac48e036/project/018c84ad-22cb-445e-84ca-13025beb24a4.svg" alt="wakatime">
+        </div>
       </div>
 
     </div>

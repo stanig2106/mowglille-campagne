@@ -25,7 +25,13 @@ const staffs_action = [
     path: "/staff/planning",
     name: "Voir les plannings",
     icon: "mdi-calendar",
-    roles: ["SEE_PLANNING", "MANAGE_PLANNING"]
+    roles: ["SEE_PLANNING"]
+  },
+  {
+    path: "/staff/manage_planning",
+    name: "Gérer les plannings",
+    icon: "mdi-calendar-edit",
+    roles: ["MANAGE_PLANNING"]
   },
   {
     path: "/staff/manage_staff",
@@ -53,13 +59,13 @@ const staffs_action = [
   },
   {
     path: '/staff/validate_challenge',
-    name: "Valider un challenge",
+    name: "Valider un défi",
     icon: "mdi-trophy-variant",
     roles: ["CHALLENGE_VALIDATION"]
   },
   {
     path: '/staff/manage_challenge',
-    name: "Gérer les challenges",
+    name: "Gérer les défis",
     icon: "mdi-format-list-bulleted-type",
     roles: ["CHALLENGE_MANAGE"]
   },

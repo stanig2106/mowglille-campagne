@@ -33,6 +33,14 @@ Rails.application.routes.draw do
 
   post "api/games/score", to: "games#save_score"
 
+  get "api/events", to: "events#index"
+
+  get "api/planning", to: "plannings#get_planning"
+  post "api/update_planning_link", to: "plannings#update_planning_link"
+  get "api/manage_planning", to: "plannings#manage_planning"
+  post "api/planning_association", to: "plannings#set_planning_association"
+  delete "api/planning_association", to: "plannings#delete_planning_association"
+
   get "api/*path", to: "home#not_found_api"
 
   # all path except api/* will be handled by home#index

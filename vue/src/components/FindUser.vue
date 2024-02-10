@@ -5,7 +5,7 @@ import {useMemoize, useVModel} from '@vueuse/core'
 import {QrcodeStream} from "vue-qrcode-reader";
 import {DetectedBarcode} from "barcode-detector/dist/es/BarcodeDetector";
 import axios from "axios";
-import {decrypt} from "@/core";
+import {decrypt} from "@/utils/encrypt";
 import {User, useUsersStore} from "@/stores/users_store";
 import {storeToRefs} from "pinia";
 import {useOnline} from "@/router/offline";
@@ -15,6 +15,7 @@ const props = defineProps<{
   modelValue: User | null
   mustBeOnline?: boolean
   hideCancel?: boolean
+  disabled?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -138,6 +139,7 @@ function unfocus() {
     <v-card-text v-else>
       <div class="flex flex-col gap-4 justify-between items-stretch h-full >:flex-grow">
         <v-card :class="{'!flex-grow-0': mode == 'search'}"
+                :disabled="disabled"
                 :ripple="mode != 'scan'"
                 @click="mode = 'scan'">
           <div v-if="mode != 'scan'"
@@ -185,6 +187,7 @@ function unfocus() {
         <div :class="{'!flex-grow-0': mode == 'scan'}"
              class="flex gap-2 >:flex-1">
           <v-card v-if="!(mode == 'scan' && qr_code_scanned)"
+                  :disabled="disabled"
                   :ripple="mode != 'search'"
                   @click="mode = 'search'">
             <div v-if="mode != 'search'"

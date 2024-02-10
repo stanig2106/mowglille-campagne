@@ -5,7 +5,7 @@ import {inject, onUnmounted, ref, watch} from "vue";
 import Qrious from "vue-qrious";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user_store";
-import {encrypt} from "@/core";
+import {encrypt} from "@/utils/encrypt";
 import {useOffline} from "@/router/offline";
 
 const {offline} = useOffline();

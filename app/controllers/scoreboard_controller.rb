@@ -15,7 +15,7 @@ class ScoreboardController < ApplicationController
     #   offered_by: string,
     #   title: string,
     # }[]
-    render json: { score_details: current_user!.score_records.map { _1.instance_exec do
+    render json: { score_details: current_user!.score_records.order(created_at: :desc).map { _1.instance_exec do
       {
         event: activity&.event&.type || ApplicationHelper.day_of_week_fr(created_at),
         score:, hour: created_at.strftime("%H:%M"),

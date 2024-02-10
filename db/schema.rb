@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_06_232650) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_10_001300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -136,6 +136,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_232650) do
     t.index ["user_id"], name: "index_game_scores_on_user_id"
   end
 
+  create_table "planning_urls", force: :cascade do |t|
+    t.string "url"
+  end
+
   create_table "qr_codes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "token"
@@ -176,6 +180,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_232650) do
     t.string "public_token"
     t.bigint "cla_info_id"
     t.string "staff_roles", default: [], array: true
+    t.string "planning_letter"
     t.index ["cla_info_id"], name: "index_users_on_cla_info_id"
   end
 

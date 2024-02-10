@@ -1,7 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 import axios from "axios";
-import {roles} from "@/views/staff/staff";
 
 export type User = {
   publicToken: string

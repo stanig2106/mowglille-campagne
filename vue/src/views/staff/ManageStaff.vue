@@ -9,9 +9,13 @@ import {roles} from "@/views/staff/staff";
 import FindUser from "@/components/FindUser.vue";
 import {User} from "@/stores/users_store";
 import staff from "../../router/staff";
+import router from "@/router";
 
 const currentUser = useUserStore()
 currentUser.updateUser()
+
+if (!currentUser.staffRoles?.includes("NEW_STAFF"))
+  router.replace("/")
 
 const {staffers} = storeToRefs(useStaffeursStore())
 const {updateStaffeurs} = useStaffeursStore()

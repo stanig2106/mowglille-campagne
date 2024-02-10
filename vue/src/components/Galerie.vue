@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<{
     height: number
   }[]
 }>(), {
-  galleryId: Math.random().toString(36).substring(7)
+  galleryId: "i" + Math.random().toString(36).substring(7)
 });
 
 const lightbox = ref<PhotoSwipeLightbox | null>(null);
@@ -44,8 +44,8 @@ onUnmounted(() => {
       v-for="(image, key) in images"
       :key="key"
       :data-pswp-height="image.height"
-      :data-pswp-width="image.width"
       :data-pswp-src="image.largeURL"
+      :data-pswp-width="image.width"
       rel="noreferrer"
       target="_blank"
     >
