@@ -16,3 +16,15 @@ export function typeToString(type: string): string {
     RES: "Résultats"
   }[type] || type
 }
+
+export function dayOfWeekToString(day: number): string {
+  return {
+    0: "Dim.",
+    1: "Lun.",
+    2: "Mar.",
+    3: "Mer.",
+    4: "Jeu.",
+    5: "Ven.",
+    6: "Sam."
+  }[day] || "??"
+}
