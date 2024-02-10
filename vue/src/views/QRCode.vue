@@ -42,7 +42,7 @@ const loading = ref(null as boolean | null)
 
 
 // every 60 seconds
-const interval = setInterval(generateQRCode, 60 * 1000)
+const interval = setInterval(() => generateQRCode(), 60 * 1000)
 
 onUnmounted(() => clearInterval(interval))
 
@@ -76,7 +76,7 @@ generateQRCode()
 
 <template>
   <div class="bg-white rounded-t-2xl p-4 flex flex-col justify-center elevation-2 h-full gap-4"
-       @click="generateQRCode">
+       @click="() => generateQRCode()">
     <div v-if="offline" class="text-center text-md text-red-500">
       QR Code hors ligne
     </div>
