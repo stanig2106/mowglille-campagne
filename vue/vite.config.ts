@@ -52,7 +52,7 @@ export default defineConfig({
   },
   plugins: [
     VitePWA({
-      strategies: 'injectManifest',
+      strategies: 'generateSW',
       srcDir: 'src',
       filename: 'sw.ts',
       workbox: {
@@ -61,9 +61,15 @@ export default defineConfig({
           "img/icons/**/*",
         ],
         globPatterns: [
-          "**/*"
+          "**\/*"
         ],
-        globDirectory: 'dist/',
+        runtimeCaching: [
+          {
+            handler: 'CacheFirst',
+            urlPattern: /.*/
+          }
+        ],
+        globDirectory: 'dist',
       }
     }),
     vue({
@@ -72,16 +78,6 @@ export default defineConfig({
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     vuetify({
       autoImport: true,
-    }),
-    ViteFonts({
-      google: {
-        families: [
-          {
-            name: 'Roboto',
-            styles: 'wght@100;300;400;500;700;900',
-          },
-        ],
-      },
     }),
   ],
   define: {
