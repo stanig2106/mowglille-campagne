@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {useUserStore} from "@/stores/user_store";
-import {ref, watch} from "vue";
+import {nextTick, ref, watch} from "vue";
 import router from "@/router";
 import FindUser from "@/components/FindUser.vue";
 import {User} from "@/stores/users_store";
@@ -30,6 +30,7 @@ const quantity = ref(undefined as number | undefined)
 const reason = ref("")
 
 function reset() {
+  reason.value = ""
   selected_chest.value = []
   user.value = null
   quantity.value = undefined
@@ -68,7 +69,7 @@ watch(user, async () => {
 })
 
 watch(done, () => {
-  if (!done)
+  if (!done.value)
     reset()
 })
 
@@ -129,7 +130,7 @@ watch(done, () => {
           <template v-else>
             <v-icon color="green" size="x-large">mdi-check-circle</v-icon>
             Les {{ quantity }} miels et {{ selected_chest.length }} coffres ont bien été
-            offert à {{ user!.firstName }}
+            offert à {{ user?.firstName }}
           </template>
         </v-card-text>
         <v-card-actions>

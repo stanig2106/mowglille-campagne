@@ -2,18 +2,8 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 import axios from "axios";
 import {roles} from "@/views/staff/staff";
+import {Rarity} from "@/views/collection/Chest.vue";
 
-//   create_table "events", force: :cascade do |t|
-//     t.string "internal_id"
-//     t.string "name"
-//     t.string "type"
-//     t.date "start_date"
-//     t.date "end_date"
-//     t.string "location"
-//     t.text "description"
-//     t.datetime "created_at", null: false
-//     t.datetime "updated_at", null: false
-//   end
 
 export type Event = {
   internalId: string
@@ -23,6 +13,25 @@ export type Event = {
   endDate: Date
   location: string
   description: string
+  activities: Activity[]
+}
+
+export type Activity = {
+  internalId: string
+  name: string
+  internalDescription: string
+  description: string
+  startDate: Date | null // null means the activity duration is the event duration
+  endDate: Date | null
+  location: string | null // null means the activity location is the event location
+  activityRewards: ActivityReward[]
+}
+
+export type ActivityReward = {
+  name: string
+  internalDescription: string
+  chest: Rarity
+  score: number
 }
 
 export const useEventsStore = defineStore(
@@ -39,13 +48,9 @@ export const useEventsStore = defineStore(
       loaded.value = true
       events.value = response.data.map((event: any) => {
         return {
-          internalId: event.internal_id,
-          name: event.name,
-          type: event.type,
-          startDate: new Date(event.start_date),
-          endDate: new Date(event.end_date),
-          location: event.location,
-          description: event.description
+          ...event,
+          startDate: new Date(event.startDate),
+          endDate: new Date(event.endDate),
         }
       })
 

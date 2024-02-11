@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_10_001300) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_11_103413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,13 +46,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_001300) do
     t.string "internal_id"
     t.string "name"
     t.text "description"
-    t.date "start_date"
-    t.date "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.string "location"
-    t.string "type"
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "internal_description"
     t.index ["event_id"], name: "index_activities_on_event_id"
   end
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_001300) do
     t.string "chest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "internal_description"
     t.index ["activity_id"], name: "index_activity_rewards_on_activity_id"
   end
 
@@ -70,8 +71,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_001300) do
     t.string "name"
     t.text "description"
     t.integer "score"
-    t.date "start_date"
-    t.date "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.string "location"
     t.integer "amount"
     t.datetime "created_at", null: false
@@ -107,7 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_001300) do
   create_table "collections", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "collection_piece_id", null: false
-    t.date "date"
+    t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["collection_piece_id"], name: "index_collections_on_collection_piece_id"
@@ -118,8 +119,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_001300) do
     t.string "internal_id"
     t.string "name"
     t.string "type"
-    t.date "start_date"
-    t.date "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.string "location"
     t.text "description"
     t.datetime "created_at", null: false
@@ -164,7 +165,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_001300) do
     t.bigint "challenge_id"
     t.bigint "activity_id"
     t.integer "score"
-    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "reason"
