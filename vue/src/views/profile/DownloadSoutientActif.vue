@@ -69,7 +69,7 @@ onMounted(() => {
       };
       xhr.send();
     }
-  });
+  }, {crossOrigin: 'anonymous'});
 
   const imageOverlay = new Image();
   imageOverlay.src = overlay;
