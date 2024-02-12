@@ -4,10 +4,10 @@ import {vOnClickOutside} from '@vueuse/components'
 
 const props = withDefaults(
   defineProps<{
-    color?: string | undefined,
+    color?: string,
     confirm_color?: string | null,
     confirm_text?: string | null,
-    location?: string,
+    location?: NonNullable<Anchor>,
   }>(),
   {
     confirm_color: "red",
@@ -52,8 +52,8 @@ watch(confirm, (value) => {
   <v-tooltip
     v-model="confirm"
     :close-on-content-click="true"
-    :open-on-hover="false"
     :location="location"
+    :open-on-hover="false"
     :text="confirm_text ?? undefined"
   >
     <template #activator="{props: p}">
