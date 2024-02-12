@@ -50,7 +50,7 @@ updateScoreboard()
                v-bind="user"/>
   </div>
 
-  <v-bottom-navigation class="!fixed bottom-0 rounded-t-xl" elevation="18" height="124">
+  <v-bottom-navigation class="!fixed bottom-0 rounded-t-xl" elevation="18" height="96">
     <score-line :name="name" :profile_picture="pp ?? null" :rank="rank"
                 :score="score"
                 class="bg-white rounded-t-xl"/>

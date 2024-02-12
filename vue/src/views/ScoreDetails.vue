@@ -57,7 +57,7 @@ updateScoreDetails().then((done) => {
                 class="rounded-2xl py-2 bg-white elevation-2"/>
   </div>
 
-  <v-bottom-navigation class="!fixed bottom-0 rounded-t-xl" elevation="18" height="124">
+  <v-bottom-navigation class="!fixed bottom-0 rounded-t-xl" elevation="18" height="96">
     <current-score :name="name" :rank="rank" :score="score" :profile_picture="pp ?? null"/>
   </v-bottom-navigation>
 </template>

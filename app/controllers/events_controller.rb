@@ -31,6 +31,7 @@ class EventsController < ApplicationController
             activityRewards: activity.activity_rewards.map do |activity_reward|
               {
                 id: activity_reward.id,
+                name: activity_reward.name,
                 score: activity_reward.score,
                 chest: activity_reward.chest,
                 internalDescription: activity_reward.internal_description
@@ -64,6 +65,7 @@ class EventsController < ApplicationController
       a[:activityRewards].each do |ar|
         activity_reward = ActivityReward.find_by(id: ar[:id]) || ActivityReward.new
         activity_reward.update!({
+                                  name: ar[:name],
                                   score: ar[:score],
                                   chest: ar[:chest],
                                   internal_description: ar[:internalDescription],
