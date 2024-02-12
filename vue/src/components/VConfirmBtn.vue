@@ -7,7 +7,7 @@ const props = withDefaults(
     color?: string,
     confirm_color?: string | null,
     confirm_text?: string | null,
-    location?: NonNullable<Anchor>,
+    location?: string,
   }>(),
   {
     confirm_color: "red",
@@ -52,7 +52,7 @@ watch(confirm, (value) => {
   <v-tooltip
     v-model="confirm"
     :close-on-content-click="true"
-    :location="location"
+    :location="location as any"
     :open-on-hover="false"
     :text="confirm_text ?? undefined"
   >
