@@ -1,7 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 import axios from "axios";
-import {roles} from "@/views/staff/staff";
 import {Rarity} from "@/views/collection/Chest.vue";
 
 
@@ -28,9 +27,10 @@ export type Activity = {
 }
 
 export type ActivityReward = {
+  id: number
   name: string
   internalDescription: string
-  chest: Rarity
+  chest: Rarity | null
   score: number
 }
 
@@ -51,6 +51,13 @@ export const useEventsStore = defineStore(
           ...event,
           startDate: new Date(event.startDate),
           endDate: new Date(event.endDate),
+          activities: event.activities.map((activity: any) => {
+            return {
+              ...activity,
+              startDate: activity.startDate ? new Date(activity.startDate) : null,
+              endDate: activity.endDate ? new Date(activity.endDate) : null,
+            }
+          })
         }
       })
 

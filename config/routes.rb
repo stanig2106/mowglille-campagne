@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   post "api/games/score", to: "games#save_score"
 
   get "api/events", to: "events#index"
+  put "api/events/:internal_id", to: "events#update"
 
   get "api/planning", to: "plannings#get_planning"
   post "api/update_planning_link", to: "plannings#update_planning_link"

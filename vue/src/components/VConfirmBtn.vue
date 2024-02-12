@@ -7,6 +7,7 @@ const props = withDefaults(
     color?: string | undefined,
     confirm_color?: string | null,
     confirm_text?: string | null,
+    location?: string,
   }>(),
   {
     confirm_color: "red",
@@ -52,6 +53,7 @@ watch(confirm, (value) => {
     v-model="confirm"
     :close-on-content-click="true"
     :open-on-hover="false"
+    :location="location"
     :text="confirm_text ?? undefined"
   >
     <template #activator="{props: p}">
