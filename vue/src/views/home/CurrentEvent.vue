@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 
 import EventAction from "@/views/home/event/EventAction.vue";
+import router from "@/router";
 
 const props = defineProps<{
   event_type: string
@@ -29,7 +30,8 @@ const props = defineProps<{
       </h3>
     </div>
 
-    <event-action icon="mdi-food" subtitle="Voir le menu" title="Un petit creux ?"/>
+    <event-action icon="mdi-food" subtitle="Voir le menu" title="Un petit creux ?"
+                  @click="router.push('menu')"/>
     <event-action icon="mdi-map" subtitle="Regarde la carte" title="Perdu ?"/>
     <event-action icon="mdi-music-note-plus" subtitle="Propose le tiens !" title="Pas ouf le son ?"/>
     <event-action icon="mdi-chat" subtitle="Ouvre le chat" title="Discute de l'évent"/>

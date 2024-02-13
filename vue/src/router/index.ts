@@ -44,6 +44,12 @@ const routes = [
     }
   },
   {
+    path: '/menu', component: () => import('../views/Menu.vue'),
+    meta: {
+      title: 'Menu du jour',
+    }
+  },
+  {
     path: '/collection', component: () => import('../views/Collection.vue'),
     meta: {
       title: 'Collection',
