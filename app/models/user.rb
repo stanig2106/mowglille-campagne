@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :game_scores, dependent: :destroy
   has_many :score_records, dependent: :destroy
   has_many :qr_codes, dependent: :destroy
+  has_many :rewards, dependent: :destroy
   belongs_to :cla_info, dependent: :destroy
 
   has_many :chests, dependent: :destroy
@@ -38,8 +39,8 @@ class User < ApplicationRecord
     end
   end
 
-  def has_staff_role?(role)
-    staff_roles.include?(role.to_s)
+  def has_staff_role?(*roles)
+    roles.any? { staff_roles.include?(_1.to_s) }
   end
 
   scope :staffers, -> { where.not(staff_roles: []) }

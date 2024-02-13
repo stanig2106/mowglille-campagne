@@ -10,6 +10,8 @@ class EventsController < ApplicationController
   #   activityRewards: ActivityReward[]
   # }
   def index
+    return not_allowed! unless current_user&.has_staff_role?(:MANAGE_SCORE, :SCORE)
+
     render json: (Event.all.map do |event|
       {
         internalId: event.internal_id,
@@ -45,6 +47,8 @@ class EventsController < ApplicationController
   end
 
   def update # update event, activity, and activity_reward
+    return not_allowed! unless current_user&.has_staff_role?(:MANAGE_SCORE)
+
     event = Event.find_by(internal_id: params[:internal_id])
     event.update!({
                     name: params[:name],

@@ -1,17 +1,5 @@
 # Event
 
-#   create_table "events", force: :cascade do |t|
-#     t.string "internal_id"
-#     t.string "name"
-#     t.string "type"
-#     t.date "start_date"
-#     t.date "end_date"
-#     t.string "location"
-#     t.text "description"
-#     t.datetime "created_at", null: false
-#     t.datetime "updated_at", null: false
-#   end
-
 Event.create!([
                 {
                   internal_id: "2",

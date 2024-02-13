@@ -42,7 +42,7 @@ const goBackOrGoHome = () => window.history.length > 1 ?
           mdi-arrow-left
         </v-icon>
       </v-btn>
-      <div class="one-line">
+      <div class="one-line pr-2">
         {{ back }}
       </div>
     </h1>

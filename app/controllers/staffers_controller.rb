@@ -34,6 +34,25 @@ class StaffersController < ApplicationController
 
   end
 
+  def reward
+    return not_allowed! unless current_user&.has_staff_role?(:SCORE)
+
+    user = User.find_by!(public_token: params[:user])
+    ar = ActivityReward.find_by!(id: params[:activity_reward_id])
+
+    return render json: {
+      error: 'La récompense pour l\'activité a déjà été attribuée à cet utilisateur'
+    } if user.rewards.joins(:activity_reward)
+                          .where(activity_rewards: { activity_id: ar.activity.id }).exists?
+
+    Reward.create!(user:, activity_reward: ar)
+    user.score_records.create!(
+      activity: ar.activity,
+      score: ar.score,
+      offered_by: current_user
+    )
+  end
+
   private
 
   def not_allowed!

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get "api/staffers", to: "staffers#index"
   put "api/staffers/:public_token", to: "staffers#update"
   post "api/staff/offer", to: "staffers#offer"
+  post "api/staff/reward", to: "staffers#reward"
 
   post "api/games/score", to: "games#save_score"
 

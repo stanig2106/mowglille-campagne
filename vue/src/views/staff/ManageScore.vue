@@ -4,7 +4,7 @@ import {reactive, ref} from "vue";
 import {Event, Activity, useEventsStore} from "@/stores/events_store";
 import router from "@/router";
 import {dayOfWeekToString, typeToString} from "@/utils/event";
-import {VueShowdown as Showdown} from 'vue-showdown';
+import {VueShowdown as VShowdown} from 'vue-showdown';
 import {Rarity} from "@/views/collection/Chest.vue";
 import VConfirmBtn from "@/components/VConfirmBtn.vue";
 import axios from "axios";
@@ -167,7 +167,7 @@ async function save(event: Event): Promise<boolean> {
                                   <h5>
                                     Aperçu de la description :
                                   </h5>
-                                  <showdown :markdown="activity.description" :options="{underline: true, emoji: true}"/>
+                                  <v-showdown :markdown="activity.description" :options="{underline: true, emoji: true}"/>
                                 </div>
                               </v-card>
                             </v-dialog>
@@ -214,7 +214,7 @@ async function save(event: Event): Promise<boolean> {
                                         <div class="flex items-center">
                                           <template v-if="ar.chest">
                                             &nbsp;+&nbsp;
-                                            <v-icon>
+                                            <v-icon class="mr-1">
                                               mdi-treasure-chest
                                             </v-icon>
                                             {{ ar.chest }}

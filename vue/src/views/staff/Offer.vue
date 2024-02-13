@@ -102,7 +102,8 @@ watch(done, () => {
             <v-card
               :variant="selected_chest.includes(rarity) ? 'tonal' : 'elevated'"
               class="focus:bg-inherit"
-              elevation="4"
+              rounded="lg"
+              elevation="2"
               @click="() => select_chest(rarity)">
               <div class="">
                 <chest :rarity="rarity"/>
