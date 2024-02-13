@@ -17,10 +17,10 @@ const props = defineProps<{
   <div class="flex justify-between w-full h-full items-center px-4">
     <div class="flex gap-2 items-center">
       <div class="flex flex-col justify-center">
-        <h1 class="text-xl">
+        <h1 class="text-lg">
           {{ title }}
         </h1>
-        <div class="text-lg text-gray-500 pr-2">
+        <div class="text-md text-gray-500 pr-2">
           {{ subtitle }}
         </div>
       </div>
@@ -33,7 +33,7 @@ const props = defineProps<{
         </h1>
         <v-img :src="honey" :transition="false" class="h-6 w-6"/>
       </div>
-      <div class="text-sm text-gray-500 flex justify-end">
+      <div class="text-sm text-gray-500 flex justify-end text-end">
         {{ event }}, {{ hour }}
       </div>
     </div>

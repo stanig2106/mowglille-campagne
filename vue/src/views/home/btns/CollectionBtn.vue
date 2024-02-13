@@ -16,9 +16,9 @@ const emit = defineEmits<{
       <h2 class="text-xl font-bold">
         7 / 24 Pièces trouvées
       </h2>
-      <h3 class="text-gray-500">
+      <div class="text-muted">
         Ouvre ta collection
-      </h3>
+      </div>
     </div>
   </div>
 
