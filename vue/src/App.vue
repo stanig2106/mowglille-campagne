@@ -120,7 +120,7 @@ button {
   @apply text-gray-500;
 }
 
-.one-line {
+.one-line, .\>\:one-line > *, .\*\:one-line * {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;

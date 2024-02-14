@@ -68,7 +68,7 @@ watch(selected_game, game => {
                 </div>
 
                 <div class="flex flex-col gap-1 justify-center flex-1">
-                  <div class="text-3xl flex justify-between">
+                  <div class="text-3xl flex justify-between >:one-line">
                     <div>
                       {{ "#" + score.rank }}
                     </div>
@@ -76,7 +76,7 @@ watch(selected_game, game => {
                       {{ score.score }}
                     </div>
                   </div>
-                  <div class="flex text-lg text-muted justify-between">
+                  <div class="flex text-lg text-muted justify-between >:one-line gap-2">
                     <div>
                       {{ score.name }}
                     </div>

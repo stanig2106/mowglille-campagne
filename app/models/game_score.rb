@@ -26,7 +26,7 @@ class GameScore < ApplicationRecord
   end
 
   def self.get_scoreboard(game_name, current_user = nil)
-    GameScore.select('game_scores.*, rank() over (order by score desc) as r')
+    GameScore.select("game_scores.*, rank() over (order by score #{inverse_score?(game_name) ? "asc" : "desc"}) as r")
              .where(game_name:, pb: true)
              .joins(:user)
              .order(score: inverse_score?(game_name) ? :asc : :desc)
