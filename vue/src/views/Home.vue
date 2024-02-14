@@ -6,8 +6,6 @@ import CollectionBtn from "@/views/home/btns/CollectionBtn.vue";
 import OneLineBtn from "@/views/home/btns/OneLineBtn.vue";
 import router from "@/router";
 import event_bg from '@/assets/fake/event_bg.png'
-
-
 </script>
 
 <template>
@@ -19,7 +17,8 @@ import event_bg from '@/assets/fake/event_bg.png'
     <div class="h-full bg-white rounded-t-2xl elevation-2 p-4 flex flex-col gap-2">
       <CollectionBtn class="w-full" @click="router.push('/collection')"/>
       <div class="flex gap-2 >:flex-grow w-full">
-        <OneLineBtn :icon-size="32" icon="mdi-trophy" title="Liste des defis"/>
+        <OneLineBtn :icon-size="32" icon="mdi-trophy" title="Liste des defis"
+                    @click="router.push('/challenges')"/>
         <OneLineBtn :icon-size="32" icon="mdi-nintendo-game-boy" title="Jeu"
                     @click="router.push('/games/human_benchmark')"/>
       </div>

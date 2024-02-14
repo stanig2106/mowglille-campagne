@@ -47,11 +47,18 @@ class EventsController < ApplicationController
                                 })
       end
     end
-    params[:removedActivities]&.each do |a|
-      Activity.find_by(internal_id: a[:internalId]).destroy
-    end
     params[:removedActivityRewards]&.each do |ar|
-      ActivityReward.find_by(id: ar[:id]).destroy
+      ActivityReward.find_by(id: ar[:id])&.destroy
+    end
+    params[:removedActivities]&.each do |a|
+      Activity.find_by(internal_id: a[:internalId]).tap do |activity|
+        return render json: {
+          error: "Des joueurs ont déjà gagner des points sur cet activité et" +
+            "elle ne peux pas être supprimé"
+        }, status: 200 if activity.score_records.any?
+      end
+
+      Activity.find_by(internal_id: a[:internalId])&.destroy
     end
   end
 

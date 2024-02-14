@@ -61,6 +61,12 @@ const routes = [
       title: 'Liens utiles',
     }
   },
+  {
+    path: '/challenges', component: () => import('../views/Challenges.vue'),
+    meta: {
+      title: 'Défis',
+    }
+  },
 
   ...games,
   ...staff,

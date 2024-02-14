@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {useUserStore} from "@/stores/user_store";
 import {reactive, ref} from "vue";
-import {Event, Activity, useEventsStore} from "@/stores/events_store";
+import {Activity, ActivityReward, Event, useEventsStore} from "@/stores/events_store";
 import router from "@/router";
 import {dayOfWeekToString, typeToString} from "@/utils/event";
 import {VueShowdown as VShowdown} from 'vue-showdown';
@@ -36,10 +36,25 @@ function newActivity(id: string): Activity & { new: true } {
 }
 
 
+const removedActivities = ref([] as Activity[])
+
 function delete_activity(event: Event, activity: Activity & { new?: true }) {
   event.activities = event.activities.filter(a => a != activity)
 
   if (activity.new) return
+
+  removedActivities.value.push(activity)
+}
+
+
+const removedActivityRewards = ref([] as ActivityReward[])
+
+function delete_activity_reward(event: Event, activity: Activity, reward: ActivityReward) {
+  activity.activityRewards = activity.activityRewards.filter(r => r != reward)
+
+  if (reward.id == 0) return
+
+  removedActivityRewards.value.push(reward)
 }
 
 // 15 minutes interval
@@ -78,9 +93,18 @@ const errorReason = ref("")
 
 async function save(event: Event): Promise<boolean> {
   hasError.value = false
-  return axios.put('/events/' + event.internalId, event)
-    .then(() => {
+  return axios.put('/events/' + event.internalId, {
+    ...event,
+    removedActivities: removedActivities.value,
+    removedActivityRewards: removedActivityRewards.value
+  })
+    .then(({data}) => {
       hasError.value = false
+      if (data.error) {
+        hasError.value = true
+        errorReason.value = data.error
+        return false
+      }
       return true
     })
     .catch((e) => {
@@ -245,7 +269,14 @@ async function save(event: Event): Promise<boolean> {
                                           <v-text-field v-model.number="ar.score"
                                                         hide-details label="Score" outlined suffix="miel"/>
 
-                                          <div class="flex justify-end mt-2">
+                                          <div class="flex justify-between mt-2">
+                                            <v-confirm-btn color="red" variant="text"
+                                                           @click="delete_activity_reward(event, activity, ar);
+                                                           isActive.value = false">
+                                              Supprimer
+                                            </v-confirm-btn>
+
+
                                             <v-btn color="secondary" variant="text"
                                                    @click="isActive.value = false">
                                               Enregistrer
