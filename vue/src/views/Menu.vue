@@ -1,30 +1,36 @@
 <script lang="ts" setup>
 
 import {Carousel, Slide} from 'vue3-carousel'
+import FlipCard from "@/views/menu_/FlipCard.vue";
+import {useCurrentEventStore} from "@/stores/current_event_store";
 
 import 'vue3-carousel/dist/carousel.css'
 
+const currentEventStore = useCurrentEventStore()
+currentEventStore.updateCurrentEvent()
 
-import FlipCard from "@/views/menu_/FlipCard.vue";
+
 </script>
 
 <template>
   <div class="bg-white rounded-t-2xl py-4 flex flex-col elevation-2 min-h-full relative">
-    <Carousel :itemsToShow="1.50" :wrapAround="true" :transition="300">
-      <Slide v-for="slide in 10" :key="slide">
+    <Carousel :itemsToShow="1.50" wrap-around :transition="300">
+      <Slide v-for="menu in currentEventStore.current_event?.menu" :key="menu.id">
         <flip-card class="carousel__slide">
           <template #front>
-            <div class="bg-white rounded-lg elevation-2 p-2 flex justify-center items-center h-16 w-16">
-              <v-icon size="48">
-                mdi-trophy
-              </v-icon>
+            <div class="w-full h-full bg-white flex flex-col p-4">
+              <v-img :src="'menu/' + menu.src" class="flex-1 mb-2" :transition="false"/>
+              <div>
+                {{ menu.name }}
+              </div>
+              <div class="text-green-600">
+                {{ menu.vg ? "Végétarien" : "" }}
+              </div>
             </div>
           </template>
           <template #back>
-            <div class="bg-white rounded-lg elevation-2 p-2 flex justify-center items-center h-16 w-16">
-              <v-icon size="48">
-                mdi-trophy
-              </v-icon>
+            <div class="w-full h-full bg-white fles flex-center p-2">
+              On rajoute des trucs ici
             </div>
           </template>
         </flip-card>
@@ -74,7 +80,6 @@ import FlipCard from "@/views/menu_/FlipCard.vue";
 }
 
 .carousel__slide--active {
-  background-color: white;
   opacity: 1;
   transform: rotateY(0) scale(1.1) translateZ(100px) translateX(2%);
 }

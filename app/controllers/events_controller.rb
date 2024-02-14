@@ -12,37 +12,7 @@ class EventsController < ApplicationController
   def index
     return not_allowed! unless current_user&.has_staff_role?(:MANAGE_SCORE, :SCORE)
 
-    render json: (Event.all.map do |event|
-      {
-        internalId: event.internal_id,
-        name: event.name,
-        type: event.type,
-        startDate: event.start_date.iso8601,
-        endDate: event.end_date.iso8601,
-        location: event.location,
-        description: event.description,
-        activities: event.activities.map do |activity|
-          {
-            internalId: activity.internal_id,
-            name: activity.name,
-            internalDescription: activity.internal_description,
-            description: activity.description,
-            startDate: activity.start_date&.iso8601,
-            endDate: activity.end_date&.iso8601,
-            location: activity.location,
-            activityRewards: activity.activity_rewards.map do |activity_reward|
-              {
-                id: activity_reward.id,
-                name: activity_reward.name,
-                score: activity_reward.score,
-                chest: activity_reward.chest,
-                internalDescription: activity_reward.internal_description
-              }
-            end
-          }
-        end
-      }
-    end)
+    render json: Event.all.map(&method(:to_web))
 
   end
 
@@ -82,6 +52,61 @@ class EventsController < ApplicationController
     end
     params[:removedActivityRewards]&.each do |ar|
       ActivityReward.find_by(id: ar[:id]).destroy
+    end
+  end
+
+  def current_event
+    return render json: { unchanged: true } if params[:known] == (
+      current_event = Event.current
+    ).internal_id
+
+    render json: to_web(current_event, all_info: true)
+  end
+
+  private
+
+  def to_web(event, all_info: false)
+    {
+      internalId: event.internal_id,
+      name: event.name,
+      type: event.type,
+      startDate: event.start_date.iso8601,
+      endDate: event.end_date.iso8601,
+      location: event.location,
+      description: event.description,
+      activities: event.activities.map do |activity|
+        {
+          internalId: activity.internal_id,
+          name: activity.name,
+          internalDescription: activity.internal_description,
+          description: activity.description,
+          startDate: activity.start_date&.iso8601,
+          endDate: activity.end_date&.iso8601,
+          location: activity.location,
+          activityRewards: activity.activity_rewards.map do |activity_reward|
+            {
+              id: activity_reward.id,
+              name: activity_reward.name,
+              score: activity_reward.score,
+              chest: activity_reward.chest,
+              internalDescription: activity_reward.internal_description
+            }
+          end
+        }
+      end
+    }.tap do |res|
+      next unless all_info
+
+      res[:menu] = event.menu_items.map do |menu_item|
+        {
+          id: menu_item.id,
+          name: menu_item.name,
+          src: menu_item.src,
+          type: menu_item.type,
+          vg: menu_item.vg
+        }
+      end
+
     end
   end
 end

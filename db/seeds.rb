@@ -161,4 +161,339 @@ Event.create!([
                   location: "Foyer",
                   description: "TODO description",
                 }
-              ])
+              ]) unless Event.count != 0
+
+{
+  "2": [
+    {
+      "name": "Crepes",
+      "vg": true,
+      "type": "DES",
+      "src": "crepes.png"
+    },
+    {
+      "name": "Gauffres",
+      "vg": true,
+      "type": "DES",
+      "src": "gauffres.png"
+    }
+  ],
+  "3": [
+    {
+      "name": "Plat secret",
+      "vg": false,
+      "type": "PLA",
+      "src": "plat_secret.png"
+    }
+  ],
+  "4": [
+    {
+      "name": "Croque Monsieur",
+      "vg": false,
+      "type": "PLA",
+      "src": "croque_monsieur.png"
+    },
+    {
+      "name": "Fajitas",
+      "vg": false,
+      "type": "PLA",
+      "src": "fajitas.png"
+    },
+    {
+      "name": "Pizzas",
+      "vg": false,
+      "type": "PLA",
+      "src": "pizzas.png"
+    },
+    {
+      "name": "Cookies",
+      "vg": true,
+      "type": "DES",
+      "src": "cookies.png"
+    },
+    {
+      "name": "Crepes",
+      "vg": true,
+      "type": "DES",
+      "src": "crepes.png"
+    },
+    {
+      "name": "Gâteau à l'orange",
+      "vg": true,
+      "type": "DES",
+      "src": "gâteau_a_lorange.png"
+    }
+  ],
+  "8": [
+    {
+      "name": "Garlic Bread",
+      "vg": true,
+      "type": "ENTREE",
+      "src": "garlic_bread.png"
+    },
+    {
+      "name": "Croque-Monsieur",
+      "vg": false,
+      "type": "PLA",
+      "src": "croque-monsieur.png"
+    },
+    {
+      "name": "Lasagnes",
+      "vg": true,
+      "type": "PLA",
+      "src": "lasagnes.png"
+    },
+    {
+      "name": "Brownie",
+      "vg": true,
+      "type": "DES",
+      "src": "brownie.png"
+    },
+    {
+      "name": "Sirops à l'eau",
+      "vg": true,
+      "type": "BOI",
+      "src": "sirops_a_leau.png"
+    }
+  ],
+  "6": [
+    {
+      "name": "Avocado Toast",
+      "vg": true,
+      "type": "ENTREE",
+      "src": "avocado_toast.png"
+    },
+    {
+      "name": "Gâteau au Yaourt",
+      "vg": true,
+      "type": "DES",
+      "src": "gateau_au_yaourt.png"
+    },
+    {
+      "name": "Cookies",
+      "vg": true,
+      "type": "DES",
+      "src": "cookies.png"
+    },
+    {
+      "name": "Pancakes",
+      "vg": true,
+      "type": "DES",
+      "src": "pancakes.png"
+    },
+    {
+      "name": "Gauffres",
+      "vg": true,
+      "type": "DES",
+      "src": "gauffres.png"
+    }
+  ],
+  "5": [
+    {
+      "name": "Flam's",
+      "vg": false,
+      "type": "PLA",
+      "src": "flams.png"
+    },
+    {
+      "name": "Sirops à l'eau",
+      "vg": true,
+      "type": "BOI",
+      "src": "sirops_a_leau.png"
+    }
+  ],
+  "9": [
+    {
+      "name": "Roulé Saucisse",
+      "vg": false,
+      "type": "ENTREE",
+      "src": "roulé_saucisse.png"
+    },
+    {
+      "name": "Burger Tenders",
+      "vg": false,
+      "type": "PLA",
+      "src": "burger_tenders.png"
+    },
+    {
+      "name": "Gratin dauphinois",
+      "vg": true,
+      "type": "PLA",
+      "src": "gratin_dauphinois.png"
+    },
+    {
+      "name": "Cake Choco banane",
+      "vg": true,
+      "type": "DES",
+      "src": "cake_choco_banane.png"
+    },
+    {
+      "name": "Crepes",
+      "vg": true,
+      "type": "DES",
+      "src": "crepes.png"
+    },
+    {
+      "name": "Chocolat Chaud",
+      "vg": true,
+      "type": "BOI",
+      "src": "chocolat_chaud.png"
+    }
+  ],
+  "10": [
+    {
+      "name": "Croque Monsieur",
+      "vg": false,
+      "type": "PLA",
+      "src": "croque_monsieur.png"
+    },
+    {
+      "name": "Tarte à la tomate",
+      "vg": true,
+      "type": "PLA",
+      "src": "tarte_a_la_tomate.png"
+    },
+    {
+      "name": "Pizzas",
+      "vg": false,
+      "type": "PLA",
+      "src": "pizzas.png"
+    },
+    {
+      "name": "Cookies",
+      "vg": true,
+      "type": "DES",
+      "src": "cookies.png"
+    },
+    {
+      "name": "Crepes",
+      "vg": true,
+      "type": "DES",
+      "src": "crepes.png"
+    },
+    {
+      "name": "Fondant au Chocolat",
+      "vg": true,
+      "type": "DES",
+      "src": "fondant_au_chocolat.png"
+    }
+  ],
+  "11": [
+    {
+      "name": "Panini",
+      "vg": true,
+      "type": "PLA",
+      "src": "panini.png"
+    },
+    {
+      "name": "Pancakes",
+      "vg": true,
+      "type": "DES",
+      "src": "pancakes.png"
+    },
+    {
+      "name": "Crepes",
+      "vg": true,
+      "type": "DES",
+      "src": "crepes.png"
+    },
+    {
+      "name": "Gâteau au Yaourt",
+      "vg": true,
+      "type": "DES",
+      "src": "gateau_au_yaourt.png"
+    },
+    {
+      "name": "Cookies",
+      "vg": true,
+      "type": "DES",
+      "src": "cookies.png"
+    },
+    {
+      "name": "Café",
+      "vg": true,
+      "type": "BOI",
+      "src": "café.png"
+    },
+    {
+      "name": "Jus de fruits",
+      "vg": true,
+      "type": "BOI",
+      "src": "jus_de_fruits.png"
+    },
+    {
+      "name": "Chocolat chaud",
+      "vg": true,
+      "type": "BOI",
+      "src": "chocolat_chaud.png"
+    }
+  ],
+  "13": [
+    {
+      "name": "Briques",
+      "vg": true,
+      "type": "ENTREE",
+      "src": "briques_vg.png"
+    },
+    {
+      "name": "Tartes Soleil Pesto Tomate",
+      "vg": true,
+      "type": "PLA",
+      "src": "tartes_soleil_pesto_tomate.png"
+    },
+    {
+      "name": "Crepes",
+      "vg": true,
+      "type": "DES",
+      "src": "crepes.png"
+    },
+    {
+      "name": "Cookies",
+      "vg": true,
+      "type": "DES",
+      "src": "cookies.png"
+    },
+    {
+      "name": "Jus de fruits",
+      "vg": true,
+      "type": "BOI",
+      "src": "jus_de_fruits.png"
+    },
+    {
+      "name": "Chocolat chaud",
+      "vg": true,
+      "type": "BOI",
+      "src": "chocolat_chaud.png"
+    }
+  ],
+  "14": [
+    {
+      "name": "Kebab et Frites",
+      "vg": false,
+      "type": "PLA",
+      "src": "kebab_et_frites.png"
+    },
+    {
+      "name": "Pannacotta",
+      "vg": true,
+      "type": "DES",
+      "src": "pannacotta.png"
+    },
+    {
+      "name": "Fuze Tea",
+      "vg": true,
+      "type": "BOI",
+      "src": "fuze_tea.png"
+    }
+  ]
+}.each do |event_id, items|
+  items.each do |item|
+    MenuItem.create!(
+      event: Event.find_by(internal_id: event_id),
+      name: item[:name],
+      vg: item[:vg],
+      type: item[:type],
+      src: item[:src]
+    )
+  end
+end unless MenuItem.count != 0

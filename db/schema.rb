@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_12_224132) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_14_081331) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -138,6 +138,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_224132) do
     t.index ["user_id"], name: "index_game_scores_on_user_id"
   end
 
+  create_table "menu_items", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.boolean "vg"
+    t.string "src"
+    t.bigint "event_id", null: false
+    t.index ["event_id"], name: "index_menu_items_on_event_id"
+  end
+
   create_table "planning_urls", force: :cascade do |t|
     t.string "url"
   end
@@ -193,6 +202,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_224132) do
   add_foreign_key "collections", "collection_pieces"
   add_foreign_key "collections", "users"
   add_foreign_key "game_scores", "users"
+  add_foreign_key "menu_items", "events"
   add_foreign_key "qr_codes", "users"
   add_foreign_key "rewards", "activity_rewards"
   add_foreign_key "rewards", "users"
