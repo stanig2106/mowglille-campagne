@@ -35,9 +35,9 @@ onUnmounted(() => interval && clearInterval(interval))
   <div class="bg-white rounded-t-2xl p-4 flex flex-col
               justify-between elevation-2 h-full gap-4 relative">
 
-    <div class="text-center text-gray-500 text-xl absolute w-full left-0">
-      {{ remaining_time }}
-    </div>
+<!--    <div class="text-center text-gray-500 text-xl absolute w-full left-0">-->
+<!--      {{ remaining_time }}-->
+<!--    </div>-->
 
     <div class="flex flex-col justify-center items-center gap-4 h-full">
 
