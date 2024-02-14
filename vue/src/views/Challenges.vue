@@ -30,8 +30,8 @@ const titles = [
     <v-carousel :show-arrows="false" hide-delimiters v-model="page" :continuous="false"
                 class="flex-grow >:!h-full">
       <v-carousel-item v-for="index in titles.length" :key="index">
-        <div class="h-full">
-          {{ index }}
+        <div class="h-full text-xl text-center mt-4">
+          Aucun défi pour le moment, revenez plus tard !
         </div>
       </v-carousel-item>
     </v-carousel>

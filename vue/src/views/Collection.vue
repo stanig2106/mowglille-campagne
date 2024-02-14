@@ -62,7 +62,11 @@ const opening = ref(false)
       Votre collection
     </h2>
 
-    <piece-viewer class="w-full h-full"/>
+    <h3>
+      Vous avez aucune pièce pour le moment, ouvrez des coffres pour en gagner !
+    </h3>
+
+<!--    <piece-viewer class="w-full h-full"/>-->
 
 
   </div>

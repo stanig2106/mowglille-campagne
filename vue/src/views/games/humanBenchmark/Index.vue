@@ -2,7 +2,7 @@
 
 import {onMounted, onUnmounted, ref} from "vue";
 
-const end_time = new Date("2023-12-30T00:00:00.000Z")
+const end_time = new Date("2024-02-30T00:00:00.000Z")
 
 const remaining_time = ref("")
 
@@ -59,10 +59,10 @@ onUnmounted(() => interval && clearInterval(interval))
           Classement
         </v-btn>
 
-        <v-btn class="w-full"
-               variant="text" @click="$router.push('/games/safari_sprint')">
-          Safari Sprint ?
-        </v-btn>
+<!--        <v-btn class="w-full"-->
+<!--               variant="text" @click="$router.push('/games/safari_sprint')">-->
+<!--          Safari Sprint ?-->
+<!--        </v-btn>-->
       </div>
 
     </div>

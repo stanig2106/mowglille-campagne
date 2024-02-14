@@ -41,8 +41,6 @@ currentEventStore.updateCurrentEvent()
       Venez déguster nos délicieuse crêpes et gaufres préparées avec amour ! <br> <br>
 
       Les crêpes peuvent être accompagnées de sucre, de confiture à la pêche ou de Nutella. <br><br>
-
-      (blablabla, une description par event)
     </div>
   </div>
 </template>

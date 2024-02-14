@@ -63,9 +63,9 @@ setInterval(timeToNext.trigger, 1000)
 
     <event-action icon="mdi-food" subtitle="Voir le menu" title="Un petit creux ?"
                   @click="router.push('menu')" v-if="currentEvent.menu.length > 0"/>
-    <event-action icon="mdi-map" subtitle="Regarde la carte" title="Perdu ?"/>
-    <event-action icon="mdi-music-note-plus" subtitle="Propose le tiens !" title="Pas ouf le son ?"/>
-    <event-action icon="mdi-chat" subtitle="Ouvre le chat" title="Discute de l'évent"/>
+    <event-action icon="mdi-map" subtitle="Regarde la carte" title="Perdu ?" class="opacity-0"/>
+    <event-action icon="mdi-music-note-plus" subtitle="Propose le tiens !" title="Pas ouf le son ?" class="opacity-0"/>
+    <event-action icon="mdi-chat" subtitle="Ouvre le chat" title="Discute de l'évent" class="opacity-0"/>
   </div>
 
 </template>

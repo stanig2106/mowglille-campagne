@@ -14,23 +14,23 @@ import event_bg from '@/assets/fake/event_bg.png'
 
     <CurrentEvent :background_url="event_bg" event_name="Le Livre de la Jungle" event_type="Aprèm"/>
 
-    <div class="h-full bg-white rounded-t-2xl elevation-2 p-4 flex flex-col gap-2">
+    <div class="h-full bg-white rounded-t-2xl elevation-2 p-4 flex flex-col gap-4">
       <CollectionBtn class="w-full" @click="router.push('/collection')"/>
-      <div class="flex gap-2 >:flex-grow w-full">
+      <div class="flex gap-4 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" icon="mdi-trophy" title="Liste des defis"
                     @click="router.push('/challenges')"/>
         <OneLineBtn :icon-size="32" icon="mdi-nintendo-game-boy" title="Jeu"
                     @click="router.push('/games/human_benchmark')"/>
       </div>
-      <div class="flex gap-2 >:flex-grow w-full">
-        <OneLineBtn :icon-size="32" icon="mdi-calendar-clock" title="Planning"/>
+      <div class="flex gap-4 >:flex-grow w-full">
+        <OneLineBtn :icon-size="32" disabled icon="mdi-calendar-clock" title="Planning"/>
         <OneLineBtn :icon-size="32" disabled icon="mdi-script-text-outline" title="Programme"/>
       </div>
-      <div class="flex gap-2 >:flex-grow w-full">
-        <OneLineBtn :icon-size="32" icon="mdi-image-frame" title="Trombi"/>
-        <OneLineBtn :icon-size="32" icon="mdi-message-outline" title="Contact nous"/>
+      <div class="flex gap-4 >:flex-grow w-full">
+        <OneLineBtn :icon-size="32" disabled icon="mdi-image-frame" title="Trombi"/>
+        <OneLineBtn :icon-size="32" disabled icon="mdi-message-outline" title="Contact nous"/>
       </div>
-      <div class="flex gap-2 >:flex-grow w-full">
+      <div class="flex gap-4 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" disabled icon="mdi-image-multiple" title="Galerie"/>
         <OneLineBtn :icon-size="32" icon="mdi-link-variant" title="Liens utiles"
                     @click="() => $router.push('/links')"/>

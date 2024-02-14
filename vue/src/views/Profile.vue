@@ -82,16 +82,16 @@ async function uploadPP() {
       </div>
     </div>
 
-    <v-btn class="mt-4" size="large" variant="tonal" @click="router.push('stats')">
-      <v-icon>mdi-chart-bar</v-icon>
-      Statistiques
-    </v-btn>
+<!--    <v-btn class="mt-4" size="large" variant="tonal" @click="router.push('stats')">-->
+<!--      <v-icon>mdi-chart-bar</v-icon>-->
+<!--      Statistiques-->
+<!--    </v-btn>-->
 
-    <v-btn v-if="userStore.staffRoles && userStore.staffRoles.length > 0" class="mt-4"
-           color="green" size="large" variant="tonal" @click="router.push('staff')">
-      <v-icon>mdi-account-group</v-icon>
-      Espace staffeur
-    </v-btn>
+<!--    <v-btn v-if="userStore.staffRoles && userStore.staffRoles.length > 0" class="mt-4"-->
+<!--           color="green" size="large" variant="tonal" @click="router.push('staff')">-->
+<!--      <v-icon>mdi-account-group</v-icon>-->
+<!--      Espace staffeur-->
+<!--    </v-btn>-->
 
     <v-spacer/>
 
