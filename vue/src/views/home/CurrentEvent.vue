@@ -20,6 +20,8 @@ const {current_event: currentEvent} = storeToRefs(currentEventStore)
 const timeToNext = computedWithControl(() => void 0, () => {
   if (currentEvent.value == undefined)
     return "0 s"
+  if (currentEvent.value.startDate.getTime == undefined)
+    return '...'
   const res = currentEvent.value.startDate.getTime() - new Date().getTime()
   if (res < 0)
     return "0 s"

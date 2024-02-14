@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
 import {ref} from "vue";
+import {saveScore} from "@/views/games/Score";
+import {gameNames} from "@/views/games/humanBenchmark/humanBenchmark";
 
 const todo = 5;
 const started = ref(false);
@@ -32,6 +34,13 @@ function nextStep() {
 
   if (results.value.length >= todo) {
     done.value = true
+
+    saveScore('human_benchmark_reaction_time',
+      Math.round(results.value.reduce((a, b) => a + b, 0) / results.value.length),
+      {
+        title: "Score de " + gameNames['reaction_time'],
+        message: "Temps moyen: " + Math.round(results.value.reduce((a, b) => a + b, 0) / results.value.length) + "ms"
+      })
     return
   }
 
@@ -82,7 +91,7 @@ function nextStep() {
             fill="currentcolor"></path>
         </svg>
         <div v-if="!started" class="flex">
-          Test de temps de réaction
+          {{ gameNames['reaction_time'] }}
         </div>
         <span v-if="!started" class="flex text-xl">
         Quand l'écran devient vert, cliquez aussi vite que possible ! <br>

@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   post "api/staff/reward", to: "staffers#reward"
 
   post "api/games/score", to: "games#save_score"
+  get "api/games/scoreboard", to: "games#get_scoreboard"
 
   get "api/events", to: "events#index"
   put "api/events/:internal_id", to: "events#update"

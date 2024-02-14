@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 
-import {computed, onMounted, ref, watch} from "vue";
+import {ref} from "vue";
 import {gameNames} from "./humanBenchmark";
+import {saveScore} from "@/views/games/Score";
 
 const started = ref(false);
 const done = ref(false)
@@ -78,6 +79,12 @@ function nextStep(button?: number) {
   if (missed.value.length == 3) {
     shadow_block.value = true
     setTimeout(() => done.value = true, 500)
+
+    saveScore('human_benchmark_visual_memory', round.value - 1,
+      {
+        title: "Score de " + gameNames['visual_memory'],
+        message: "Round: " + (round.value - 1)
+      })
   }
 
 }
@@ -108,7 +115,8 @@ function pos(i: number, j: number) {
         <rect fill="currentcolor" height="58" rx="10" width="58"></rect>
         <rect fill="currentcolor" height="58" rx="10" width="58" x="70"></rect>
         <rect fill="currentcolor" height="58" rx="10" width="58" y="70"></rect>
-        <path clip-rule="evenodd" d="M118 80H80L80 118H118V80ZM80 70C74.4772 70 70 74.4772 70 80V118C70 123.523 74.4772 128 80 128H118C123.523 128 128 123.523 128 118V80C128 74.4772 123.523 70 118 70H80Z"
+        <path clip-rule="evenodd"
+              d="M118 80H80L80 118H118V80ZM80 70C74.4772 70 70 74.4772 70 80V118C70 123.523 74.4772 128 80 128H118C123.523 128 128 123.523 128 118V80C128 74.4772 123.523 70 118 70H80Z"
               fill="currentcolor"
               fill-rule="evenodd"></path>
       </svg>
@@ -155,7 +163,7 @@ function pos(i: number, j: number) {
 
         <div class="text-3xl text-white px-4 text-center items-center
                 flex flex-col mb-6">
-          Votre score: {{ round }}
+          Votre score: {{ round - 1 }}
         </div>
 
         <div class="text-lg text-white px-4 text-center items-center

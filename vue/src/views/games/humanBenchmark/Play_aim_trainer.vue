@@ -2,6 +2,7 @@
 
 import {computed, ref} from "vue";
 import {gameNames} from "./humanBenchmark";
+import {saveScore} from "@/views/games/Score";
 
 const todo = 30;
 const started = ref(false);
@@ -42,6 +43,14 @@ function nextStep() {
   }
   if (results.value.length >= todo - 1) {
     done.value = true
+
+    saveScore('human_benchmark_aim_trainer', (sum.value / 1000),
+      {
+        title: "Score de " + gameNames['aim_trainer'],
+        message: "Temps total: " + (sum.value / 1000).toFixed(2) + "s"
+      })
+
+
     setTimeout(() => {
       started.value = false
     }, 1000)

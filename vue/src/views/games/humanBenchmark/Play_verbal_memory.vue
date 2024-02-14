@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import {gameNames} from "./humanBenchmark";
 import {generateVerbalMemorySequence} from "@/views/games/humanBenchmark/verbal_memory";
+import {saveScore} from "@/views/games/Score";
 
 const started = ref(false);
 const life = ref(3)
@@ -47,12 +48,24 @@ function nextStep(clicked_new?: boolean) {
 
   if (life.value <= 0) {
     done.value = true
+
+    saveScore('human_benchmark_verbal_memory', round.value, {
+      title: "Score de " + gameNames['verbal_memory'],
+      message: "Round: " + round.value
+    })
+
     return
   }
 
   const {value} = sequence!.next()
   if (!value) {
     done.value = true
+
+    saveScore('human_benchmark_verbal_memory', round.value, {
+      title: "Score de " + gameNames['verbal_memory'],
+      message: "Round: " + round.value
+    })
+
     return
   }
   word.value = value.word

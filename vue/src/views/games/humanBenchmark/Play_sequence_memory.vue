@@ -2,6 +2,7 @@
 
 import {computed, onMounted, ref, watch} from "vue";
 import {gameNames} from "./humanBenchmark";
+import {saveScore} from "@/views/games/Score";
 
 const started = ref(false);
 const done = ref(false)
@@ -47,6 +48,12 @@ function nextStep(button?: number) {
   if (button! != sequence.value[current_input.value.length]) {
     bad.value = true
     done.value = true
+
+    saveScore('human_benchmark_sequence_memory', round.value - 1, {
+      title: "Score de " + gameNames['sequence_memory'],
+      message: "Round: " + (round.value - 1)
+    })
+
     setTimeout(() => bad.value = false, 200)
     return
   }
@@ -153,7 +160,7 @@ function resetClick() {
 
         <div class="text-3xl text-white px-4 text-center items-center
                 flex flex-col mb-6">
-          Votre score: {{ round }}
+          Votre score: {{ round - 1 }}
         </div>
 
         <div class="text-lg text-white px-4 text-center items-center

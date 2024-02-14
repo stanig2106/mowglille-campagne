@@ -6,6 +6,7 @@ import "simple-keyboard/build/css/index.css";
 import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {gameNames} from "./humanBenchmark";
 import {TransitionPresets, useTimestamp, useTransition} from "@vueuse/core";
+import {saveScore} from "@/views/games/Score";
 
 const time_show = 3000 // ms
 
@@ -48,6 +49,14 @@ function nextStep(validate = false) {
     ask_input.value = false
     show_result.value = true
     done.value = user_input.value != number.value
+
+    if (done.value) {
+      saveScore("human_benchmark_number_memory", round.value - 1,
+        {
+          title: "Score de " + gameNames['number_memory'],
+          message: "Vous avez fait un score de " + (round.value - 1)
+        })
+    }
 
     return
   }

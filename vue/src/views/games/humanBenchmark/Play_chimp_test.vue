@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, ref} from "vue";
 import {gameNames} from "./humanBenchmark";
+import {saveScore} from "@/views/games/Score";
 
 const started = ref(false);
 const done = ref(false)
@@ -56,6 +57,12 @@ function nextStep(button?: number) {
       show_result.value = false
       shadow_block.value = false
       done.value = true
+
+      saveScore('human_benchmark_chimp_test', round.value - 1,
+        {
+          title: "Score de " + gameNames['chimp_test'],
+          message: "Round: " + (round.value - 1)
+        })
     }, 1000)
 
     return
@@ -144,7 +151,7 @@ const hint = computed(() => show_result.value || round.value == 1 || user_input.
 
         <div class="text-3xl text-white px-4 text-center items-center
                 flex flex-col mb-6">
-          Votre score: {{ round }}
+          Votre score: {{ round - 1 }}
         </div>
 
         <div class="text-lg text-white px-4 text-center items-center
