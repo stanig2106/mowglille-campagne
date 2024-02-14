@@ -8,7 +8,7 @@ const active = ref(false)
 
 <template>
 
-  <div class="flip-card bg-white" @click="active = !active" :class="{ active }">
+  <div class="flip-card" @click="active = !active" :class="{ active }">
     <div class="flip-card-inner elevation-2" v-ripple>
       <div class="flip-card-front">
         <slot name="front"/>

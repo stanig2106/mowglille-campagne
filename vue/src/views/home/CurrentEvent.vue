@@ -48,7 +48,7 @@ setInterval(timeToNext.trigger, 1000)
     <div class="flex flex-col">
       <h2 class="text-gray-200 text-lg font-bold flex justify-between">
         <div>
-          {{ currentEventStore.started ? "Actuellement :" : "Prochainement :" }}
+          {{ currentEventStore.started ? "Actuellement :" : ("Prochainement (" + timeToNext + ") ") }}
         </div>
         <div>
           {{ typeToString(currentEvent.type) }}
@@ -60,7 +60,7 @@ setInterval(timeToNext.trigger, 1000)
     </div>
 
     <event-action icon="mdi-food" subtitle="Voir le menu" title="Un petit creux ?"
-                  @click="router.push('menu')"/>
+                  @click="router.push('menu')" v-if="currentEvent.menu.length > 0"/>
     <event-action icon="mdi-map" subtitle="Regarde la carte" title="Perdu ?"/>
     <event-action icon="mdi-music-note-plus" subtitle="Propose le tiens !" title="Pas ouf le son ?"/>
     <event-action icon="mdi-chat" subtitle="Ouvre le chat" title="Discute de l'évent"/>

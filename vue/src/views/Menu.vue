@@ -13,7 +13,7 @@ currentEventStore.updateCurrentEvent()
 </script>
 
 <template>
-  <div class="bg-white rounded-t-2xl py-4 flex flex-col elevation-2 min-h-full relative">
+  <div class="rounded-t-2xl py-4 flex flex-col justify-center min-h-full relative gap-12 pt-16">
     <Carousel :itemsToShow="1.50" wrap-around :transition="300">
       <Slide v-for="menu in currentEventStore.current_event?.menu" :key="menu.id">
         <flip-card class="carousel__slide">
@@ -35,9 +35,15 @@ currentEventStore.updateCurrentEvent()
           </template>
         </flip-card>
       </Slide>
-
-      ...
     </Carousel>
+
+    <div class="rounded-t-2xl p-4 flex flex-col bg-white elevation-2 flex-1 -mb-4 relative text-lg">
+      Venez déguster nos délicieuse crêpes et gaufres préparées avec amour ! <br> <br>
+
+      Les crêpes peuvent être accompagnées de sucre, de confiture à la pêche ou de Nutella. <br><br>
+
+      (blablabla, une description par event)
+    </div>
   </div>
 </template>
 
