@@ -17,7 +17,9 @@ class GamesController < ApplicationController
                                   game_name: params[:data][:game_name])
 
     best = GameScore.find_by(user: user, game_name: params[:data][:game_name], pb: true)
-    if best.nil? || best.score < params[:data][:score].to_i
+    if best.nil? ||
+      (GameScore.inverse_score?(params[:data][:game_name]) ?
+         best.score > params[:data][:score].to_f : best.score < params[:data][:score].to_f)
       best&.update!(pb: false)
       new_score.update!(pb: true)
     end
