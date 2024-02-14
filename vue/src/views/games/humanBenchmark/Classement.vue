@@ -89,8 +89,15 @@ watch(selected_game, game => {
             </div>
           </v-card>
 
-
+          <h2 v-if="game_classements_store.scoreboards[long_selected_game(game)].length == 0"
+              class="text-center text-2xl mt-4">
+            Personne n'a encore de points, soyez le premier !
+          </h2>
         </div>
+
+        <h2 v-else class="text-center text-2xl mt-4">
+          Chargement...
+        </h2>
       </v-carousel-item>
     </v-carousel>
 
