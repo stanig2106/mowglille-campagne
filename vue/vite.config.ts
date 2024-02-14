@@ -53,8 +53,6 @@ export default defineConfig({
   plugins: [
     VitePWA({
       strategies: 'generateSW',
-      srcDir: 'src',
-      filename: 'sw.ts',
       workbox: {
         maximumFileSizeToCacheInBytes: 10_000_000, // 10MB
         globIgnores: [
