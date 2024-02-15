@@ -1,10 +1,8 @@
 // Plugins
 import vue from '@vitejs/plugin-vue'
 import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
-import ViteFonts from 'unplugin-fonts/vite'
 import {VitePWA} from 'vite-plugin-pwa'
 import {terser} from 'rollup-plugin-terser'
-import {obfuscate} from 'javascript-obfuscator'
 
 // Utilities
 import {defineConfig} from 'vite'
@@ -64,7 +62,7 @@ export default defineConfig({
         runtimeCaching: [
           {
             handler: 'CacheFirst',
-            urlPattern: /.*/
+            urlPattern: (p) => !p.url.pathname.startsWith('/api')
           }
         ],
         globDirectory: 'dist',
