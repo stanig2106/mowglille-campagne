@@ -12,18 +12,17 @@ import {registerPlugins} from '@/plugins'
 import App from './App.vue'
 
 // Composables
-import {createApp, inject} from 'vue'
+import {createApp} from 'vue'
+// Axios
+import axios from 'axios';
+import {startOnlineJobs, useOffline} from "@/router/offline";
 
 const app = createApp(App)
 
 // Register plugins
 registerPlugins(app)
 
-// Axios
-import axios from 'axios';
-import disableDevtool from "disable-devtool";
-import {startOnlineJobs, useOffline} from "@/router/offline";
-
+axios.defaults.timeout = 5 * 1000; // 5 seconds
 axios.interceptors.request.use(config => {
 
   config.url = `/api${config.url}`;
@@ -36,7 +35,6 @@ axios.interceptors.request.use(config => {
   if (process.env.DEV)
     config.baseURL = 'http://localhost:3000';
 
-  config.timeout = 5 * 1000; // 5 seconds
 
   return config;
 }, error => {
