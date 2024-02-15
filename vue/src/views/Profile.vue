@@ -32,7 +32,8 @@ async function uploadPP() {
   await axios.post("/update_profile_picture", formData, {
     headers: {
       "Content-Type": "multipart/form-data"
-    }
+    },
+    timeout: undefined
   }).then(() => {
     userStore.updateUser()
   }).catch()
