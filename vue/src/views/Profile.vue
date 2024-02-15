@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {useUserStore} from "@/stores/user_store";
 import DownloadSoutientActif from "@/views/profile/DownloadSoutientActif.vue";
-import {provide, ref} from "vue";
+import {ref} from "vue";
 import Galerie from "@/components/Galerie.vue";
 import router from "@/router";
 import AccountSettings from "@/views/profile/AccountSettings.vue";
@@ -33,7 +33,7 @@ async function uploadPP() {
     headers: {
       "Content-Type": "multipart/form-data"
     },
-    timeout: undefined
+    timeout: 120 * 1000 // 120 seconds
   }).then(() => {
     userStore.updateUser()
   }).catch()
@@ -83,16 +83,16 @@ async function uploadPP() {
       </div>
     </div>
 
-<!--    <v-btn class="mt-4" size="large" variant="tonal" @click="router.push('stats')">-->
-<!--      <v-icon>mdi-chart-bar</v-icon>-->
-<!--      Statistiques-->
-<!--    </v-btn>-->
+    <!--    <v-btn class="mt-4" size="large" variant="tonal" @click="router.push('stats')">-->
+    <!--      <v-icon>mdi-chart-bar</v-icon>-->
+    <!--      Statistiques-->
+    <!--    </v-btn>-->
 
-<!--    <v-btn v-if="userStore.staffRoles && userStore.staffRoles.length > 0" class="mt-4"-->
-<!--           color="green" size="large" variant="tonal" @click="router.push('staff')">-->
-<!--      <v-icon>mdi-account-group</v-icon>-->
-<!--      Espace staffeur-->
-<!--    </v-btn>-->
+    <!--    <v-btn v-if="userStore.staffRoles && userStore.staffRoles.length > 0" class="mt-4"-->
+    <!--           color="green" size="large" variant="tonal" @click="router.push('staff')">-->
+    <!--      <v-icon>mdi-account-group</v-icon>-->
+    <!--      Espace staffeur-->
+    <!--    </v-btn>-->
 
     <v-spacer/>
 
