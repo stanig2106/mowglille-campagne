@@ -68,14 +68,16 @@ document.addEventListener('push-notification', (e: any) => {
 app.mount('#app')
 
 
-axios.get('/version').then(res => {
+axios.get('/version').then(async res => {
   if (localStorage.getItem('version') === res.data.version)
     return
+  if (localStorage.getItem('version') === null)
+    return localStorage.setItem('version', res.data.version)
 
-  if (localStorage.getItem('version') !== null)
-    alert('A new version of the app is available, the app will reload to update it')
+  // if (localStorage.getItem('version') !== null)
+  //   alert('A new version of the app is available, the app will reload to update it')
 
-  navigator.serviceWorker.getRegistrations()
+  await navigator.serviceWorker.getRegistrations()
     .then(registrations =>
       registrations.forEach(registration =>
         registration.unregister()));
