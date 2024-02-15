@@ -4,7 +4,7 @@ import {onMounted, onUnmounted} from 'vue';
 
 const cable = createConsumer(
   window.location.hostname === "localhost" ?
-    "ws://localhost:3000/cable" : "ws://pwa.mowglille.fr/cable"
+    "ws://localhost:3000/cable" : "wss://pwa.mowglille.fr/cable"
 )
 
 type ConnectionCallback = () => void
