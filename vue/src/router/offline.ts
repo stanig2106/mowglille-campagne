@@ -1,6 +1,7 @@
 import {computed, ref} from "vue";
-import axios, {Axios, AxiosError, AxiosRequestConfig} from "axios";
+import axios, {AxiosError, AxiosRequestConfig} from "axios";
 import {useOnlineJobsStore} from "@/stores/online_jobs_store";
+import useCable from "@/router/cable";
 
 
 const offline = ref(false);
@@ -32,7 +33,6 @@ export function doItOnline(axiosQuery: AxiosRequestConfig, description: { title:
 
 
 export async function doOnlineJobs() {
-  await axios.get('/version')
   if (offline.value) return;
 
   const onlineJobs = useOnlineJobsStore().onlineJobs
@@ -50,4 +50,15 @@ export async function doOnlineJobs() {
 
 export function startOnlineJobs() {
   setInterval(doOnlineJobs, 5000);
+
+  useCable('OfflineChannel', {
+    connected() {
+      console.log('connected');
+      updateOffline(false);
+    },
+    disconnected() {
+      console.log('disconnected');
+      updateOffline(true);
+    }
+  }, true);
 }
