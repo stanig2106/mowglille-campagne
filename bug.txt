@@ -1,0 +1,4 @@
+Liste des bugs :
+
+- Scroll horizontal sur la page d'accueil
+- Jeu de nombres : pb si nombre trop grand

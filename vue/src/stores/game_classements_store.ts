@@ -11,28 +11,29 @@ export type GameScoreboard = {
   you: boolean
 }[]
 
-export const useGameScoreboardStore = defineStore("scoreboard", () => {
-  const scoreboards = reactive({} as Record<string, GameScoreboard>)
+export const useGameScoreboardStore = defineStore(
+  "game_scoreboard", () => {
+    const scoreboards = reactive({} as Record<string, GameScoreboard>)
 
 
-  async function updateScoreboard(game_name: string) {
-    const response = await axios.get("/games/scoreboard", {
-      params: {game_name}
-    })
+    async function updateScoreboard(game_name: string) {
+      const response = await axios.get("/games/scoreboard", {
+        params: {game_name}
+      })
 
-    if (response.status !== 200)
-      return false
+      if (response.status !== 200)
+        return false
 
-    scoreboards[game_name] = response.data.map((score: any) => ({
-      ...score,
-      date: new Date(score.date),
-    }))
+      scoreboards[game_name] = response.data.map((score: any) => ({
+        ...score,
+        date: new Date(score.date),
+      }))
 
-    return true
-  }
+      return true
+    }
 
-  return {
-    scoreboards,
-    updateScoreboard
-  }
-})
+    return {
+      scoreboards,
+      updateScoreboard
+    }
+  })
