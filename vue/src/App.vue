@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import Header from "@/layouts/partials/header.vue";
-import {ref} from "vue";
+import {provide, reactive, ref} from "vue";
 import Loading from "@/components/Loading.vue";
 import router from "@/router";
 import axios from "axios";
 import {useOffline} from "@/router/offline";
+import {Inform, informKey, informShowKey} from "@/router/keys";
 
 
 router.afterEach(() => {
@@ -41,6 +42,28 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
+const inform = reactive({
+  title: "",
+  message: "",
+  show: false,
+  actions: []
+} as Inform)
+
+provide(informKey, inform)
+provide(informShowKey, (title: string, message: string) => {
+  inform.title = title
+  inform.message = message
+  inform.show = true
+  inform.actions = [
+    {
+      label: "OK",
+      callback: () => {
+        inform.show = false
+      }
+    }
+  ]
+})
+
 </script>
 
 <template>
@@ -56,12 +79,29 @@ router.beforeEach((to, from, next) => {
 
       <div :class="{'px-2': density == 'normal'}"
            class="h-full rounded-t-3xl !overflow-y-auto">
-
         <router-view/>
       </div>
 
+      <v-dialog v-model="inform.show" persistent>
+        <v-card density="comfortable">
+          <v-card-title class="mt-2">
+            {{ inform.title }}
+          </v-card-title>
+          <v-card-text>
+            {{ inform.message }}
+          </v-card-text>
+          <v-card-actions class="flex justify-end">
+            <v-btn v-for="(action, index) in inform.actions"
+                   :color="index != inform.actions.length ? 'secondary' : ''" @click="action.callback">
+              {{ action.label }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
     </v-main>
+
+
   </v-app>
 </template>
 

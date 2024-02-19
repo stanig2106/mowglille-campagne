@@ -14,4 +14,13 @@ class NotificationsController < ApplicationController
     current_user!.update!(subscription:)
     render json: { ok: true }
   end
+
+  def notify
+
+  end
+
+  def update_status
+    current_user!.update!(notification_preferences: params[:notifications])
+    render json: { ok: true }
+  end
 end

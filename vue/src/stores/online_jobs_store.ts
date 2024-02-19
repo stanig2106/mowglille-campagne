@@ -6,6 +6,7 @@ export const useOnlineJobsStore = defineStore(
   "online_jobs", () => {
     const onlineJobs = ref([] as {
       description: { title: string, message: string } | null,
+      id: string | null,
       request: AxiosRequestConfig
     }[])
 

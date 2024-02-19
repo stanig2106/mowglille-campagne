@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_19_075832) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_19_230425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -116,6 +116,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_19_075832) do
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
+  create_table "congratulations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "reason"
+    t.bigint "target_id", null: false
+    t.index ["target_id"], name: "index_congratulations_on_target_id"
+    t.index ["user_id"], name: "index_congratulations_on_user_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "internal_id"
     t.string "name"
@@ -192,6 +200,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_19_075832) do
     t.string "staff_roles", default: [], array: true
     t.string "planning_letter"
     t.jsonb "subscription", default: {}
+    t.string "notification_preferences", array: true
     t.index ["cla_info_id"], name: "index_users_on_cla_info_id"
   end
 
@@ -202,6 +211,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_19_075832) do
   add_foreign_key "chests", "users"
   add_foreign_key "collections", "collection_pieces"
   add_foreign_key "collections", "users"
+  add_foreign_key "congratulations", "users"
+  add_foreign_key "congratulations", "users", column: "target_id"
   add_foreign_key "game_scores", "users"
   add_foreign_key "menu_items", "events"
   add_foreign_key "qr_codes", "users"

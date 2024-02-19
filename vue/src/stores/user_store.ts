@@ -17,6 +17,8 @@ export const useUserStore = defineStore("user", () => {
 
   const staffRoles = ref(undefined as string[] | undefined)
 
+  const notification_preferences = ref(undefined as string[] | undefined)
+
   async function updateUser() {
     const response = await axios.get("/user")
     if (response.status !== 200)
@@ -34,18 +36,19 @@ export const useUserStore = defineStore("user", () => {
     rank.value = user.rank
     staffRoles.value = user.staff_roles
     pp.value = user.pp
+
+    notification_preferences.value = user.notification_preferences
     return true
   }
 
   const name = computed(() => `${firstName.value} ${lastName.value}`)
-
 
   return {
     loaded,
     id, publicToken,
     name, firstName, lastName, cursus,
     score, rank, staffRoles,
-    pp,
+    pp, notification_preferences,
     updateUser
   }
 })

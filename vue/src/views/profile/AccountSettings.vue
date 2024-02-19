@@ -2,7 +2,12 @@
 
 import router from "@/router";
 import axios from "axios";
-import {ref} from "vue";
+import {inject, ref, watch} from "vue";
+import {doItOnline} from "@/router/offline";
+import {useUserStore} from "@/stores/user_store";
+import {storeToRefs} from "pinia";
+import {computedWithControl} from "@vueuse/core";
+import {informShowKey} from "@/router/keys";
 
 const loading = ref(false)
 
@@ -17,6 +22,32 @@ async function deleteAccount() {
     })
 }
 
+const {notification_preferences} = storeToRefs(useUserStore())
+watch(notification_preferences, (value, oldValue) => {
+  if (value == undefined || oldValue == undefined || value.join() === oldValue.join())
+    return
+
+  if (value.find(v => v === "CUSTOM") === undefined && oldValue.find(v => v === "CUSTOM") !== undefined)
+    inform?.("Notifications", "Les notifications personnalisées sont des notifications " +
+      "qui vous sont directement adressées. Nous vous conseillons de les activer pour ne pas " +
+      "manquer d'informations importantes.")
+
+  doItOnline({
+    method: "post", url: "/notification/update_status",
+    data: {notifications: notification_preferences.value}
+  }, {
+    title: "Mise à jour des notifications",
+    message: "Changement de vos paramètres de notifications",
+  }, "notifications_update")
+})
+
+const notificationDisabled = computedWithControl(() => {
+}, () => "Notification" in window &&
+  Notification.permission === "denied")
+setInterval(notificationDisabled.trigger, 5000)
+
+const inform = inject(informShowKey)
+
 </script>
 
 <template>
@@ -28,7 +59,32 @@ async function deleteAccount() {
         </h2>
       </v-card-title>
       <v-card-text>
-        <v-btn class="w-full mb-2" color="red" size="large" variant="tonal">
+        <h4>
+          Notifications
+        </h4>
+        <div class="flex flex-col mb-8">
+          <v-switch v-model="notification_preferences"
+                    :disabled="notificationDisabled" color="secondary"
+                    density="comfortable" hide-details
+                    label="Notification d'évents" value="EVENTS"
+          />
+          <v-switch v-model="notification_preferences"
+                    :disabled="notificationDisabled" color="secondary"
+                    density="comfortable" hide-details
+                    label="Notification de jeu" value="GAMES"
+          />
+          <v-switch v-model="notification_preferences"
+                    :disabled="notificationDisabled" color="secondary"
+                    density="comfortable" hide-details
+                    label="Notification personnalisé" value="CUSTOM"
+          />
+
+          <p v-if="notificationDisabled" class="text-red-500">
+            Vous avez désactivé les notifications dans les paramètres. Vous ne pourrez pas recevoir de notifications.
+          </p>
+        </div>
+
+        <v-btn class="w-full mb-2" color="red" size="large" variant="text">
           <v-icon>mdi-delete</v-icon>
           Supprimer le compte
 

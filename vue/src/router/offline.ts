@@ -25,10 +25,15 @@ export function useOnline() {
 }
 
 
-export function doItOnline(axiosQuery: AxiosRequestConfig, description: { title: string, message: string } | null) {
+export function doItOnline(axiosQuery: AxiosRequestConfig, description: { title: string, message: string } | null, id: string | null = null) {
   const onlineJobs = useOnlineJobsStore().onlineJobs
 
-  onlineJobs.push({description, request: axiosQuery});
+  if (id !== null)
+    onlineJobs.splice(onlineJobs.findIndex(job => job.id === id), 1);
+  onlineJobs.push({description, request: axiosQuery, id});
+
+  if (!offline.value)
+    return doOnlineJobs()
 }
 
 

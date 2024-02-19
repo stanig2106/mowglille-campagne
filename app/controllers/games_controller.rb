@@ -32,4 +32,30 @@ class GamesController < ApplicationController
       **_1, pp: _1[:pp] ? url_for(_1[:pp]) : nil
     } }
   end
+
+  def congratulate
+    game_names = {
+      human_benchmark_reaction_time: "Temps de réaction",
+      human_benchmark_chimp_test: "Test de chimpanzé",
+      human_benchmark_sequence_memory: "Mémoire de séquence",
+      human_benchmark_aim_trainer: "Entraînement de visée",
+      human_benchmark_number_memory: "Mémoire de nombres",
+      human_benchmark_verbal_memory: "Mémoire verbale",
+      human_benchmark_visual_memory: "Mémoire visuelle",
+    }
+
+    score = GameScore.find(params[:score_id])
+    Congratulation.find_or_create_by!(
+      user: current_user!,
+      target: score.user,
+      reason: score.game_name
+    )
+    ScoreRecord.create!(
+      user: score.user,
+      offered_by: current_user!,
+      score: 1,
+      reason: "Félicitation pour ton score à #{game_names[score.game_name.to_sym]}"
+    )
+  end
 end
+

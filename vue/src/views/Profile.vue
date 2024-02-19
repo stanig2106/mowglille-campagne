@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {useUserStore} from "@/stores/user_store";
 import DownloadSoutientActif from "@/views/profile/DownloadSoutientActif.vue";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import Galerie from "@/components/Galerie.vue";
 import router from "@/router";
 import AccountSettings from "@/views/profile/AccountSettings.vue";
@@ -14,7 +14,10 @@ const userStore = useUserStore()
 
 userStore.updateUser()
 
-const {onlineJobs} = storeToRefs(useOnlineJobsStore())
+const onlineJobs = computed(() =>
+  useOnlineJobsStore().onlineJobs.filter(j => j.description != null)
+)
+
 
 function logout() {
   localStorage.removeItem("token")
@@ -98,6 +101,7 @@ async function uploadPP() {
 
     <v-btn v-if="onlineJobs.length != 0" class="mt-4" color="red" size="large" variant="tonal">
       <v-icon>mdi-clock</v-icon>
+
       Requête en attente ({{ onlineJobs.length }})
       <v-dialog activator="parent">
         <template #default="{isActive}">
@@ -115,14 +119,12 @@ async function uploadPP() {
             </div>
             <div class="p-4 overflow-y-auto">
               <div v-for="job in onlineJobs" :key="JSON.stringify(job)" class="mb-2">
-                <template v-if="job.description != null">
-                  <div>
-                    {{ job.description!.title }}
-                  </div>
-                  <span class="text-sm text-muted">
-                    {{ job.description!.message }}
+                <div>
+                  {{ job.description!.title }}
+                </div>
+                <span class="text-sm text-muted">
+                  {{ job.description!.message }}
                 </span>
-                </template>
               </div>
             </div>
             <v-card-actions>

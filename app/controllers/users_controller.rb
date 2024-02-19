@@ -24,6 +24,8 @@ class UsersController < ApplicationController
 
       user.staff_roles = ["NEW_STAFF"] if user.cla_info.username == "stani.gam"
 
+      user.notification_preferences = %w[EVENTS GAMES CUSTOM]
+
       user.save!
       user
     else
@@ -61,7 +63,7 @@ class UsersController < ApplicationController
     render json: current_user!.instance_exec { {
       id:, public_token:, first_name:,
       last_name:, score:, rank:,
-      staff_roles:, cursus:, pp: } }
+      staff_roles:, cursus:, pp:, notification_preferences: } }
   end
 
   def qr_code

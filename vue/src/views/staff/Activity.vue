@@ -11,6 +11,7 @@ import FindUser from "@/components/FindUser.vue";
 import {User} from "@/stores/users_store";
 import {doItOnline, useOnline} from "@/router/offline";
 import axios from "axios";
+import {dateToS} from "../games/safariSprint/core/utils";
 
 
 const currentUser = useUserStore()
@@ -160,9 +161,8 @@ watch(error, () => {
                       {{ e.name }}
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                      {{ e.startDate.toLocaleDateString().slice(0, -5) }},
-                      {{ e.startDate.toLocaleTimeString().slice(0, -3) }} -
-                      {{ e.endDate.toLocaleTimeString().slice(0, -3) }}
+                      {{ dateToS(e.startDate) }} -
+                      {{ dateToS(e.endDate, 'Hours') }}
                     </v-list-item-subtitle>
                   </v-list-item>
                 </v-list>

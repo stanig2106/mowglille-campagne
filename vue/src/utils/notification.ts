@@ -15,6 +15,7 @@ export async function notification_init() {
   navigator.serviceWorker.ready.then(async (serviceWorkerRegistration) => {
     const subscription = await serviceWorkerRegistration.pushManager.getSubscription()
     if (subscription) return localStorage.setItem('fcm_token', JSON.stringify(subscription))
+    if (Notification.permission !== "granted") return
 
     serviceWorkerRegistration.pushManager
       .subscribe({

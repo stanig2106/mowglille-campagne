@@ -3,12 +3,16 @@ import {reactive} from "vue";
 import axios from "axios";
 
 export type GameScoreboard = {
+  id: number
   date: Date
   rank: number
   score: number
   name: string
   pp: string | null
   you: boolean
+  tries: number
+  average: number
+  congratulated: boolean
 }[]
 
 export const useGameScoreboardStore = defineStore(
