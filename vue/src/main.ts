@@ -19,7 +19,7 @@ import {createApp} from 'vue'
 import axios from 'axios';
 import {startOnlineJobs, useOffline} from "@/router/offline";
 
-import {notification_init} from "@/utils/notification";
+import {notification_init, saveSubscription} from "@/utils/notification";
 
 const app = createApp(App)
 
@@ -98,7 +98,7 @@ const updateSW = registerSW({
 
 startOnlineJobs()
 
-notification_init()
+notification_init().then(saveSubscription)
 
 /*
 disableDevtool({

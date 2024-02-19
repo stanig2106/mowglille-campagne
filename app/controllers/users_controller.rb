@@ -11,11 +11,18 @@ class UsersController < ApplicationController
   end
 
   def subscribe
-    endpoint = params[:subscription][:endpoint]
-    p256dh = params[:subscription][:keys][:p256dh]
-    auth = params[:subscription][:keys][:auth]
+    subscription_p = params[:subscription]
 
-    current_user!.update!(subscription: { endpoint:, keys: { p256dh:, auth: } })
+    subscription = if subscription_p.is_a?(String)
+                     subscription_p
+                   else
+                     endpoint = subscription_p[:endpoint]
+                     p256dh = subscription_p[:keys][:p256dh]
+                     auth = subscription_p[:keys][:auth]
+                     { endpoint:, keys: { p256dh:, auth: } }
+                   end
+
+    current_user!.update!(subscription:)
     render json: { ok: true }
   end
 
@@ -35,6 +42,10 @@ class UsersController < ApplicationController
 
       user.save!
       user
+    else
+      # Invalidate the old token
+      user.token = SecureRandom.hex(32) + user.id.to_s
+      user.save!
     end
 
     render json: { token: user.token, ok: true }

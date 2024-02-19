@@ -6,6 +6,12 @@ import CollectionBtn from "@/views/home/btns/CollectionBtn.vue";
 import OneLineBtn from "@/views/home/btns/OneLineBtn.vue";
 import router from "@/router";
 import event_bg from '@/assets/fake/event_bg.png'
+import {saveSubscription} from "@/utils/notification";
+import {onMounted} from "vue";
+
+onMounted(() => {
+  saveSubscription()
+})
 </script>
 
 <template>

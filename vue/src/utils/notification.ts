@@ -1,13 +1,10 @@
-import axios from "axios";
 import {doItOnline} from "@/router/offline";
 
 export async function notification_init() {
 
   window.addEventListener('ios-fcm-token' as any,
     (e: CustomEvent) => {
-      alert("ios-fcm-token")
-      alert(e.detail)
-      return saveSubscription(e.detail);
+      localStorage.setItem('fcm_token', e.detail);
     })
 
   if (!("Notification" in window))
@@ -17,7 +14,7 @@ export async function notification_init() {
 
   navigator.serviceWorker.ready.then(async (serviceWorkerRegistration) => {
     const subscription = await serviceWorkerRegistration.pushManager.getSubscription()
-    if (subscription) return saveSubscription(subscription)
+    if (subscription) return localStorage.setItem('fcm_token', JSON.stringify(subscription))
 
     serviceWorkerRegistration.pushManager
       .subscribe({
@@ -25,18 +22,21 @@ export async function notification_init() {
         applicationServerKey: urlBase64ToUint8Array(
           "BJ_orCncvdUdrIi58YEEmxFCgNTVqgqGE-KbzMTEoLlPHOPs-KHNKW8_W2YHr8Du2eASXaP87cI-nzbrsg-y2eA"
         )
-      }).then(saveSubscription).catch((r) => console.error(r))
+      }).then((t) => {
+      localStorage.setItem('fcm_token', JSON.stringify(t))
+    }).catch((r) => console.error(r))
   });
 }
 
-function saveSubscription(subscription: PushSubscription | string) {
+export function saveSubscription() {
+  const subscription = localStorage.getItem('fcm_token')
+  if (!subscription) return
+  if (localStorage.getItem('token') === null) return
+
   return doItOnline({
     method: 'post',
     url: '/notification/subscribe',
-    data: {
-      subscription: subscription instanceof PushSubscription ?
-        JSON.stringify(subscription) : subscription
-    }
+    data: {subscription}
   }, null)
 }
 
