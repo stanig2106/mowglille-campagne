@@ -14,7 +14,7 @@ const props = defineProps<{
   <div class="flex justify-between w-full h-full items-center px-4">
     <div class="flex gap-2 items-center">
       <div class="rounded-full overflow-hidden">
-        <v-img :src="profile_picture ?? default_picture" height="48" width="48"/>
+        <v-img :src="profile_picture ?? default_picture" :transition="false" height="48" width="48"/>
       </div>
 
       <div class="flex flex-col gap-1 justify-center">

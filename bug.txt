@@ -1,4 +1,5 @@
 Liste des bugs :
 
-- Scroll horizontal sur la page d'accueil
+-v Scroll horizontal sur la page d'accueil
 - Jeu de nombres : pb si nombre trop grand
+- Memoires visuel : afficher la bonne réponses à la fin (quand on a perdu)

@@ -43,7 +43,7 @@ async function uploadPP() {
 
 
 <template>
-  <div class="bg-white rounded-t-2xl p-4 flex flex-col mt-[100px] elevation-2 min-h-[calc(100%-100px)] relative">
+  <div class="bg-white rounded-t-2xl p-4 flex flex-col mt-[100px] elevation-2 min-h-[calc(100%-100px)] relative square-shadow">
     <div class="z-10 rounded-full bg-gray-200 w-2/3 aspect-square -mt-[100px] self-center relative">
 
       <galerie v-if="userStore.pp" :images="[{

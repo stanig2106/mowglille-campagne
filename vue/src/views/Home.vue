@@ -9,12 +9,12 @@ import event_bg from '@/assets/fake/event_bg.png'
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 h-full overflow-auto">
+  <div class="flex flex-col gap-4 h-full overflow-y-auto">
     <Score/>
 
     <CurrentEvent :background_url="event_bg" event_name="Le Livre de la Jungle" event_type="Aprèm"/>
 
-    <div class="h-full bg-white rounded-t-2xl elevation-2 p-4 flex flex-col gap-4">
+    <div class="h-full bg-white rounded-t-2xl elevation-2 square-shadow p-4 flex flex-col gap-4">
       <CollectionBtn class="w-full" @click="router.push('/collection')"/>
       <div class="flex gap-4 >:flex-grow w-full">
         <OneLineBtn :icon-size="32" icon="mdi-trophy" title="Liste des defis"

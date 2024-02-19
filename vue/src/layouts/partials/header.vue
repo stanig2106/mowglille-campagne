@@ -53,7 +53,7 @@ const goBackOrGoHome = () => window.history.length > 1 ?
 
       <v-btn icon variant="text" @click="$router.push('/profile')">
         <v-img :src="userStore.pp ?? default_picture" class="rounded-full bg-gray-200"
-               style="width: 40px; height: 40px"/>
+               :transition="false" style="width: 40px; height: 40px"/>
       </v-btn>
 
 

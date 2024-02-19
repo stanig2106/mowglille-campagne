@@ -76,3 +76,5 @@ end
 gem 'aws-sdk', '~> 3.0', '>= 3.0.1'
 
 gem 'firebase-admin-sdk'
+
+gem 'web-push'

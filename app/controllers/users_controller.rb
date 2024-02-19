@@ -10,6 +10,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def subscribe
+    current_user!.update!(subscription: params[:subscription])
+  end
+
   def cla_login
     info = ClaInfo.create_by_token(params[:ticket])
 

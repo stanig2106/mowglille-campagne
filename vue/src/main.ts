@@ -7,6 +7,8 @@
 
 // Plugins
 import {registerPlugins} from '@/plugins'
+//@ts-ignore
+import {registerSW} from 'virtual:pwa-register'
 
 // Components
 import App from './App.vue'
@@ -16,6 +18,8 @@ import {createApp} from 'vue'
 // Axios
 import axios from 'axios';
 import {startOnlineJobs, useOffline} from "@/router/offline";
+
+import {notification_init} from "@/utils/notification";
 
 const app = createApp(App)
 
@@ -66,25 +70,35 @@ document.addEventListener('push-notification', (e: any) => {
 app.mount('#app')
 
 
-axios.get('/version').then(async res => {
-  if (localStorage.getItem('version') === res.data.version)
-    return
-  if (localStorage.getItem('version') === null)
-    return localStorage.setItem('version', res.data.version)
+/**
+ axios.get('/version').then(async res => {
+ if (localStorage.getItem('version') === res.data.version)
+ return
+ if (localStorage.getItem('version') === null)
+ return localStorage.setItem('version', res.data.version)
 
-  // if (localStorage.getItem('version') !== null)
-  //   alert('A new version of the app is available, the app will reload to update it')
+ // if (localStorage.getItem('version') !== null)
+ //   alert('A new version of the app is available, the app will reload to update it')
 
-  await navigator.serviceWorker.getRegistrations()
-    .then(registrations =>
-      registrations.forEach(registration =>
-        registration.unregister()));
-  localStorage.setItem('version', res.data.version)
-  window.location.reload()
-}).catch()
+ await navigator.serviceWorker.getRegistrations()
+ .then(registrations =>
+ registrations.forEach(registration =>
+ registration.unregister()));
+ localStorage.setItem('version', res.data.version)
+ window.location.reload()
+ }).catch()
+ */
+
+const updateSW = registerSW({
+  async onNeedRefresh() {
+    await updateSW(true)
+  }
+})
+
 
 startOnlineJobs()
 
+notification_init()
 
 /*
 disableDevtool({

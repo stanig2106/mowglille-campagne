@@ -50,22 +50,23 @@ export default defineConfig({
   },
   plugins: [
     VitePWA({
-      strategies: 'generateSW',
-      workbox: {
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
+      injectManifest: {
         maximumFileSizeToCacheInBytes: 10_000_000, // 10MB
         globIgnores: [
           "img/icons/**/*",
         ],
         globPatterns: [
-          "**\/*"
-        ],
-        runtimeCaching: [
-          {
-            handler: 'CacheFirst',
-            urlPattern: (p) => !p.url.pathname.startsWith('/api')
-          }
+          "**/*"
         ],
         globDirectory: 'dist',
+      },
+
+      devOptions: {
+        enabled: true,
+        type: 'module',
       }
     }),
     vue({
