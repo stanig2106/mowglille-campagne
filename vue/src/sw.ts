@@ -1,4 +1,5 @@
 import {cleanupOutdatedCaches, precacheAndRoute} from 'workbox-precaching'
+import icon from '@/assets/logo_full.webp'
 
 declare let self: ServiceWorkerGlobalScope
 
@@ -15,7 +16,11 @@ self.addEventListener('push', (event) => {
     event.waitUntil(
       self.registration.showNotification(data.title, {
         body: data.body,
-        data: {path: data.path}
+        icon: icon,
+        image: data.image || icon,
+        data: {
+          path: data.path
+        }
       })
     )
   }

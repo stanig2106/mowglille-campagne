@@ -9,9 +9,13 @@ class VapidPushNotificationService
     }
   end
 
-  def send_notification(subscription, title, body)
+  def send_notification(subscription, title, body, data = {})
     WebPush.payload_send(
-      message: JSON.generate({ title: title, body: body }),
+      message: JSON.generate({
+                               **data,
+                               type: 'notification',
+                               title: title, body: body,
+                             }),
       endpoint: subscription["endpoint"],
       p256dh: subscription["keys"]["p256dh"],
       auth: subscription["keys"]["auth"],

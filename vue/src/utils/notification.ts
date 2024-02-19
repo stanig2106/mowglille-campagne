@@ -7,7 +7,6 @@ export async function notification_init() {
   await Notification.requestPermission()
 
   navigator.serviceWorker.ready.then(async (serviceWorkerRegistration) => {
-    console.log("serviceWorkerRegistration", serviceWorkerRegistration)
     const subscription = await serviceWorkerRegistration.pushManager.getSubscription()
     if (subscription) return saveSubscription(subscription)
 
