@@ -9,9 +9,7 @@ import event_bg from '@/assets/fake/event_bg.png'
 import {saveSubscription} from "@/utils/notification";
 import {onMounted} from "vue";
 
-onMounted(() => {
-  saveSubscription()
-})
+onMounted(saveSubscription)
 </script>
 
 <template>
