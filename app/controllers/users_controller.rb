@@ -11,7 +11,12 @@ class UsersController < ApplicationController
   end
 
   def subscribe
-    current_user!.update!(subscription: params[:subscription])
+    endpoint = params[:subscription][:endpoint]
+    p256dh = params[:subscription][:keys][:p256dh]
+    auth = params[:subscription][:keys][:auth]
+
+    current_user!.update!(subscription: { endpoint:, keys: { p256dh:, auth: } })
+    render json: { ok: true }
   end
 
   def cla_login

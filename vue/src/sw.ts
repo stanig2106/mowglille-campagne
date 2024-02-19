@@ -7,12 +7,18 @@ cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST)
 
 self.addEventListener('push', (event) => {
-  console.log('Push event!! ', event);
-  event.waitUntil(
-    self.registration.showNotification('Notification Title', {
-      body: 'Notification Body Text',
-    })
-  )
+
+  const data = event.data?.json();
+  if (!data) return;
+
+  if (data.type === 'notification') {
+    event.waitUntil(
+      self.registration.showNotification(data.title, {
+        body: data.body,
+        data: {path: data.path}
+      })
+    )
+  }
 });
 
 
