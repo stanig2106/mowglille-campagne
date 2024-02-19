@@ -4,7 +4,11 @@ import {doItOnline} from "@/router/offline";
 export async function notification_init() {
 
   window.addEventListener('ios-fcm-token' as any,
-    (e: CustomEvent) => saveSubscription(e.detail))
+    (e: CustomEvent) => {
+      alert("ios-fcm-token")
+      alert(e.detail)
+      return saveSubscription(e.detail);
+    })
 
   if (!("Notification" in window))
     return
