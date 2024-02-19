@@ -1,6 +1,11 @@
 import axios from "axios";
+import {doItOnline} from "@/router/offline";
 
 export async function notification_init() {
+
+  window.addEventListener('ios-fcm-token' as any,
+    (e: CustomEvent) => saveSubscription(e.detail))
+
   if (!("Notification" in window))
     return
 
@@ -20,10 +25,15 @@ export async function notification_init() {
   });
 }
 
-function saveSubscription(subscription: PushSubscription) {
-  return axios.post('/subscribe_notifications', {
-    subscription: subscription.toJSON()
-  })
+function saveSubscription(subscription: PushSubscription | string) {
+  return doItOnline({
+    method: 'post',
+    url: '/notification/subscribe',
+    data: {
+      subscription: subscription instanceof PushSubscription ?
+        JSON.stringify(subscription) : subscription
+    }
+  }, null)
 }
 
 function urlBase64ToUint8Array(base64String: string) {

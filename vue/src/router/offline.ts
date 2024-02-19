@@ -25,7 +25,7 @@ export function useOnline() {
 }
 
 
-export function doItOnline(axiosQuery: AxiosRequestConfig, description: { title: string, message: string }) {
+export function doItOnline(axiosQuery: AxiosRequestConfig, description: { title: string, message: string } | null) {
   const onlineJobs = useOnlineJobsStore().onlineJobs
 
   onlineJobs.push({description, request: axiosQuery});

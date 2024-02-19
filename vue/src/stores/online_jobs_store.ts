@@ -5,7 +5,7 @@ import axios, {AxiosRequestConfig} from "axios";
 export const useOnlineJobsStore = defineStore(
   "online_jobs", () => {
     const onlineJobs = ref([] as {
-      description: { title: string, message: string },
+      description: { title: string, message: string } | null,
       request: AxiosRequestConfig
     }[])
 

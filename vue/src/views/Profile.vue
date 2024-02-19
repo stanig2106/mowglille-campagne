@@ -115,12 +115,14 @@ async function uploadPP() {
             </div>
             <div class="p-4 overflow-y-auto">
               <div v-for="job in onlineJobs" :key="JSON.stringify(job)" class="mb-2">
-                <div>
-                  {{ job.description.title }}
-                </div>
-                <span class="text-sm text-muted">
-                {{ job.description.message }}
-              </span>
+                <template v-if="job.description != null">
+                  <div>
+                    {{ job.description!.title }}
+                  </div>
+                  <span class="text-sm text-muted">
+                    {{ job.description!.message }}
+                </span>
+                </template>
               </div>
             </div>
             <v-card-actions>
