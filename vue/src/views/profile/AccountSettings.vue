@@ -33,7 +33,7 @@ watch(notification_preferences, (value, oldValue) => {
       "manquer d'informations importantes.")
 
   doItOnline({
-    method: "post", url: "/notification/update_status",
+    method: "post", url: "/notifications/update_status",
     data: {notifications: notification_preferences.value}
   }, {
     title: "Mise à jour des notifications",
