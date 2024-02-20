@@ -117,7 +117,7 @@ function congratulate(score: GameScoreboard[number]) {
                                 transition="fade-transition">
                       1 miel à été envoyé à {{ score.name }}
                     </v-snackbar>
-                    <v-img :src="honey" class="mr-1 h-4 w-4"/>
+                    <v-img :src="honey" class="mr-1 h-4 w-4" :transition="false"/>
                     Féliciter
                   </v-btn>
                 </v-card-actions>
@@ -126,7 +126,7 @@ function congratulate(score: GameScoreboard[number]) {
             <div class="flex justify-between w-full h-full items-center px-4 py-1">
               <div class="flex gap-2 items-center w-full">
                 <div class="rounded-full overflow-hidden">
-                  <v-img :src="score.pp ?? default_picture" height="48" width="48"/>
+                  <v-img :src="score.pp ?? default_picture" height="48" width="48" class="rounded-full"/>
                 </div>
 
                 <div class="flex flex-col gap-1 justify-center flex-1">

@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   has_many :chests, dependent: :destroy
 
+  attribute :subscription, :jsonb, default: nil
+
   STAFF_ROLES = {
     SEE_PLANNING: "See planning",
     MANAGE_PLANNING: "Manage planning",
@@ -29,6 +31,8 @@ class User < ApplicationRecord
     MANAGE_CHAT: "Manage chat",
 
     MANAGE_PHOTO: "Manage photo",
+
+    NOTIFY: "Notify",
   }
   validate :staff_roles_are_valid
 
@@ -79,7 +83,10 @@ class User < ApplicationRecord
     end
   end
 
-  def qr_code_content
+  def self.notifiables(type)
+    # ugh
+    User.where("notification_preferences @> ARRAY[?]::varchar[]", [type])
+        .where.not(subscription: nil)
   end
 
 end

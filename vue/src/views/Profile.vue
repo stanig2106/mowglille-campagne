@@ -91,11 +91,11 @@ async function uploadPP() {
     <!--      Statistiques-->
     <!--    </v-btn>-->
 
-    <!--    <v-btn v-if="userStore.staffRoles && userStore.staffRoles.length > 0" class="mt-4"-->
-    <!--           color="green" size="large" variant="tonal" @click="router.push('staff')">-->
-    <!--      <v-icon>mdi-account-group</v-icon>-->
-    <!--      Espace staffeur-->
-    <!--    </v-btn>-->
+    <v-btn v-if="userStore.staffRoles && userStore.staffRoles.length > 0" class="mt-4"
+           color="green" size="large" variant="tonal" @click="router.push('staff')">
+      <v-icon>mdi-account-group</v-icon>
+      Espace staffeur
+    </v-btn>
 
     <v-spacer/>
 

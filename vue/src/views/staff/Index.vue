@@ -81,6 +81,12 @@ const staffs_action = [
     icon: "mdi-camera",
     roles: ["MANAGE_PHOTO"]
   },
+  {
+    path: '/staff/notify',
+    name: "Notifier les utilisateurs",
+    icon: "mdi-bell",
+    roles: ["NOTIFY"]
+  }
 ]
 
 const currentUser = useUserStore()

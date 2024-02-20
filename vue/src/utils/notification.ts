@@ -36,7 +36,7 @@ export function saveSubscription() {
 
   return doItOnline({
     method: 'post',
-    url: '/notification/subscribe',
+    url: '/notifications/subscribe',
     data: {subscription}
   }, null)
 }

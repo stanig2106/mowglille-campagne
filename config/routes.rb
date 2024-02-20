@@ -12,9 +12,9 @@ Rails.application.routes.draw do
 
   get "api/version", to: "home#version"
 
-  post "api/notification/subscribe", to: "notifications#subscribe"
-  post "api/notification/notify", to: "notifications#notify"
-  post "api/notification/update_status", to: "notifications#update_status"
+  post "api/notifications/subscribe", to: "notifications#subscribe"
+  post "api/notifications/notify", to: "notifications#notify"
+  post "api/notifications/update_status", to: "notifications#update_status"
 
   get "api/check_token", to: 'users#check_token'
   get "api/cla_login", to: "users#cla_login"

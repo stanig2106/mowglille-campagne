@@ -76,6 +76,11 @@ const inform = inject(informShowKey)
           <v-switch v-model="notification_preferences"
                     :disabled="notificationDisabled" color="secondary"
                     density="comfortable" hide-details
+                    label="Notification de défis" value="CHALLENGES"
+          />
+          <v-switch v-model="notification_preferences"
+                    :disabled="notificationDisabled" color="secondary"
+                    density="comfortable" hide-details
                     label="Notification personnalisé" value="CUSTOM"
           />
 

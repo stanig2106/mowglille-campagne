@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
       user.staff_roles = ["NEW_STAFF"] if user.cla_info.username == "stani.gam"
 
-      user.notification_preferences = %w[EVENTS GAMES CUSTOM]
+      user.notification_preferences = %w[EVENTS GAMES CUSTOM CHALLENGES]
 
       user.save!
       user

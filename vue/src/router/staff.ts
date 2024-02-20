@@ -66,5 +66,11 @@ export default [
       title: "Gérer les albums",
     },
   },
+  {
+    path: '/staff/notify', component: () => import('../views/staff/Notify.vue'),
+    meta: {
+      title: "Notifier",
+    },
+  }
 
 ]
