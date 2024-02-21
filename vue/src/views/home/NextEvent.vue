@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import honey from "@/assets/honey.png";
+import honey from "@/assets/honey.webp";
 </script>
 
 <template>

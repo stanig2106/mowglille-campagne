@@ -27,15 +27,15 @@ onMounted(saveSubscription)
                     @click="router.push('/games/human_benchmark')"/>
       </div>
       <div class="flex gap-4 >:flex-grow w-full">
-        <OneLineBtn :icon-size="32" disabled icon="mdi-calendar-clock" title="Planning"/>
+        <OneLineBtn :icon-size="32" icon="mdi-calendar-clock" title="Planning"/>
         <OneLineBtn :icon-size="32" disabled icon="mdi-script-text-outline" title="Programme"/>
       </div>
       <div class="flex gap-4 >:flex-grow w-full">
-        <OneLineBtn :icon-size="32" disabled icon="mdi-image-frame" title="Trombi"/>
-        <OneLineBtn :icon-size="32" disabled icon="mdi-message-outline" title="Contact nous"/>
+        <OneLineBtn :icon-size="32" icon="mdi-image-frame" title="Trombi"/>
+        <OneLineBtn :icon-size="32" icon="mdi-message-outline" title="Contact nous"/>
       </div>
       <div class="flex gap-4 >:flex-grow w-full">
-        <OneLineBtn :icon-size="32" disabled icon="mdi-image-multiple" title="Galerie"/>
+        <OneLineBtn :icon-size="32" icon="mdi-image-multiple" title="Galerie"/>
         <OneLineBtn :icon-size="32" icon="mdi-link-variant" title="Liens utiles"
                     @click="() => $router.push('/links')"/>
       </div>

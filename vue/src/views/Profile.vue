@@ -9,6 +9,12 @@ import {useOnlineJobsStore} from "@/stores/online_jobs_store";
 import axios from "axios";
 import {doOnlineJobs} from "@/router/offline";
 import {storeToRefs} from "pinia";
+import placeholder_pp from "@/assets/placeholder_pp";
+//@ts-ignore
+import {VueAvatar} from 'vue-avatar-editor-improved'
+
+import {useElementSize} from '@vueuse/core'
+
 
 const userStore = useUserStore()
 
@@ -25,23 +31,33 @@ function logout() {
 }
 
 const ppInput = ref<HTMLInputElement | null>(null)
+const ppScale = ref(1)
+const avatar = ref<VueAvatar | null>(null)
+const avatarContainer = ref<HTMLDivElement | null>(null)
+const {width: avatarContainerSize} = useElementSize(avatarContainer)
 
 async function uploadPP() {
-  const file = ppInput.value!.files?.[0]
-  if (!file)
+  const blob = (avatar.value.getImage() as HTMLCanvasElement).toBlob((a) => {
+    console.log(a)
+  })
     return
-  const formData = new FormData()
-  formData.append("file", file)
-  await axios.post("/update_profile_picture", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data"
-    },
-    timeout: 120 * 1000 // 120 seconds
-  }).then(() => {
-    userStore.updateUser()
-  }).catch()
-  ppInput.value!.form!.reset()
-}
+    /*
+      const file = ppInput.value!.files?.[0]
+      if (!file)
+        return
+      const formData = new FormData()
+      formData.append("file", file)
+      await axios.post("/update_profile_picture", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        timeout: 120 * 1000 // 120 seconds
+      }).then(() => {
+        userStore.updateUser()
+      }).catch()
+      ppInput.value!.form!.reset()
+    */
+  }
 </script>
 
 
@@ -57,18 +73,55 @@ async function uploadPP() {
       }]" class="w-full h-full rounded-full overflow-hidden absolute top-0 left-0"/>
 
       <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
-        <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.png"/>
+        <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.webp"/>
         <v-dialog :no-click-animation="true" activator="parent">
           <download-soutient-actif :pp="userStore.pp ?? null"/>
         </v-dialog>
       </v-btn>
 
-      <v-btn class="absolute bottom-6 -right-2 overflow-hidden" color="white" for="ppInput" icon
-             rounded="lg" tag="label">
+      <v-btn class="absolute bottom-6 -right-2 overflow-hidden" color="white" icon
+             rounded="lg">
         <v-icon color="black">mdi-pencil</v-icon>
-        <form class="absolute -top-[100vh]">
-          <input id="ppInput" ref="ppInput" accept="image/*" class="absolute -top-full -left-full" type="file" @change="uploadPP"/>
-        </form>
+        <v-dialog activator="parent">
+          <template #default="{isActive}">
+            <v-card>
+              <v-card-title>
+                Changer de photo de profil
+              </v-card-title>
+              <div ref="avatarContainer" class="p-2 flex flex-column flex-center gap-2 h-full w-full">
+                <vue-avatar
+                  ref="avatar"
+                  :border="10"
+                  :borderRadius="200"
+                  :height="avatarContainerSize"
+                  :placeholderSvg="placeholder_pp"
+                  :scale="ppScale"
+                  :width="avatarContainerSize"/>
+
+                <div class="w-full px-2">
+                  <v-slider v-model="ppScale" max="3" min="0.5" step="0.1"/>
+                </div>
+
+                <div class="flex gap-2 w-full justify-end">
+                  <v-btn variant="text" @click="isActive.value = false">
+                    Annuler
+                  </v-btn>
+                  <v-btn color="secondary" variant="text" @click="uploadPP">
+                    Enregistrer
+                  </v-btn>
+                </div>
+
+              </div>
+            </v-card>
+          </template>
+        </v-dialog>
+
+        <div>
+
+        </div>
+        <!--        <form class="absolute -top-[100vh]">-->
+        <!--          <input id="ppInput" ref="ppInput" accept="image/*" class="absolute -top-full -left-full" type="file" @change="uploadPP"/>-->
+        <!--        </form>-->
       </v-btn>
     </div>
     <div class="bg-gray-200 -mt-4 pt-6 p-2 px-8 rounded-md">
@@ -81,7 +134,7 @@ async function uploadPP() {
         </div>
         <div class="flex gap-2 items-center">
           {{ userStore.score ?? "-" }}
-          <v-img :transition="false" class="h-6 w-6" src="@/assets/honey.png"/>
+          <v-img :transition="false" class="h-6 w-6" src="@/assets/honey.webp"/>
         </div>
       </div>
     </div>

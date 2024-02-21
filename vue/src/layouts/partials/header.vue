@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 
-import default_picture from "@/assets/default_pp.png";
-
 import useCable from "@/router/cable";
 import {ref} from "vue";
 import OfflineIndicator from "@/components/OfflineIndicator.vue";
 import {useUserStore} from "@/stores/user_store";
 import router from "@/router";
+import {ProfileImage} from "@/utils/profile_pictures";
 
 const has_notif = ref(true)
 
@@ -52,8 +51,9 @@ const goBackOrGoHome = () => window.history.length > 1 ?
       <offline-indicator/>
 
       <v-btn icon variant="text" @click="$router.push('/profile')">
-        <v-img :src="userStore.pp ?? default_picture" class="rounded-full bg-gray-200"
-               :transition="false" style="width: 40px; height: 40px"/>
+        <v-img :lazy-src="new ProfileImage(userStore.name).png()"
+               :src="userStore.pp ?? new ProfileImage(userStore.name).png()"
+               class="rounded-full bg-gray-200" style="width: 40px; height: 40px"/>
       </v-btn>
 
 

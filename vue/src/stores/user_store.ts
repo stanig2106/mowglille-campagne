@@ -41,7 +41,11 @@ export const useUserStore = defineStore("user", () => {
     return true
   }
 
-  const name = computed(() => `${firstName.value} ${lastName.value}`)
+  const name = computed(() => {
+    if (!firstName.value || !lastName.value)
+      return "";
+    return `${firstName.value} ${lastName.value}`
+  })
 
   return {
     loaded,

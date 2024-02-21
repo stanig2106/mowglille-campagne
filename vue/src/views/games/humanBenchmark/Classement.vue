@@ -2,10 +2,10 @@
 import {computed, Ref, ref, watch} from "vue";
 import {Game, gameNames, games} from "@/views/games/humanBenchmark/humanBenchmark";
 import {GameScoreboard, useGameScoreboardStore} from "@/stores/game_classements_store";
-import default_picture from "@/assets/default_pp.png";
 import {dateToS} from "@/views/games/safariSprint/core/utils";
-import honey from "@/assets/honey.png";
+import honey from "@/assets/honey.webp";
 import {doItOnline} from "@/router/offline";
+import {ProfileImage} from "@/utils/profile_pictures";
 
 const selected_game_index = ref(0);
 
@@ -93,7 +93,9 @@ function congratulate(score: GameScoreboard[number]) {
                 </v-card-title>
                 <v-card-text>
                   <div class="flex flex-col justify-center items-center mb-2">
-                    <v-img :src="score.pp ?? default_picture" height="100" width="100"/>
+                    <v-img :src="score.pp ?? new ProfileImage(score.name).png()"
+                           :lazy-src="new ProfileImage(score.name).png()"
+                           height="100" width="100"/>
                     <h3 class="mt-2">
                       Score: {{ score.score }} {{ game_unit[game] }}
                     </h3>
@@ -117,7 +119,7 @@ function congratulate(score: GameScoreboard[number]) {
                                 transition="fade-transition">
                       1 miel à été envoyé à {{ score.name }}
                     </v-snackbar>
-                    <v-img :src="honey" class="mr-1 h-4 w-4" :transition="false"/>
+                    <v-img :src="honey" :transition="false" class="mr-1 h-4 w-4"/>
                     Féliciter
                   </v-btn>
                 </v-card-actions>
@@ -126,7 +128,9 @@ function congratulate(score: GameScoreboard[number]) {
             <div class="flex justify-between w-full h-full items-center px-4 py-1">
               <div class="flex gap-2 items-center w-full">
                 <div class="rounded-full overflow-hidden">
-                  <v-img :src="score.pp ?? default_picture" height="48" width="48" class="rounded-full"/>
+                  <v-img :lazy-src="new ProfileImage(score.name).png()"
+                         :src="score.pp ?? new ProfileImage(score.name).png()"
+                         class="rounded-full" height="48" width="48"/>
                 </div>
 
                 <div class="flex flex-col gap-1 justify-center flex-1">

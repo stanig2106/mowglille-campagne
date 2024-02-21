@@ -68,6 +68,13 @@ const routes = [
     }
   },
 
+  {
+    path: '/chat', component: () => import('../views/Chat.vue'),
+    meta: {
+      title: 'Chat',
+      density: 'compact',
+    }
+  },
   ...games,
   ...staff,
 

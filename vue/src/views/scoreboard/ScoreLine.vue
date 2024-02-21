@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import default_picture from "@/assets/default_pp.png";
-import honey from "@/assets/honey.png";
+import honey from "@/assets/honey.webp";
+import {ProfileImage} from "@/utils/profile_pictures";
 
 const props = defineProps<{
   rank: number | undefined,
@@ -14,7 +14,9 @@ const props = defineProps<{
   <div class="flex justify-between w-full h-full items-center px-4">
     <div class="flex gap-2 items-center">
       <div class="rounded-full overflow-hidden">
-        <v-img :src="profile_picture ?? default_picture" :transition="false" height="48" width="48"/>
+        <v-img :lazy-src="new ProfileImage(name).png()"
+               :src="profile_picture ?? new ProfileImage(name).png()"
+               :transition="false" height="48" width="48"/>
       </div>
 
       <div class="flex flex-col gap-1 justify-center">
