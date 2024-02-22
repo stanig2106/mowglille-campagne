@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {useUserStore} from "@/stores/user_store";
 import DownloadSoutientActif from "@/views/profile/DownloadSoutientActif.vue";
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import Galerie from "@/components/Galerie.vue";
 import router from "@/router";
 import AccountSettings from "@/views/profile/AccountSettings.vue";
@@ -30,7 +30,6 @@ function logout() {
   router.push("/")
 }
 
-const ppInput = ref<HTMLInputElement | null>(null)
 const ppScale = ref(1)
 const avatar = ref<VueAvatar | null>(null)
 const avatarContainer = ref<HTMLDivElement | null>(null)
@@ -70,6 +69,12 @@ function onImageLoad() {
   const imageInput = (avatar.value!.canvas as HTMLCanvasElement).nextElementSibling as HTMLInputElement
   originalImage.value = imageInput.files![0]
 }
+
+watch(avatar, (new_avatar) => {
+  if (!new_avatar) return
+  (avatar.value!.canvas as HTMLCanvasElement).nextElementSibling!.id = "pp-input"
+})
+
 </script>
 
 
@@ -103,6 +108,7 @@ function onImageLoad() {
               </v-card-title>
               <div ref="avatarContainer" class="p-2 flex flex-column flex-center gap-2 h-full w-full">
                 <vue-avatar
+                  v-show="imageLoaded"
                   ref="avatar"
                   :border="10"
                   :borderRadius="200"
@@ -112,8 +118,15 @@ function onImageLoad() {
                   :width="avatarContainerSize"
                   @vue-avatar-editor:image-ready="onImageLoad"/>
 
+                <v-btn v-if="!imageLoaded" class="w-full" for="pp-input" icon
+                       rounded="lg" size="x-large" tag="label">
+                  <v-icon size="48">mdi-upload</v-icon>
+                </v-btn>
+
+
                 <div class="w-full px-2">
-                  <v-slider v-model="ppScale" max="3" min="0.5" step="0.1"/>
+                  <v-slider v-if="imageLoaded" v-model="ppScale" max="3" min="0.5"
+                            step="0.1"/>
                 </div>
 
                 <div class="flex gap-2 w-full justify-end">
