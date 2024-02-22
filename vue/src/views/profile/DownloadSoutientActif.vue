@@ -5,7 +5,6 @@ import overlay from "@/assets/overlay/fg_collector.png";
 import bg_overlay from "@/assets/overlay/bg_collector.png";
 
 
-
 import {fabric} from "fabric";
 import {onMounted, onUnmounted, ref, watch} from "vue";
 
@@ -19,6 +18,7 @@ let download = () => {
 }
 
 let canvas = undefined as fabric.Canvas | undefined;
+
 
 onMounted(async () => {
   if (props.pp == null) return;
@@ -65,7 +65,6 @@ onMounted(async () => {
     }, {crossOrigin: 'anonymous'});
   })
 
-
   await new Promise<void>((r) => {
     fabric.Image.fromURL(props.pp!, (img) => {
       img?.set({
@@ -76,8 +75,8 @@ onMounted(async () => {
         top: 0,
         height: img.height,
         width: img.width,
-        scaleX: canvas!.width! / img.width!,
-        scaleY: canvas!.height! / img.height!,
+        scaleX: canvas!.width! / Math.min(img.width!, img.height!),
+        scaleY: canvas!.height! / Math.min(img.width!, img.height!),
         hasBorders: false,
         hasControls: false,
       });
@@ -86,8 +85,8 @@ onMounted(async () => {
       watch(size, (new_size) => {
         if (!img || !canvas) return;
         img?.set({
-          scaleX: canvas!.width! / img.width! * new_size / 100,
-          scaleY: canvas!.height! / img.height! * new_size / 100,
+          scaleX: canvas!.width! / Math.min(img.width!, img.height!) * new_size / 100,
+          scaleY: canvas!.height! / Math.min(img.width!, img.height!) * new_size / 100,
         });
         canvas!.renderAll();
       })
@@ -95,7 +94,9 @@ onMounted(async () => {
       watch(remove_bg, async (new_remove_bg) => {
         if (!img || !canvas) return;
         img?.set({
-          visible: !new_remove_bg
+          visible: !new_remove_bg,
+          lockMovementX: new_remove_bg,
+          lockMovementY: new_remove_bg,
         });
         canvas!.renderAll();
       })
@@ -134,7 +135,9 @@ onMounted(async () => {
       watch(remove_bg, async (new_remove_bg) => {
         if (!img || !canvas) return;
         img?.set({
-          visible: new_remove_bg
+          visible: new_remove_bg,
+          lockMovementX: !new_remove_bg,
+          lockMovementY: !new_remove_bg,
         });
         canvas!.renderAll();
       })
@@ -188,8 +191,12 @@ onUnmounted(() => {
 })
 
 const size = ref(100);
-
 const remove_bg = ref(false);
+
+watch(remove_bg, () => {
+  size.value = 100;
+})
+
 </script>
 
 <template>

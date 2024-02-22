@@ -75,6 +75,14 @@ watch(avatar, (new_avatar) => {
   (avatar.value!.canvas as HTMLCanvasElement).nextElementSibling!.id = "pp-input"
 })
 
+const galerie_scale = computed(() => {
+  const image = new Image()
+  image.src = userStore.pp!
+  return {
+    width: 1080,
+    height: 1080
+  }
+})
 </script>
 
 
@@ -85,8 +93,8 @@ watch(avatar, (new_avatar) => {
       <galerie v-if="userStore.pp" :images="[{
         thumbnailURL: userStore.pp,
         largeURL: userStore.pp,
-        width: 1080,
-        height: 1080
+        width: galerie_scale.width,
+        height: galerie_scale.height
       }]" class="w-full h-full rounded-full overflow-hidden absolute top-0 left-0"/>
 
       <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
@@ -98,15 +106,15 @@ watch(avatar, (new_avatar) => {
       </v-btn>
 
       <v-btn class="absolute bottom-6 -right-2 overflow-hidden" color="white" icon
-             rounded="lg">
+             rounded="lg" @click="imageLoaded = false">
         <v-icon color="black">mdi-pencil</v-icon>
-        <v-dialog activator="parent">
+        <v-dialog activator="parent" persistent>
           <template #default="{isActive}">
             <v-card :disabled="avatarLoading" :loading="avatarLoading">
               <v-card-title>
                 Changer de photo de profil
               </v-card-title>
-              <div ref="avatarContainer" class="p-2 flex flex-column flex-center gap-2 h-full w-full">
+              <div ref="avatarContainer" class="p-2 flex flex-column flex-center gap-2 h-full w-full relative">
                 <vue-avatar
                   v-show="imageLoaded"
                   ref="avatar"
@@ -123,6 +131,13 @@ watch(avatar, (new_avatar) => {
                   <v-icon size="48">mdi-upload</v-icon>
                 </v-btn>
 
+                <div v-if="avatarLoading" class="absolute inset-0 flex flex-center flex-col p-2">
+                  <v-progress-circular indeterminate size="64" color="secondary"/>
+                  <div class="text-center m-6 p-2 bg-white">
+                    Veillez patienter, cet opération peut prendre quelques secondes
+                  </div>
+
+                </div>
 
                 <div class="w-full px-2">
                   <v-slider v-if="imageLoaded" v-model="ppScale" max="3" min="0.5"
@@ -130,7 +145,7 @@ watch(avatar, (new_avatar) => {
                 </div>
 
                 <div class="flex gap-2 w-full justify-end">
-                  <v-btn variant="text" @click="isActive.value = false">
+                  <v-btn variant="text" @click="isActive.value = false; imageLoaded = false">
                     Annuler
                   </v-btn>
                   <v-btn v-if="imageLoaded" color="secondary" variant="text"
