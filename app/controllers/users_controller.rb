@@ -123,7 +123,7 @@ class UsersController < ApplicationController
 
     current_user!.original_profile_picture.attach(params[:original])
 
-    res = system("ts-node bg-remover/index.ts " +
+    res = system("yarn ts-node bg-remover/index.ts " +
                    url_for(current_user!.original_profile_picture) + " " +
                    (Rails.env.development? ? "http://localhost:3000/bg-remover/" : "https://pwa.mowglille.fr/bg-remover/") + current_user!.public_token,
                  exception: true)
