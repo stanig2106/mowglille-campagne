@@ -110,18 +110,41 @@ class UsersController < ApplicationController
       return render json: { ok: false, error: "Le fichier n'est pas une image." }
     end
 
-    ext = File.extname(params[:file].original_filename)
+    require 'image_processing/mini_magick'
 
-    new_filename = "profile-picture-#{current_user!.public_token}#{ext}"
-    params[:file].original_filename = new_filename
+    uploaded_file = params[:file]
+    processed_file = ImageProcessing::MiniMagick
+                       .source(uploaded_file)
+                       .resize_to_limit(1200, 1200)
+                       .loader(quality: 100)
+                       .convert('webp')
+                       .call
 
-    current_user!.profile_picture.attach(params[:file])
+    new_filename = "profile-picture-#{current_user!.public_token}.webp"
+    webp_file = ActionDispatch::Http::UploadedFile.new(
+      filename: new_filename,
+      type: 'image/webp',
+      tempfile: processed_file
+    )
 
-    ext = File.extname(params[:original].original_filename)
-    new_filename = "original-profile-picture-#{current_user!.public_token}#{ext}"
-    params[:original].original_filename = new_filename
+    current_user!.profile_picture.attach(webp_file)
 
-    current_user!.original_profile_picture.attach(params[:original])
+    uploaded_file = params[:file]
+    processed_file = ImageProcessing::MiniMagick
+                       .source(uploaded_file)
+                       .resize_to_limit(1200, 1200)
+                       .loader(quality: 100)
+                       .convert('webp')
+                       .call
+
+    new_filename = "original-profile-picture-#{current_user!.public_token}.webp"
+    webp_file = ActionDispatch::Http::UploadedFile.new(
+      filename: new_filename,
+      type: 'image/webp',
+      tempfile: processed_file
+    )
+
+    current_user!.original_profile_picture.attach(webp_file)
 
     res = system("yarn ts-node bg-remover/index.ts " +
                    url_for(current_user!.original_profile_picture) + " " +
@@ -150,5 +173,11 @@ class UsersController < ApplicationController
     user.bg_removed_picture.attach(params[:file])
 
     render json: { ok: true }, status: 200
+  end
+
+  private
+
+  def convert_to_webp(image)
+    image.variant(format: :webp).processed.service_url
   end
 end

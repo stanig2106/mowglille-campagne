@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 
-import overlay from "@/assets/overlay/bg_collector.webp";
+import overlay from "@/assets/overlay/fg_collector.webp";
 import bg_overlay from "@/assets/overlay/bg_collector.webp";
 
 
