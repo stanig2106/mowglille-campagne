@@ -36,28 +36,40 @@ const avatar = ref<VueAvatar | null>(null)
 const avatarContainer = ref<HTMLDivElement | null>(null)
 const {width: avatarContainerSize} = useElementSize(avatarContainer)
 
+const imageLoaded = ref(false)
+const avatarLoading = ref(false)
+const originalImage = ref(null as File | null)
+
 async function uploadPP() {
-  const blob = (avatar.value.getImage() as HTMLCanvasElement).toBlob((a) => {
-    console.log(a)
+  const blob = await new Promise<Blob | null>((resolve) => {
+    avatar.value!.getImageScaled().toBlob((blob: Blob | null) => {
+      resolve(blob)
+    })
   })
+  if (!blob)
     return
-    /*
-      const file = ppInput.value!.files?.[0]
-      if (!file)
-        return
-      const formData = new FormData()
-      formData.append("file", file)
-      await axios.post("/update_profile_picture", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        },
-        timeout: 120 * 1000 // 120 seconds
-      }).then(() => {
-        userStore.updateUser()
-      }).catch()
-      ppInput.value!.form!.reset()
-    */
-  }
+
+  avatarLoading.value = true
+
+  await new Promise(resolve => setTimeout(resolve, 5000))
+  const formData = new FormData()
+  formData.append("file", blob)
+  formData.append("original", originalImage.value!)
+  await axios.post("/update_profile_picture", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    },
+    timeout: 120 * 1000 // 120 seconds
+  }).then(userStore.updateUser).catch()
+
+  avatarLoading.value = false
+}
+
+function onImageLoad() {
+  imageLoaded.value = true
+  const imageInput = (avatar.value!.canvas as HTMLCanvasElement).nextElementSibling as HTMLInputElement
+  originalImage.value = imageInput.files![0]
+}
 </script>
 
 
@@ -75,7 +87,8 @@ async function uploadPP() {
       <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
         <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.webp"/>
         <v-dialog :no-click-animation="true" activator="parent">
-          <download-soutient-actif :pp="userStore.pp ?? null"/>
+          <download-soutient-actif :pp="userStore.orr_pp ?? null"
+                                   :pp_bg="userStore.bg_pp ?? null"/>
         </v-dialog>
       </v-btn>
 
@@ -84,7 +97,7 @@ async function uploadPP() {
         <v-icon color="black">mdi-pencil</v-icon>
         <v-dialog activator="parent">
           <template #default="{isActive}">
-            <v-card>
+            <v-card :disabled="avatarLoading" :loading="avatarLoading">
               <v-card-title>
                 Changer de photo de profil
               </v-card-title>
@@ -96,7 +109,8 @@ async function uploadPP() {
                   :height="avatarContainerSize"
                   :placeholderSvg="placeholder_pp"
                   :scale="ppScale"
-                  :width="avatarContainerSize"/>
+                  :width="avatarContainerSize"
+                  @vue-avatar-editor:image-ready="onImageLoad"/>
 
                 <div class="w-full px-2">
                   <v-slider v-model="ppScale" max="3" min="0.5" step="0.1"/>
@@ -106,8 +120,13 @@ async function uploadPP() {
                   <v-btn variant="text" @click="isActive.value = false">
                     Annuler
                   </v-btn>
-                  <v-btn color="secondary" variant="text" @click="uploadPP">
+                  <v-btn v-if="imageLoaded" color="secondary" variant="text"
+                         @click="uploadPP().then(() => isActive.value = false)">
                     Enregistrer
+                  </v-btn>
+
+                  <v-btn v-else color="secondary" variant="text">
+                    Supprimer la photo
                   </v-btn>
                 </div>
 

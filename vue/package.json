@@ -13,7 +13,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@imgly/background-removal": "^1.4.4",
     "@mdi/font": "7.0.96",
     "@morev/vue-transitions": "^2.3.6",
     "@rails/actioncable": "^7.1.2",

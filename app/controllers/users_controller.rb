@@ -60,10 +60,17 @@ class UsersController < ApplicationController
 
   def show
     pp = current_user!.profile_picture.attached? ? url_for(current_user!.profile_picture) : nil
+    orr_pp = current_user!.original_profile_picture.attached? ?
+               url_for(current_user!.original_profile_picture) : nil
+    bg_pp = current_user!.bg_removed_picture.attached? ?
+              url_for(current_user!.bg_removed_picture) : nil
+
     render json: current_user!.instance_exec { {
       id:, public_token:, first_name:,
       last_name:, score:, rank:,
-      staff_roles:, cursus:, pp:, notification_preferences: } }
+      staff_roles:, cursus:,
+      pp:, orr_pp:, bg_pp:,
+      notification_preferences: } }
   end
 
   def qr_code
@@ -110,10 +117,38 @@ class UsersController < ApplicationController
 
     current_user!.profile_picture.attach(params[:file])
 
+    ext = File.extname(params[:original].original_filename)
+    new_filename = "original-profile-picture-#{current_user!.public_token}#{ext}"
+    params[:original].original_filename = new_filename
+
+    current_user!.original_profile_picture.attach(params[:original])
+
+    res = system("ts-node bg-remover/index.ts " +
+                   url_for(current_user!.original_profile_picture) + " " +
+                   (Rails.dev? ? "http://localhost:3000/bg-remover/" : "https://pwa.mowglille.fr/bg-remover/") + current_user!.public_token,
+                 exception: true)
+
+    return render json: { ok: false, error: "Problème lors de la suppression de l'arrière-plan." } unless res
+
     if current_user!.save
       render json: { ok: true }
     else
       render json: { ok: false, error: "Problème lors de la sauvegarde du profil." }
     end
+  end
+
+  def bg_remover
+    p params
+    user = User.find_by!(public_token: params[:token])
+    return render json: { ok: false, error: "Le fichier n'est pas une image." } \
+      unless params[:file].content_type.start_with?('image/')
+
+    ext = File.extname(params[:file].original_filename)
+    new_filename = "bg-removed-#{user.public_token}#{ext}"
+    params[:file].original_filename = new_filename
+
+    user.bg_removed_picture.attach(params[:file])
+
+    render json: { ok: true }, status: 200
   end
 end

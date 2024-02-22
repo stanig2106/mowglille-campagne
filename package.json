@@ -7,11 +7,10 @@
     "yarn": "1.22"
   },
   "scripts": {
-    "build": "cd vue && vue-tsc --noEmit && vite build && mv dist/* ../public",
+    "build": "cd vue && vue-tsc --noEmit && vite build && mv dist/* ../public && cd ..; cd bg-remover && yarn install",
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@imgly/background-removal": "^1.4.4",
     "@mdi/font": "7.0.96",
     "@morev/vue-transitions": "^2.3.6",
     "@rails/actioncable": "^7.1.2",

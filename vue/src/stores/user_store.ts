@@ -14,6 +14,8 @@ export const useUserStore = defineStore("user", () => {
   const rank = ref(undefined as number | undefined)
 
   const pp = ref(undefined as string | null | undefined)
+  const orr_pp = ref(undefined as string | null | undefined)
+  const bg_pp = ref(undefined as string | null | undefined)
 
   const staffRoles = ref(undefined as string[] | undefined)
 
@@ -36,6 +38,9 @@ export const useUserStore = defineStore("user", () => {
     rank.value = user.rank
     staffRoles.value = user.staff_roles
     pp.value = user.pp
+    orr_pp.value = user.orr_pp
+    bg_pp.value = user.bg_pp
+    console.log(user.bg_pp)
 
     notification_preferences.value = user.notification_preferences
     return true
@@ -52,7 +57,8 @@ export const useUserStore = defineStore("user", () => {
     id, publicToken,
     name, firstName, lastName, cursus,
     score, rank, staffRoles,
-    pp, notification_preferences,
+    pp, orr_pp, bg_pp,
+    notification_preferences,
     updateUser
   }
 })

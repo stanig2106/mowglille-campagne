@@ -1,13 +1,18 @@
 <script lang="ts" setup>
 
 
-import overlay from "@/assets/fake/overlay_soutien_actif.png";
+import overlay from "@/assets/overlay/fg_collector.png";
+import bg_overlay from "@/assets/overlay/bg_collector.png";
+
+
 
 import {fabric} from "fabric";
 import {onMounted, onUnmounted, ref, watch} from "vue";
 
+
 const props = defineProps<{
   pp: string | null
+  pp_bg: string | null
 }>();
 
 let download = () => {
@@ -15,7 +20,7 @@ let download = () => {
 
 let canvas = undefined as fabric.Canvas | undefined;
 
-onMounted(() => {
+onMounted(async () => {
   if (props.pp == null) return;
 
   canvas = new fabric.Canvas(document.getElementById('soutien_preview') as HTMLCanvasElement, {
@@ -23,53 +28,143 @@ onMounted(() => {
     selection: false,
   });
 
-  // canvas.setBackgroundImage() TODO: ARTHUR
+  const bg_overlay_image = new Image();
+  bg_overlay_image.src = bg_overlay;
 
-  fabric.Image.fromURL(props.pp, (img) => {
-    img?.set({
-      originX: 'left',
-      originY: 'top',
-      left: 0,
-      top: 0,
-      height: img.height,
-      width: img.width,
-      scaleX: canvas!.width! / img.width!,
-      scaleY: canvas!.height! / img.height!,
-      hasBorders: false,
-      hasControls: false,
-    });
-    canvas?.insertAt(img, 0, false);
+  canvas.setBackgroundImage(bg_overlay, canvas.renderAll.bind(canvas), {
+    originX: 'left',
+    originY: 'top',
+    left: 0,
+    top: 0,
+    height: canvas.height!,
+    width: canvas.width!,
+    scaleX: canvas.width! / bg_overlay_image.width,
+    scaleY: canvas.height! / bg_overlay_image.height,
+  });
 
-    watch(size, (new_size) => {
-      if (!img || !canvas) return;
+  await new Promise<void>((r) => {
+    fabric.Image.fromURL(bg_overlay, (img) => {
       img?.set({
-        scaleX: canvas!.width! / img.width! * new_size / 100,
-        scaleY: canvas!.height! / img.height! * new_size / 100,
+        visible: !remove_bg.value,
+        originX: 'left',
+        originY: 'top',
+        left: 0,
+        top: 0,
+        height: img.height,
+        width: img.width,
+        scaleX: canvas!.width! / img.width!,
+        scaleY: canvas!.height! / img.height!,
+        hasBorders: false,
+        hasControls: false,
+        lockMovementX: true,
+        lockMovementY: true,
       });
-      canvas!.renderAll();
-    })
+      canvas?.insertAt(img, 0, false);
 
-    download = () => {
-      // Obtenir l'URL de données du canvas
-      const dataURL = canvas!.getElement().toDataURL('image/png');
+      r()
+    }, {crossOrigin: 'anonymous'});
+  })
 
-      // Convertir l'URL de données en Blob
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', dataURL, true);
-      xhr.responseType = 'blob';
-      xhr.onload = function (e) {
-        if (this.status == 200) {
-          // Créer un lien pour le téléchargement
-          const blob = this.response;
-          const downloadLink = document.createElement('a');
-          downloadLink.href = window.URL.createObjectURL(blob);
-          downloadLink.download = 'soutien_actif_mowglille.png';
-          downloadLink.click();
-        }
-      };
-      xhr.send();
-    }
-  }, {crossOrigin: 'anonymous'});
+
+  await new Promise<void>((r) => {
+    fabric.Image.fromURL(props.pp!, (img) => {
+      img?.set({
+        visible: !remove_bg.value,
+        originX: 'left',
+        originY: 'top',
+        left: 0,
+        top: 0,
+        height: img.height,
+        width: img.width,
+        scaleX: canvas!.width! / img.width!,
+        scaleY: canvas!.height! / img.height!,
+        hasBorders: false,
+        hasControls: false,
+      });
+      canvas?.insertAt(img, 1, false);
+
+      watch(size, (new_size) => {
+        if (!img || !canvas) return;
+        img?.set({
+          scaleX: canvas!.width! / img.width! * new_size / 100,
+          scaleY: canvas!.height! / img.height! * new_size / 100,
+        });
+        canvas!.renderAll();
+      })
+
+      watch(remove_bg, async (new_remove_bg) => {
+        if (!img || !canvas) return;
+        img?.set({
+          visible: !new_remove_bg
+        });
+        canvas!.renderAll();
+      })
+
+      r()
+    }, {crossOrigin: 'anonymous'});
+  })
+
+  if (props.pp_bg == null) return;
+  await new Promise<void>(async (r) => {
+    fabric.Image.fromURL(props.pp_bg!, (img) => {
+      img?.set({
+        visible: remove_bg.value,
+        originX: 'left',
+        originY: 'top',
+        left: 0,
+        top: 0,
+        height: img.height,
+        width: img.width,
+        scaleX: canvas!.width! / img.width!,
+        scaleY: canvas!.height! / img.height!,
+        hasBorders: false,
+        hasControls: false,
+      });
+      canvas?.insertAt(img, 2, false);
+
+      watch(size, (new_size) => {
+        if (!img || !canvas) return;
+        img?.set({
+          scaleX: canvas!.width! / img.width! * new_size / 100,
+          scaleY: canvas!.height! / img.height! * new_size / 100,
+        });
+        canvas!.renderAll();
+      })
+
+      watch(remove_bg, async (new_remove_bg) => {
+        if (!img || !canvas) return;
+        img?.set({
+          visible: new_remove_bg
+        });
+        canvas!.renderAll();
+      })
+
+      r()
+    }, {crossOrigin: 'anonymous'});
+  })
+
+
+  download = () => {
+    // Obtenir l'URL de données du canvas
+    const dataURL = canvas!.getElement().toDataURL('image/png');
+
+    // Convertir l'URL de données en Blob
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', dataURL, true);
+    xhr.responseType = 'blob';
+    xhr.onload = function () {
+      if (this.status == 200) {
+        // Créer un lien pour le téléchargement
+        const blob = this.response;
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = 'soutien_actif_mowglille.png';
+        downloadLink.click();
+      }
+    };
+    xhr.send();
+  }
+
 
   const imageOverlay = new Image();
   imageOverlay.src = overlay;
@@ -94,24 +189,31 @@ onUnmounted(() => {
 
 const size = ref(100);
 
+const remove_bg = ref(false);
 </script>
 
 <template>
   <v-card>
 
     <v-card-title>
-      <h2 class="text-2xl text-center mt-4">
+      <h2 class="text-2xl text-center mt-2">
         Soutenez Mowg'Lille !
       </h2>
     </v-card-title>
     <v-card-text>
-      <h3 class="text-lg">
+      <h3 class="text-lg -mt-4">
         Télécharger votre photo avec notre filtre soutient actif et
         gagnez 10% de miel en plus si vous l'utiliser sur facebook !
       </h3>
 
+      <v-switch v-model="remove_bg"
+                :disabled="pp_bg == null"
+                color="secondary" hide-details
+                label="Supprimer le fond"/>
+
+
       <template v-if="pp != null">
-        <div class="w-full aspect-square mt-4">
+        <div class="w-full aspect-square mt-2">
           <canvas id="soutien_preview" class="!w-full !h-full border border-black"
                   height="1024" width="1024"/>
         </div>
