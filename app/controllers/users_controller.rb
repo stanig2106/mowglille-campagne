@@ -125,7 +125,7 @@ class UsersController < ApplicationController
 
     res = system("ts-node bg-remover/index.ts " +
                    url_for(current_user!.original_profile_picture) + " " +
-                   (Rails.dev? ? "http://localhost:3000/bg-remover/" : "https://pwa.mowglille.fr/bg-remover/") + current_user!.public_token,
+                   (Rails.env.development? ? "http://localhost:3000/bg-remover/" : "https://pwa.mowglille.fr/bg-remover/") + current_user!.public_token,
                  exception: true)
 
     return render json: { ok: false, error: "Problème lors de la suppression de l'arrière-plan." } unless res
