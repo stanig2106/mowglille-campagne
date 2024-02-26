@@ -28,7 +28,7 @@ onMounted(() => document.querySelector("#downloading-label")?.remove())
             Connectez vous pour continuer
           </h3>
           <v-btn color="#BE3E1D" size="x-large" @click="login">
-            Connection avec CLA
+            Connexion avec CLA
           </v-btn>
         </div>
 

@@ -47,7 +47,7 @@ const staffs_action = [
   },
   {
     path: '/staff/offer',
-    name: "Offrir du score",
+    name: "Donner du miel",
     icon: "mdi-gift",
     roles: ["CUSTOM_SCORE"]
   },

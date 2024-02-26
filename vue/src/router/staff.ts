@@ -33,7 +33,7 @@ export default [
   {
     path: '/staff/offer', component: () => import('../views/staff/Offer.vue'),
     meta: {
-      title: "Offrir du score",
+      title: "Donner du miel",
     },
   },
   {

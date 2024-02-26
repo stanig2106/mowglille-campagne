@@ -21,7 +21,7 @@ onMounted(saveSubscription)
     <div class="h-full bg-white rounded-t-2xl elevation-2 square-shadow p-4 flex flex-col gap-4">
       <CollectionBtn class="w-full" @click="router.push('/collection')"/>
       <div class="flex gap-4 >:flex-grow w-full">
-        <OneLineBtn :icon-size="32" icon="mdi-trophy" title="Liste des defis"
+        <OneLineBtn :icon-size="32" icon="mdi-trophy" title="Liste des défis"
                     @click="router.push('/challenges')"/>
         <OneLineBtn :icon-size="32" icon="mdi-nintendo-game-boy" title="Jeu"
                     @click="router.push('/games/human_benchmark')"/>

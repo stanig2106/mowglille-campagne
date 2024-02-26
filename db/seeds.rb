@@ -4,7 +4,7 @@ Event.create!([
                 {
                   internal_id: "2",
                   type: "GOU",
-                  name: "Gouter de lancement",
+                  name: "Goûter de lancement",
                   # 08/03/2024 à 19h00 au 08/03/2024 à 20h00
                   start_date: DateTime.new(2024, 3, 8, 19, 0, 0),
                   end_date: DateTime.new(2024, 3, 8, 20, 0, 0),
@@ -166,13 +166,13 @@ Event.create!([
 {
   "2": [
     {
-      "name": "Crepes",
+      "name": "Crêpes",
       "vg": true,
       "type": "DES",
       "src": "crepes.png"
     },
     {
-      "name": "Gauffres",
+      "name": "Gaufres",
       "vg": true,
       "type": "DES",
       "src": "gauffres.png"
@@ -212,7 +212,7 @@ Event.create!([
       "src": "cookies.png"
     },
     {
-      "name": "Crepes",
+      "name": "Crêpes",
       "vg": true,
       "type": "DES",
       "src": "crepes.png"
@@ -282,7 +282,7 @@ Event.create!([
       "src": "pancakes.png"
     },
     {
-      "name": "Gauffres",
+      "name": "Gaufres",
       "vg": true,
       "type": "DES",
       "src": "gauffres.png"
@@ -328,7 +328,7 @@ Event.create!([
       "src": "cake_choco_banane.png"
     },
     {
-      "name": "Crepes",
+      "name": "Crêpes",
       "vg": true,
       "type": "DES",
       "src": "crepes.png"
@@ -366,7 +366,7 @@ Event.create!([
       "src": "cookies.png"
     },
     {
-      "name": "Crepes",
+      "name": "Crêpes",
       "vg": true,
       "type": "DES",
       "src": "crepes.png"
@@ -392,7 +392,7 @@ Event.create!([
       "src": "pancakes.png"
     },
     {
-      "name": "Crepes",
+      "name": "Crêpes",
       "vg": true,
       "type": "DES",
       "src": "crepes.png"
@@ -442,7 +442,7 @@ Event.create!([
       "src": "tartes_soleil_pesto_tomate.png"
     },
     {
-      "name": "Crepes",
+      "name": "Crêpes",
       "vg": true,
       "type": "DES",
       "src": "crepes.png"
