@@ -51,7 +51,7 @@ const emit = defineEmits<{
       </v-icon>
     </div>
 
-    <v-img :lazy-src="new ProfileImage('Mowgli').png()"
+    <v-img :lazy-src="ProfileImage.new('Mowgli').png()"
            class="rounded-full w-6 h-6 mb-1.5"/>
     <div class="w-full >:w-full">
       <div class="text-xs font-bold px-2 text-muted flex justify-between mb-1">

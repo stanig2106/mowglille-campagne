@@ -17,11 +17,11 @@ export class ProfileImage {
 
   constructor(name: string, options: ProfileImageOptions = {}) {
     this.name = name ?? "";
-    this.textColor = options.textColor || "#ffffff";
-    this.backgroundColor = options.backgroundColor || ProfileImage.get_random_color(name)
-    this.fontFamily = options.fontFamily || "Arial";
-    this.fontSize = options.fontSize || 40;
-    this.fontWeight = options.fontWeight || "normal";
+    this.textColor = options.textColor ?? "#ffffff";
+    this.backgroundColor = options.backgroundColor ?? ProfileImage.get_random_color(name)
+    this.fontFamily = options.fontFamily ?? "Arial";
+    this.fontSize = options.fontSize ?? 40;
+    this.fontWeight = options.fontWeight ?? "normal";
   }
 
   private static colors = [
@@ -29,6 +29,10 @@ export class ProfileImage {
     "#3f51b5", "#2196f3", "#009688", "#4caf50",
     "#ff9800", "#ff5722", "#795548", "#607d8b",
   ]
+
+  public static new(name: string, options: ProfileImageOptions = {}) {
+    return new ProfileImage(name, options);
+  }
 
   private static get_random_color(str: string): string {
     let hash = 0;

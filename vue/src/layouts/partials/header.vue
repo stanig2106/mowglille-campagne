@@ -52,12 +52,12 @@ const goBackOrGoHome = () => window.history.length > 1 ?
 
       <v-btn icon variant="text" @click="$router.push('/profile')">
         <v-img v-if="userStore.pp"
-               :lazy-src="new ProfileImage(userStore.name || 'Profile').png()"
+               :lazy-src="ProfileImage.new(userStore.name || 'Profile').png()"
                :src="userStore.pp"
                class="rounded-full bg-gray-200" style="width: 40px; height: 40px"/>
         <v-img v-else
-               :lazy-src="new ProfileImage(userStore.name || 'Profile').png()"
-               :src="new ProfileImage(userStore.name || 'Profile').png()"
+               :lazy-src="ProfileImage.new(userStore.name || 'Profile').png()"
+               :src="ProfileImage.new(userStore.name || 'Profile').png()"
                class="rounded-full bg-gray-200" style="width: 40px; height: 40px"/>
       </v-btn>
     </div>

@@ -15,12 +15,12 @@ const props = defineProps<{
     <div class="flex gap-2 items-center">
       <div class="rounded-full overflow-hidden">
         <v-img v-if="profile_picture"
-               :lazy-src="new ProfileImage(name || 'Profile').png()"
+               :lazy-src="ProfileImage.new(name || 'Profile').png()"
                :src="profile_picture"
                class="rounded-full bg-gray-200" height="48" width="48"/>
         <v-img v-else
-               :lazy-src="new ProfileImage(name || 'Profile').png()"
-               :src="new ProfileImage(name || 'Profile').png()"
+               :lazy-src="ProfileImage.new(name || 'Profile').png()"
+               :src="ProfileImage.new(name || 'Profile').png()"
                class="rounded-full bg-gray-200" height="48" width="48"/>
       </div>
 
