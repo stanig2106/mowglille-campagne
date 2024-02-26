@@ -197,11 +197,16 @@ watch(remove_bg, () => {
   size.value = 100;
 })
 
+const emit = defineEmits<{
+  cancel: []
+  download: []
+}>()
+
+
 </script>
 
 <template>
   <v-card>
-
     <v-card-title>
       <h2 class="text-2xl text-center mt-2">
         Soutenez Mowg'Lille !
@@ -213,10 +218,10 @@ watch(remove_bg, () => {
         gagnez 10% de miel en plus si vous l'utiliser sur facebook !
       </h3>
 
-<!--      <v-switch v-model="remove_bg"-->
-<!--                :disabled="pp_bg == null"-->
-<!--                color="secondary" hide-details-->
-<!--                label="Supprimer le fond"/>-->
+      <!--      <v-switch v-model="remove_bg"-->
+      <!--                :disabled="pp_bg == null"-->
+      <!--                color="secondary" hide-details-->
+      <!--                label="Supprimer le fond"/>-->
 
       <template v-if="pp != null">
         <div class="w-full aspect-square mt-2">
@@ -226,8 +231,13 @@ watch(remove_bg, () => {
 
         <v-slider v-model="size" class="mt-2" max="250" min="30"/>
 
-        <div class="flex justify-center gap-2 mt-4">
-          <v-btn class="w-1/2" color="primary" @click="() => download()">
+        <div class="flex justify-between gap-2 mt-4">
+          <v-btn variant="text" @click="emit('cancel')">
+            Annuler
+          </v-btn>
+
+          <v-btn color="secondary" variant="text"
+                 @click="() => {download(); emit('download')}">
             <v-icon>mdi-download</v-icon>
             Télécharger
           </v-btn>

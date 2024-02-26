@@ -100,8 +100,12 @@ const galerie_scale = computed(() => {
       <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
         <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.webp"/>
         <v-dialog :no-click-animation="true" activator="parent">
-          <download-soutient-actif :pp="userStore.orr_pp ?? null"
-                                   :pp_bg="userStore.bg_pp ?? null"/>
+          <template #default="{isActive}">
+            <download-soutient-actif :pp="userStore.orr_pp ?? null"
+                                     :pp_bg="userStore.bg_pp ?? null"
+                                     @cancel="isActive.value = false"
+                                     @download="isActive.value = false"/>
+          </template>
         </v-dialog>
       </v-btn>
 
@@ -132,7 +136,7 @@ const galerie_scale = computed(() => {
                 </v-btn>
 
                 <div v-if="avatarLoading" class="absolute inset-0 flex flex-center flex-col p-2">
-                  <v-progress-circular indeterminate size="64" color="secondary"/>
+                  <v-progress-circular color="secondary" indeterminate size="64"/>
                   <div class="text-center m-6 p-2 bg-white">
                     Veillez patienter, cet opération peut prendre quelques secondes
                   </div>

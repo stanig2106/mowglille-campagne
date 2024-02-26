@@ -65,8 +65,8 @@ export class ProfileImage {
     let n_arr = this.name.split(" ");
     let n_res = "";
     if (n_arr.length <= 2)
-      for (let i = 0; i < n_arr.length; i++)
-        n_res += n_arr[i][0]?.toUpperCase();
+      for (const n of n_arr)
+        n_res += n[0]?.toUpperCase();
     else
       for (let i = 0; i < 2; i++)
         n_res += n_arr[i][0]?.toUpperCase();
