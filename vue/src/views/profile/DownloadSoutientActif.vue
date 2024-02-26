@@ -213,11 +213,10 @@ watch(remove_bg, () => {
         gagnez 10% de miel en plus si vous l'utiliser sur facebook !
       </h3>
 
-      <v-switch v-model="remove_bg"
-                :disabled="pp_bg == null"
-                color="secondary" hide-details
-                label="Supprimer le fond"/>
-
+<!--      <v-switch v-model="remove_bg"-->
+<!--                :disabled="pp_bg == null"-->
+<!--                color="secondary" hide-details-->
+<!--                label="Supprimer le fond"/>-->
 
       <template v-if="pp != null">
         <div class="w-full aspect-square mt-2">

@@ -146,12 +146,12 @@ class UsersController < ApplicationController
 
     current_user!.original_profile_picture.attach(webp_file)
 
-    res = system("yarn ts-node bg-remover/index.ts " +
-                   url_for(current_user!.original_profile_picture) + " " +
-                   (Rails.env.development? ? "http://localhost:3000/bg-remover/" : "https://pwa.mowglille.fr/bg-remover/") + current_user!.public_token,
-                 exception: true)
-
-    return render json: { ok: false, error: "Problème lors de la suppression de l'arrière-plan." } unless res
+    # res = system("yarn ts-node bg-remover/index.ts " +
+    #                url_for(current_user!.original_profile_picture) + " " +
+    #                (Rails.env.development? ? "http://localhost:3000/bg-remover/" : "https://pwa.mowglille.fr/bg-remover/") + current_user!.public_token,
+    #              exception: true)
+    #
+    # return render json: { ok: false, error: "Problème lors de la suppression de l'arrière-plan." } unless res
 
     if current_user!.save
       render json: { ok: true }

@@ -5,6 +5,10 @@ const public_path = `file://${__dirname}/node_modules/@imgly/background-removal-
 
 let config: Config = {
     publicPath: public_path, // path to the wasm files
+    model: "large",
+    output: {
+        format: "image/webp"
+    }
 };
 
 // get the image as url
