@@ -169,7 +169,6 @@ class UsersController < ApplicationController
   end
 
   def bg_remover
-    p params
     user = User.find_by!(public_token: params[:token])
     return render json: { ok: false, error: "Le fichier n'est pas une image." } \
       unless params[:file].content_type.start_with?('image/')
