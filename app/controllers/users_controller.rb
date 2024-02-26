@@ -160,6 +160,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete_profile_picture
+    current_user!.profile_picture.purge
+    current_user!.original_profile_picture.purge
+    current_user!.bg_removed_picture.purge
+
+    render json: { ok: true }
+  end
+
   def bg_remover
     p params
     user = User.find_by!(public_token: params[:token])

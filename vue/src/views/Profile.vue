@@ -14,6 +14,7 @@ import placeholder_pp from "@/assets/placeholder_pp";
 import {VueAvatar} from 'vue-avatar-editor-improved'
 
 import {useElementSize} from '@vueuse/core'
+import {ProfileImage} from "@/utils/profile_pictures";
 
 
 const userStore = useUserStore()
@@ -64,6 +65,12 @@ async function uploadPP() {
   avatarLoading.value = false
 }
 
+function deletePP() {
+  return axios.delete(
+    "/update_profile_picture",
+  ).then(userStore.updateUser).catch()
+}
+
 function onImageLoad() {
   imageLoaded.value = true
   const imageInput = (avatar.value!.canvas as HTMLCanvasElement).nextElementSibling as HTMLInputElement
@@ -83,6 +90,8 @@ const galerie_scale = computed(() => {
     height: 1080
   }
 })
+
+const pictureDialog = ref(false)
 </script>
 
 
@@ -97,14 +106,19 @@ const galerie_scale = computed(() => {
         height: galerie_scale.height
       }]" class="w-full h-full rounded-full overflow-hidden absolute top-0 left-0"/>
 
+      <v-img v-else :src="ProfileImage.new(userStore.name, {fontSize: 20}).png()"
+             class="w-full h-full rounded-full bg-gray-200"/>
+
       <v-btn class="absolute bottom-6 -left-2" color="white" icon rounded="lg">
         <v-img :transition="false" class="h-6 w-6" src="@/assets/laurel-wreath.webp"/>
         <v-dialog :no-click-animation="true" activator="parent">
           <template #default="{isActive}">
             <download-soutient-actif :pp="userStore.orr_pp ?? null"
                                      :pp_bg="userStore.bg_pp ?? null"
+                                     @add_photo="isActive.value = false; pictureDialog = true"
                                      @cancel="isActive.value = false"
-                                     @download="isActive.value = false"/>
+                                     @download="isActive.value = false"
+            />
           </template>
         </v-dialog>
       </v-btn>
@@ -112,7 +126,7 @@ const galerie_scale = computed(() => {
       <v-btn class="absolute bottom-6 -right-2 overflow-hidden" color="white" icon
              rounded="lg" @click="imageLoaded = false">
         <v-icon color="black">mdi-pencil</v-icon>
-        <v-dialog activator="parent" persistent>
+        <v-dialog v-model="pictureDialog" activator="parent" persistent>
           <template #default="{isActive}">
             <v-card :disabled="avatarLoading" :loading="avatarLoading">
               <v-card-title>
@@ -157,7 +171,8 @@ const galerie_scale = computed(() => {
                     Enregistrer
                   </v-btn>
 
-                  <v-btn v-else color="secondary" variant="text">
+                  <v-btn v-else color="secondary" variant="text"
+                         @click="deletePP().then(() => isActive.value = false)">
                     Supprimer la photo
                   </v-btn>
                 </div>

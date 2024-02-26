@@ -200,6 +200,7 @@ watch(remove_bg, () => {
 const emit = defineEmits<{
   cancel: []
   download: []
+  add_photo: []
 }>()
 
 
@@ -249,9 +250,8 @@ const emit = defineEmits<{
           Commencez d'abord par ajouter une photo de profil !
         </div>
 
-        <div class="flex justify-center gap-2 mt-4 mb-2">
-          <v-btn color="primary">
-            <v-icon>mdi-account</v-icon>
+        <div class="flex justify-end gap-2 mt-4 mb-2">
+          <v-btn color="secondary" variant="text" @click="emit('add_photo')">
             Ajouter une photo de profil
           </v-btn>
         </div>

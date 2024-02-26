@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get "api/rank", to: "users#rank"
   get "api/name", to: "users#name"
   post "api/update_profile_picture", to: "users#update_profile_picture"
+  delete "api/update_profile_picture", to: "users#delete_profile_picture"
   post "bg-remover/:token", to: "users#bg_remover"
 
   post "api/challenges", to: "challenges#create"
