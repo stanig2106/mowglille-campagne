@@ -51,10 +51,14 @@ const goBackOrGoHome = () => window.history.length > 1 ?
       <offline-indicator/>
 
       <v-btn icon variant="text" @click="$router.push('/profile')">
-        <v-img :lazy-src="new ProfileImage(userStore.name || 'Profile').png()"
-               :src="userStore.pp!" class="rounded-full bg-gray-200"
-               style="width: 40px; height: 40px"/>
-
+        <v-img v-if="userStore.pp"
+               :lazy-src="new ProfileImage(userStore.name || 'Profile').png()"
+               :src="userStore.pp"
+               class="rounded-full bg-gray-200" style="width: 40px; height: 40px"/>
+        <v-img v-else
+               :lazy-src="new ProfileImage(userStore.name || 'Profile').png()"
+               :src="new ProfileImage(userStore.name || 'Profile').png()"
+               class="rounded-full bg-gray-200" style="width: 40px; height: 40px"/>
       </v-btn>
     </div>
 

@@ -93,8 +93,8 @@ function congratulate(score: GameScoreboard[number]) {
                 </v-card-title>
                 <v-card-text>
                   <div class="flex flex-col justify-center items-center mb-2">
-                    <v-img :src="score.pp ?? new ProfileImage(score.name).png()"
-                           :lazy-src="new ProfileImage(score.name).png()"
+                    <v-img :lazy-src="new ProfileImage(score.name).png()"
+                           :src="score.pp!"
                            height="100" width="100"/>
                     <h3 class="mt-2">
                       Score: {{ score.score }} {{ game_unit[game] }}
@@ -128,9 +128,14 @@ function congratulate(score: GameScoreboard[number]) {
             <div class="flex justify-between w-full h-full items-center px-4 py-1">
               <div class="flex gap-2 items-center w-full">
                 <div class="rounded-full overflow-hidden">
-                  <v-img :lazy-src="new ProfileImage(score.name).png()"
-                         :src="score.pp ?? new ProfileImage(score.name).png()"
-                         class="rounded-full" height="48" width="48"/>
+                  <v-img v-if="score.pp"
+                         :lazy-src="new ProfileImage(score.name || 'Profile').png()"
+                         :src="score.pp"
+                         class="rounded-full bg-gray-200" height="48" width="48"/>
+                  <v-img v-else
+                         :lazy-src="new ProfileImage(score.name || 'Profile').png()"
+                         :src="new ProfileImage(score.name || 'Profile').png()"
+                         class="rounded-full bg-gray-200" height="48" width="48"/>
                 </div>
 
                 <div class="flex flex-col gap-1 justify-center flex-1">

@@ -14,9 +14,14 @@ const props = defineProps<{
   <div class="flex justify-between w-full h-full items-center px-4">
     <div class="flex gap-2 items-center">
       <div class="rounded-full overflow-hidden">
-        <v-img :lazy-src="new ProfileImage(name).png()"
-               :src="profile_picture ?? new ProfileImage(name).png()"
-               :transition="false" height="48" width="48"/>
+        <v-img v-if="profile_picture"
+               :lazy-src="new ProfileImage(name || 'Profile').png()"
+               :src="profile_picture"
+               class="rounded-full bg-gray-200" height="48" width="48"/>
+        <v-img v-else
+               :lazy-src="new ProfileImage(name || 'Profile').png()"
+               :src="new ProfileImage(name || 'Profile').png()"
+               class="rounded-full bg-gray-200" height="48" width="48"/>
       </div>
 
       <div class="flex flex-col gap-1 justify-center">
