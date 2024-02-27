@@ -1,123 +1,109 @@
 <script lang="ts" setup>
 
 
-import p5 from "p5"
-import {onMounted, onUnmounted, ref, watch} from "vue";
-import router from "@/router";
+import {onMounted, ref} from "vue";
 
 const props = defineProps<{
   rarity: "rare" | "epic" | "legendary"
 }>()
 
-const done = ref(false)
-
 const emit = defineEmits<{
   done: []
 }>()
 
-let click = {
-  first: true
-}
+const shake = ref(false)
+
 onMounted(() => {
+  const open = document.getElementById("open") as HTMLVideoElement
 
-  let sketch : p5 | undefined = new p5((p: p5) => {
-    let video_intro: p5.MediaElement
-    let video_loop: p5.MediaElement
-    let video_opening: p5.MediaElement
-    let video_width: number
-    let video_height: number
-    let played_first = false
-    let playing = "intro"
-    let open = false
+  open.addEventListener("ended", () => {
+    open.style.display = "none"
+    const loop = document.getElementById("loop") as HTMLVideoElement
+    const hint = document.getElementById("hint") as HTMLDivElement
 
+    loop.style.display = "block"
+    loop.play()
 
-    p.preload = () => {
-      video_intro = p.createVideo("/chest/intro.mp4")
-      video_loop = p.createVideo("/chest/loop.mp4")
-      video_opening = p.createVideo("/chest/epic.mp4")
-    }
+    const clickTimeout = setTimeout(() => {
+      hint.style.display = "flex"
+      shake.value = true
 
-    p.setup = () => {
-      p.createCanvas(p.windowWidth, p.windowHeight, document.getElementById("canvas") as HTMLElement)
-      video_width = p.windowWidth
-      video_height = p.windowHeight
-    }
+    }, 2700)
 
-    p.remove = () => {
-      video_intro.remove()
-      video_loop.remove()
-      video_opening.remove()
-    }
+    const shakeInterval = setInterval(() => {
+      shake.value = true
+    }, 2500)
 
-    p.draw = () => {
-      p.background(0)
+    hint.addEventListener("animationend", () => {
+      shake.value = false
+    })
 
-      if (playing == "none")
-        return
+    document.addEventListener("click", () => {
+      clearInterval(shakeInterval)
+      clearTimeout(clickTimeout)
+      hint.style.display = "none"
 
-      if (playing == "intro")
-        p.image(video_intro, 0, 0, video_width, video_height)
-      if (click.first && !played_first) {
-        played_first = true
-        video_intro.play()
-      }
-      video_intro.onended(() => {
-        playing = "loop"
-        video_loop.play()
-        video_intro.hide()
-      })
+      loop.style.display = "none"
+      loop.pause()
+      const opening = document.getElementById("opening") as HTMLVideoElement
+      opening.style.display = "block"
+      opening.play()
 
-      if (video_loop.time() > video_loop.duration() - 0.2)
-        video_loop.time(0)
-
-      if (playing == "loop") {
-        p.image(video_loop, 0, 0, video_width, video_height)
-        if (p.mouseIsPressed)
-          open = true
-      }
-
-      if (open && playing != "opening") {
-        playing = "opening"
-        video_loop.stop()
-        video_loop.hide()
-        video_opening.play()
-      }
-
-      if (playing == "opening")
-        p.image(video_opening, 0, 0, video_width, video_height)
-
-      video_opening.onended(() => {
-        playing = "none"
-        video_opening.hide()
-        done.value = true
-        emit("done")
-      })
-
-
-    }
-
-  })
-
-  onUnmounted(() => {
-    sketch?.remove()
-    sketch = undefined
-  })
-
-  watch(done, (value) => {
-    if (value) {
-      sketch?.remove()
-      sketch = undefined
-    }
+      opening.addEventListener("ended", () => emit("done"))
+    }, {once: true})
   })
 })
+
 
 </script>
 
 <template>
-  <canvas id="canvas" class="fixed top-0 left-0 z-50 transform"
-          v-if="!done" @click="() => click.first = true"/>
+  <div id="hint" :class="{ 'apply-shake': shake }" class="hidden fixed top-0 left-0 z-50
+                        h-full w-full justify-end items-end pb-[22vh] pr-[5vw]">
+    <v-icon class="text-white" size="124" style="rotate: -20deg">
+      mdi-gesture-tap
+    </v-icon>
+  </div>
+
+  <video id="opening" class="fixed top-0 left-0 z-40 h-full w-full">
+    <source :src="`/chest/${props.rarity}.mp4`" type="video/mp4"/>
+  </video>
+  <video id="loop" class="fixed top-0 left-0 z-40 h-full w-full" loop>
+    <source :src="`/chest/loop.mp4`" type="video/mp4"/>
+  </video>
+  <video id="open" autoplay class="fixed top-0 left-0 z-40 h-full w-full">
+    <source :src="`/chest/intro.mp4`" type="video/mp4"/>
+  </video>
+
 </template>
 
 <style lang="scss" scoped>
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.apply-shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
 
 </style>

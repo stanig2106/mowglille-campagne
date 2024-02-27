@@ -23,8 +23,6 @@ export default defineConfig({
       ],
       output: {
         manualChunks(id, api) {
-          if (id.includes('node_modules/p5'))
-            return 'vendor-p5';
           if (id.includes('node_modules/simple-keyboard'))
             return 'vendor-simple-keyboard';
           if (id.includes('node_modules/qrious'))

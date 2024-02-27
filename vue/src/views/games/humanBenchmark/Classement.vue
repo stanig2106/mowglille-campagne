@@ -78,16 +78,15 @@ function congratulate(score: GameScoreboard[number]) {
       </v-slide-group-item>
     </v-slide-group>
 
-    <v-carousel v-model="selected_game_index" :continuous="false" :show-arrows="false" class="flex-grow >:!h-full"
-                hide-delimiters>
+    <v-carousel v-model="selected_game_index" :continuous="false" :show-arrows="false"
+                class="flex-grow >:!h-full" hide-delimiters>
       <v-carousel-item v-for="game in games" :key="game">
         <div class="h-full overflow-y-auto overflow-x-hidden">
 
           <div v-if="game_classements_store.scoreboards?.[long_selected_game(game)]"
                class="flex flex-col gap-2 px-2 >:flex-0">
-            <v-card v-for="score in game_classements_store.scoreboards[long_selected_game(game)]" :color="score.you ? 'orange' : ''" rounded="lg"
-                    variant="tonal"
-                    @click="">
+            <v-card v-for="score in game_classements_store.scoreboards[long_selected_game(game)]"
+                    :color="score.you ? 'orange' : ''" rounded="lg" variant="tonal" @click="">
               <v-dialog activator="parent">
                 <v-card elevation="2">
                   <v-card-title>
