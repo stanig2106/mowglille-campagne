@@ -70,15 +70,15 @@ onMounted(() => {
     </v-icon>
   </div>
 
-  <video id="opening" class="fixed top-0 left-0 z-40 h-full w-full object-cover"
+  <video id="opening" class="fixed top-0 left-0 z-40 h-full w-full object-cover bg-black"
          playsinline>
     <source :src="`/chest/${props.rarity}.mp4`" type="video/mp4"/>
   </video>
-  <video id="loop" class="fixed top-0 left-0 z-40 h-full w-full object-cover"
+  <video id="loop" class="fixed top-0 left-0 z-40 h-full w-full object-cover bg-black"
          loop playsinline>
     <source src="/chest/loop.mp4" type="video/mp4"/>
   </video>
-  <video id="open" autoplay class="fixed top-0 left-0 z-40 h-full w-full object-cover"
+  <video id="open" autoplay class="fixed top-0 left-0 z-40 h-full w-full object-cover bg-black"
          src="/chest/intro.mp4" type="video/mp4" playsinline>
   </video>
 
