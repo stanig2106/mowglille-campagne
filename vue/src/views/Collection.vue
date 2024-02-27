@@ -11,6 +11,8 @@ const chestHistories = ref([])
 
 const opening = ref(false)
 
+import intro from "@/assets/chest/intro.mp4"
+
 </script>
 
 <template>
@@ -66,7 +68,7 @@ const opening = ref(false)
       Vous avez aucune pièce pour le moment, ouvrez des coffres pour en gagner !
     </h3>
 
-<!--    <piece-viewer class="w-full h-full"/>-->
+    <!--    <piece-viewer class="w-full h-full"/>-->
 
 
   </div>
