@@ -48,6 +48,7 @@ currentEventStore.updateCurrentEvent()
 <style lang="scss">
 .carousel__slide {
   padding: 5px;
+  transform: unset;
 }
 
 .carousel__viewport {
