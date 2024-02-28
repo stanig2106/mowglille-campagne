@@ -2,6 +2,7 @@
 
 
 import {onMounted, ref} from "vue";
+import honey_white from "@/assets/honey_white.webp";
 import {chestColors} from "@/views/collection/chest";
 
 const props = defineProps<{
@@ -106,7 +107,7 @@ onMounted(() => {
     </h2>
     <div class="flex gap-12 ">
       <div v-for="reward in props.reward" class="flex gap-2 items-center flex-col">
-        <v-icon v-if="reward.type == 'score'" size="48">mdi-star</v-icon>
+        <img v-if="reward.type == 'score'" class="w-[48px] h-[48px] object-contain" :src="honey_white"/>
         <v-icon v-else :color="chestColors[reward.rarity]" size="48">mdi-puzzle</v-icon>
 
         <div class="text-center">

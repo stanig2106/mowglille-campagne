@@ -59,7 +59,7 @@ import intro from "@/assets/chest/intro.mp4"
                   :reward="[
                     {type: 'piece', id: 1, rarity: 'rare', new: true},
                     {type: 'score', amount: 12},
-                     {type: 'piece', id: 3, rarity: 'legendary'}
+                     {type: 'piece', id: 3, rarity: 'legendary'},
                    ]"
                   rarity="epic"
                   @done="opening = false; chests = []"/>
