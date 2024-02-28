@@ -210,5 +210,9 @@ h6 {
 
 }
 
+.v-dialog>.v-overlay__content {
+  @apply left-0;
+}
+
 </style>
 
