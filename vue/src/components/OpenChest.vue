@@ -2,9 +2,19 @@
 
 
 import {onMounted, ref} from "vue";
+import {chestColors} from "@/views/collection/chest";
 
 const props = defineProps<{
   rarity: "rare" | "epic" | "legendary"
+  reward: ({
+    type: "piece"
+    rarity: "rare" | "epic" | "legendary"
+    id: number
+    new?: boolean
+  } | {
+    type: "score"
+    amount: number
+  })[]
 }>()
 
 const emit = defineEmits<{
@@ -13,6 +23,8 @@ const emit = defineEmits<{
 
 const shake = ref(false)
 console.log("foo")
+
+const show = ref(false)
 
 onMounted(() => {
   const open = document.getElementById("open") as HTMLVideoElement
@@ -54,7 +66,12 @@ onMounted(() => {
       opening.style.display = "block"
       opening.play()
 
-      opening.addEventListener("ended", () => emit("done"))
+
+      opening.addEventListener("ended", () => {
+        show.value = true
+        document.addEventListener("click", () => emit("done"),
+          {once: true})
+      })
     }, {once: true})
   })
 })
@@ -79,8 +96,31 @@ onMounted(() => {
     <source src="/chest/loop.mp4" type="video/mp4"/>
   </video>
   <video id="open" autoplay class="fixed top-0 left-0 z-40 h-full w-full object-cover bg-black"
-         src="/chest/intro.mp4" type="video/mp4" playsinline>
+         playsinline src="/chest/intro.mp4" type="video/mp4">
   </video>
+
+  <div v-if="show" class="fixed top-0 left-0 z-40 h-full w-full flex justify-center
+             items-center gap-12 flex-col text-white">
+    <h2>
+      Vous avez gagné :
+    </h2>
+    <div class="flex gap-12 ">
+      <div v-for="reward in props.reward" class="flex gap-2 items-center flex-col">
+        <v-icon v-if="reward.type == 'score'" size="48">mdi-star</v-icon>
+        <v-icon v-else :color="chestColors[reward.rarity]" size="48">mdi-puzzle</v-icon>
+
+        <div class="text-center">
+          <span>{{ reward.type == "piece" ? "Pièce" : "Miel" }}</span>
+          <span v-if="reward.type == 'piece'"> n°{{ reward.id }}</span>
+          <span v-else> x{{ reward.amount }}</span>
+          <div v-if="reward.type == 'piece' && reward.new">Nouvelle pièce !</div>
+        </div>
+      </div>
+    </div>
+    <h4>
+      Appuyez pour continuer
+    </h4>
+  </div>
 
 </template>
 

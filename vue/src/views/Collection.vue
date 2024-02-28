@@ -55,7 +55,14 @@ import intro from "@/assets/chest/intro.mp4"
         Vous n'avez pas de coffre à ouvrir, faites des activités pour en gagner !
       </h4>
 
-      <open-chest v-if="opening" rarity="epic" @done="opening = false; chests = []"/>
+      <open-chest v-if="opening"
+                  :reward="[
+                    {type: 'piece', id: 1, rarity: 'rare', new: true},
+                    {type: 'score', amount: 12},
+                     {type: 'piece', id: 3, rarity: 'legendary'}
+                   ]"
+                  rarity="epic"
+                  @done="opening = false; chests = []"/>
     </div>
   </div>
 
