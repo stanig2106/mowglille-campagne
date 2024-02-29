@@ -58,8 +58,10 @@ onMounted(async () => {
         hasControls: false,
         lockMovementX: true,
         lockMovementY: true,
+        selectable: false,
       });
       canvas?.insertAt(img, 0, false);
+
 
       r()
     }, {crossOrigin: 'anonymous'});
@@ -105,46 +107,46 @@ onMounted(async () => {
     }, {crossOrigin: 'anonymous'});
   })
 
-  if (props.pp_bg == null) return;
-  await new Promise<void>(async (r) => {
-    fabric.Image.fromURL(props.pp_bg!, (img) => {
-      img?.set({
-        visible: remove_bg.value,
-        originX: 'left',
-        originY: 'top',
-        left: 0,
-        top: 0,
-        height: img.height,
-        width: img.width,
-        scaleX: canvas!.width! / img.width!,
-        scaleY: canvas!.height! / img.height!,
-        hasBorders: false,
-        hasControls: false,
-      });
-      canvas?.insertAt(img, 2, false);
-
-      watch(size, (new_size) => {
-        if (!img || !canvas) return;
+  if (props.pp_bg != null)
+    await new Promise<void>(async (r) => {
+      fabric.Image.fromURL(props.pp_bg!, (img) => {
         img?.set({
-          scaleX: canvas!.width! / img.width! * new_size / 100,
-          scaleY: canvas!.height! / img.height! * new_size / 100,
+          visible: remove_bg.value,
+          originX: 'left',
+          originY: 'top',
+          left: 0,
+          top: 0,
+          height: img.height,
+          width: img.width,
+          scaleX: canvas!.width! / img.width!,
+          scaleY: canvas!.height! / img.height!,
+          hasBorders: false,
+          hasControls: false,
         });
-        canvas!.renderAll();
-      })
+        canvas?.insertAt(img, 2, false);
 
-      watch(remove_bg, async (new_remove_bg) => {
-        if (!img || !canvas) return;
-        img?.set({
-          visible: new_remove_bg,
-          lockMovementX: !new_remove_bg,
-          lockMovementY: !new_remove_bg,
-        });
-        canvas!.renderAll();
-      })
+        watch(size, (new_size) => {
+          if (!img || !canvas) return;
+          img?.set({
+            scaleX: canvas!.width! / img.width! * new_size / 100,
+            scaleY: canvas!.height! / img.height! * new_size / 100,
+          });
+          canvas!.renderAll();
+        })
 
-      r()
-    }, {crossOrigin: 'anonymous'});
-  })
+        watch(remove_bg, async (new_remove_bg) => {
+          if (!img || !canvas) return;
+          img?.set({
+            visible: new_remove_bg,
+            lockMovementX: !new_remove_bg,
+            lockMovementY: !new_remove_bg,
+          });
+          canvas!.renderAll();
+        })
+
+        r()
+      }, {crossOrigin: 'anonymous'});
+    })
 
 
   download = () => {
@@ -169,6 +171,7 @@ onMounted(async () => {
   }
 
 
+  console.log("overlay")
   const imageOverlay = new Image();
   imageOverlay.src = overlay;
   imageOverlay.onload = () => {
