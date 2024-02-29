@@ -13,7 +13,7 @@ onMounted(saveSubscription)
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 h-full overflow-y-auto">
+  <div class="flex flex-col gap-4 h-full">
     <Score/>
 
     <CurrentEvent :background_url="event_bg" event_name="Le Livre de la Jungle" event_type="Aprèm"/>
