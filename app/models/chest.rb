@@ -4,5 +4,4 @@ class Chest < ApplicationRecord
   validates :type, inclusion: { in: %w[rare epic legendary] }
 
   self.inheritance_column = nil
-
 end

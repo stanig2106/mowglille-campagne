@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 
+defineProps<{
+  piece_count: number
+  chest_count: number
+}>()
+
 const emit = defineEmits<{
   click: [void]
 }>()
@@ -14,10 +19,13 @@ const emit = defineEmits<{
     </v-icon>
     <div class="flex flex-col justify-center">
       <h2 class="text-xl font-bold">
-        7 / 24 Pièces trouvées
+        {{ piece_count }} / 9 Pièces trouvées
       </h2>
-      <div class="text-muted">
+      <div v-if="chest_count == 0" class="text-muted">
         Ouvre ta collection
+      </div>
+      <div v-else class="text-muted">
+        {{ chest_count }} coffre{{ chest_count > 1 ? "s" : "" }} à ouvrir !
       </div>
     </div>
   </div>

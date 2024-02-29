@@ -51,6 +51,8 @@ class StaffersController < ApplicationController
       score: ar.score,
       offered_by: current_user
     )
+
+    user.chests.create!(type: ar.chest)
   end
 
   private

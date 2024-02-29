@@ -15,6 +15,10 @@ class User < ApplicationRecord
 
   attribute :subscription, :jsonb, default: nil
 
+  has_many :collections, dependent: :destroy
+  has_many :collection_pieces, through: :collections
+
+
   STAFF_ROLES = {
     SEE_PLANNING: "See planning",
     MANAGE_PLANNING: "Manage planning",

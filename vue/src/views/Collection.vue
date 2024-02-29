@@ -1,17 +1,25 @@
 <script lang="ts" setup>
-
 import OpenChest from "@/components/OpenChest.vue";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import ChestHistory from "@/views/collection/ChestHistory.vue";
-import PieceViewer from "@/views/collection/PieceViewer.vue";
+import Chest from "@/views/collection/Chest.vue";
+import {Chests, useChestsStore} from "@/stores/chests_store";
 
-const chests = ref([1])
+const chestHistories = ref([] as Chests)
 
-const chestHistories = ref([])
+const opening = ref(false as Chests[number] | false)
 
-const opening = ref(false)
+watch(opening, (value) => {
+  if (!value)
+    return
+  chestHistories.value.push(value)
+})
 
-import intro from "@/assets/chest/intro.mp4"
+const opened_ids = ref([] as number[])
+
+
+const chestsStore = useChestsStore()
+chestsStore.updateChests()
 
 </script>
 
@@ -31,7 +39,7 @@ import intro from "@/assets/chest/intro.mp4"
                 </h2>
 
                 <chest-history v-for="chestHistory in chestHistories"
-                               :key="chestHistory" :chestHistory="chestHistory"/>
+                               :key="chestHistory.id" :chestHistory="chestHistory"/>
                 <h4 v-if="chestHistories.length == 0" class="text-center w-full px-4 mt-4">
                   Vous n'avez pas encore ouvert de coffre, ouvrez-en pour voir l'historique !
                 </h4>
@@ -48,21 +56,16 @@ import intro from "@/assets/chest/intro.mp4"
     </h2>
 
     <div class="flex gap-4 overflow-x-auto">
-      <v-icon v-for="chest in chests" :key="chest" size="96" @click="opening = true">
-        mdi-treasure-chest
-      </v-icon>
-      <h4 v-if="chests.length == 0" class="text-center w-full px-4">
+      <chest v-for="chest in chestsStore.chests" v-show="!opened_ids.includes(chest.id)"
+             :key="chest.id" :rarity="chest.rarity" size="96"
+             @click="opening = chest; opened_ids.push(chest.id)"/>
+      <h4 v-if="!chestsStore.chests?.length" class="text-center w-full px-4">
         Vous n'avez pas de coffre à ouvrir, faites des activités pour en gagner !
       </h4>
 
-      <open-chest v-if="opening"
-                  :reward="[
-                    {type: 'piece', id: 1, rarity: 'rare', new: true},
-                    {type: 'score', amount: 12},
-                     {type: 'piece', id: 3, rarity: 'legendary'},
-                   ]"
-                  rarity="epic"
-                  @done="opening = false; chests = []"/>
+      <open-chest v-if="opening" :rarity="'epic'"
+                  :reward="opening.reward"
+                  @done="opening = false; chestsStore.updateChests()"/>
     </div>
   </div>
 

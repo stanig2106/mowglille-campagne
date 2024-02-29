@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   delete "api/update_profile_picture", to: "users#delete_profile_picture"
   post "bg-remover/:token", to: "users#bg_remover"
 
+  get "api/chests", to: "chests#index"
+
   post "api/challenges", to: "challenges#create"
   get "api/challenges", to: "challenges#index"
 

@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 import {computed, ref} from "vue";
 import axios from "axios";
+import {Rarity} from "@/views/collection/Chest.vue";
 
 export const useUserStore = defineStore("user", () => {
   const loaded = ref(false)
@@ -21,6 +22,9 @@ export const useUserStore = defineStore("user", () => {
 
   const notification_preferences = ref(undefined as string[] | undefined)
 
+  const chests = ref(undefined as Rarity[] | undefined)
+  const collection_pieces = ref(undefined as number[] | undefined)
+
   async function updateUser() {
     const response = await axios.get("/user")
     if (response.status !== 200)
@@ -40,7 +44,9 @@ export const useUserStore = defineStore("user", () => {
     pp.value = user.pp
     orr_pp.value = user.orr_pp
     bg_pp.value = user.bg_pp
-    console.log(user.bg_pp)
+
+    chests.value = user.chests
+    collection_pieces.value = user.collection_pieces
 
     notification_preferences.value = user.notification_preferences
     return true
@@ -59,6 +65,7 @@ export const useUserStore = defineStore("user", () => {
     score, rank, staffRoles,
     pp, orr_pp, bg_pp,
     notification_preferences,
+    chests, collection_pieces,
     updateUser
   }
 })

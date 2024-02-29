@@ -17,7 +17,7 @@ onMounted(() => document.querySelector("#downloading-label")?.remove())
 
 <template>
 
-  <div class="flex flex-col items-center justify-center h-full w-[100vw]">
+  <div class="flex flex-col items-center justify-center h-full w-[100vw] px-2">
     <v-card elevation="10" rounded="xl">
       <div class="p-8">
         <v-img class="w-[45vw] mx-[15vw] -mt-2 mb-6" contain src="@/assets/logo_text.png"/>

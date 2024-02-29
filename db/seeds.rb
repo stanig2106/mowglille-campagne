@@ -497,3 +497,51 @@ Event.create!([
     )
   end
 end unless MenuItem.count != 0
+
+CollectionPiece.create!([
+                          {
+                            number: 1,
+                            name: "Kaa",
+                            rarity: "common"
+                          },
+                          {
+                            number: 2,
+                            name: "Raksha",
+                            rarity: "common"
+                          },
+                          {
+                            number: 3,
+                            name: "Shere Khan",
+                            rarity: "common"
+                          },
+                          {
+                            number: 4,
+                            name: "Baloo",
+                            rarity: "rare"
+                          },
+                          {
+                            number: 5,
+                            name: "Mowgli",
+                            rarity: "legendary"
+                          },
+                          {
+                            number: 6,
+                            name: "Bagheera",
+                            rarity: "rare"
+                          },
+                          {
+                            number: 7,
+                            name: "Hathi",
+                            rarity: "common"
+                          },
+                          {
+                            number: 8,
+                            name: "le Singe Gris",
+                            rarity: "common"
+                          },
+                          {
+                            number: 9,
+                            name: "Chil",
+                            rarity: "common"
+                          }
+                        ]) unless CollectionPiece.count != 0

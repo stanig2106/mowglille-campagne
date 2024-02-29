@@ -2,6 +2,7 @@
 
 
 import {chestColors, chestRarities} from "@/views/collection/chest";
+import {computed} from "vue";
 
 export type Rarity = typeof chestRarities[number]
 
@@ -9,6 +10,13 @@ const props = defineProps<{
   rarity: Rarity
   size?: string
 }>()
+
+const rarity = computed(() => {
+  if (!chestRarities.includes(props.rarity))
+    return "rare" as Rarity
+  return props.rarity
+})
+
 
 const data = {
   rare: ["Rare", chestColors.rare],
@@ -20,7 +28,7 @@ const data = {
 
 <template>
   <div class="flex flex-col items-center text-sm">
-    <v-icon :color="data[rarity][1]" class="-mt-2.5" :size="size ?? 96">
+    <v-icon :color="data[rarity][1]" :size="size ?? 96" class="-mt-2.5">
       mdi-treasure-chest
     </v-icon>
     <div>

@@ -4,18 +4,11 @@
 import {onMounted, ref} from "vue";
 import honey_white from "@/assets/honey_white.webp";
 import {chestColors} from "@/views/collection/chest";
+import {ChestRewards} from "@/stores/chests_store";
 
 const props = defineProps<{
   rarity: "rare" | "epic" | "legendary"
-  reward: ({
-    type: "piece"
-    rarity: "rare" | "epic" | "legendary"
-    id: number
-    new?: boolean
-  } | {
-    type: "score"
-    amount: number
-  })[]
+  reward: ChestRewards
 }>()
 
 const emit = defineEmits<{
@@ -23,17 +16,14 @@ const emit = defineEmits<{
 }>()
 
 const shake = ref(false)
-console.log("foo")
 
 const show = ref(false)
 
 onMounted(() => {
   const open = document.getElementById("open") as HTMLVideoElement
   open.play()
-  console.log("playing")
 
   open.addEventListener("ended", () => {
-    console.log("ended")
     open.style.display = "none"
 
     const loop = document.getElementById("loop") as HTMLVideoElement

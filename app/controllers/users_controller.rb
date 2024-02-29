@@ -70,7 +70,10 @@ class UsersController < ApplicationController
       last_name:, score:, rank:,
       staff_roles:, cursus:,
       pp:, orr_pp:, bg_pp:,
-      notification_preferences: } }
+      notification_preferences:,
+      chests: chests.map(&:type),
+      collection_pieces: collection_pieces.map(&:id)
+    } }
   end
 
   def qr_code
