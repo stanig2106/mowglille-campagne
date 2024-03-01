@@ -34,6 +34,7 @@ export function doItOnline(axiosQuery: AxiosRequestConfig, description: { title:
 
   if (!offline.value)
     return doOnlineJobs()
+  return Promise.resolve();
 }
 
 

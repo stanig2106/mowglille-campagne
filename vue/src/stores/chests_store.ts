@@ -16,14 +16,20 @@ export type ChestRewards = ({
 export type Chests = {
   id: number,
   rarity: Rarity,
-  reward: ChestRewards
 }[]
+
+export type Rewards = {
+  rare: number[],
+  epic: number[],
+  legendary: number[]
+}
 
 export const useChestsStore =
   defineStore("chests", () => {
     const loaded = ref(false)
     const chests = ref(undefined as Chests | undefined)
-
+    const rewards = ref(undefined as Rewards | undefined)
+    const collections = ref(undefined as number[] | undefined)
 
     async function updateChests() {
       const response = await axios.get("/chests")
@@ -32,7 +38,8 @@ export const useChestsStore =
 
       loaded.value = true
       chests.value = response.data.chests
-      console.log(response.data)
+      rewards.value = response.data.rewards
+      collections.value = response.data.collections
 
       return true
     }
@@ -41,6 +48,8 @@ export const useChestsStore =
     return {
       loaded,
       chests,
+      rewards,
+      collections,
       updateChests
     }
   })

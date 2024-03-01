@@ -53,11 +53,11 @@ updateScoreDetails().then((done) => {
 
     <score-line v-for="scoreDetail in scoreDetails" v-else
                 :event="scoreDetail.event" :hour="scoreDetail.hour"
-                :score="scoreDetail.score" :subtitle="'Offert par: ' + scoreDetail.offered_by" :title="scoreDetail.title"
+                :score="scoreDetail.score" :subtitle="scoreDetail.offered_by ? ('Offert par: ' + scoreDetail.offered_by) : ''" :title="scoreDetail.title"
                 class="rounded-2xl py-2 bg-white elevation-2"/>
   </div>
 
   <v-bottom-navigation class="!fixed bottom-0 rounded-t-xl" elevation="18" height="96">
-    <current-score :name="name" :rank="rank" :score="score" :profile_picture="pp ?? null"/>
+    <current-score :name="name" :profile_picture="pp ?? null" :rank="rank" :score="score"/>
   </v-bottom-navigation>
 </template>

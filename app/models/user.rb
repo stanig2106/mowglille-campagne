@@ -18,7 +18,6 @@ class User < ApplicationRecord
   has_many :collections, dependent: :destroy
   has_many :collection_pieces, through: :collections
 
-
   STAFF_ROLES = {
     SEE_PLANNING: "See planning",
     MANAGE_PLANNING: "Manage planning",
@@ -93,6 +92,23 @@ class User < ApplicationRecord
     # ugh
     User.where("notification_preferences @> ARRAY[?]::varchar[]", [type])
         .where.not(subscription: nil)
+  end
+
+  def piece_order
+    # shuffle based on user id
+    pieces = -> (rarity) {
+      controlled_shuffle(CollectionPiece.where(rarity:).pluck(:number) -
+                           collection_pieces.pluck(:number))
+    }
+
+    { rare: pieces["RARE"], epic: pieces["EPIC"], legendary: pieces["LEGENDARY"] }
+  end
+
+  private
+
+  def controlled_shuffle(array)
+    # shuffle based on user id
+    array.sort_by { |i| Digest::SHA256.hexdigest(i.to_s + id.to_s) }
   end
 
 end

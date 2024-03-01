@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   post "bg-remover/:token", to: "users#bg_remover"
 
   get "api/chests", to: "chests#index"
+  post "api/chests/open/:id", to: "chests#open"
 
   post "api/challenges", to: "challenges#create"
   get "api/challenges", to: "challenges#index"
