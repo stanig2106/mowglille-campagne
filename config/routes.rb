@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   post "api/challenges", to: "challenges#create"
   get "api/challenges", to: "challenges#index"
+  delete "api/challenges/:id", to: "challenges#destroy"
 
   get "api/scoreboard", to: "scoreboard#get_scoreboard"
   get "api/score_details", to: "scoreboard#get_score_details"

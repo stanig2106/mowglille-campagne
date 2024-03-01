@@ -12,7 +12,8 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div v-ripple class="bg-gray-200 w-full flex gap-2 rounded-lg p-2 items-center"
+  <div v-ripple :class="{ 'bg-yellow-300': chest_count > 0}"
+       class="bg-gray-200 w-full flex gap-2 rounded-lg p-2 items-center"
        @click="emit('click')">
     <v-icon size="48">
       mdi-treasure-chest

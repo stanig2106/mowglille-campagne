@@ -6,10 +6,9 @@ const page = ref(1)
 
 const titles = [
   "Défis flash",
-  "Défis à 1 point",
-  "Défis à 2 points",
-  "Défis à 3 points",
-  "Défis à 5 points"
+  "Défis bzzz bzzz",
+  "Défis mielleux au miel",
+  "Défis de zinzin",
 ]
 
 </script>
