@@ -4,3 +4,4 @@ Liste des bugs :
 - Jeu de nombres : pb si nombre trop grand
 - Memoires visuel : afficher la bonne réponses à la fin (quand on a perdu)
 - Lieu de l'event sur home page
+- qr code nom

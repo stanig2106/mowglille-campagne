@@ -34,17 +34,6 @@ watch(() => user.value, async () => {
 })
 
 function send(to?: User) {
-  if (to)
-    axios.post("/notifications/notify", {
-      title: title.value,
-      message: message.value,
-      type: type.value,
-      to: to.publicToken
-    }).catch((e) =>
-      inform("Erreur",
-        "Impossible d'envoyer la notification : " +
-        (e.response.data.error || e.message)))
-
   doItOnline({
     url: "/notifications/notify", method: "post",
     data: {
@@ -56,7 +45,10 @@ function send(to?: User) {
   }, {
     title: "Envoi de notification",
     message: "Envoi de " + title.value
-  })
+  }).catch((e) =>
+    inform("Erreur",
+      "Impossible d'envoyer la notification : " +
+      (e.response.data.error || e.message)))
 }
 
 

@@ -117,7 +117,6 @@ watch(opening, () => {
              :src="`/collections/${piece}.png`"
              class="rounded-2xl absolute w-full top-0"/>
       </div>
-
       <div class="text-center text-xl">
         Complétez le puzzle en premier pour gagner une ps5 !
       </div>
