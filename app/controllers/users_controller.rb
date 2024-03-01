@@ -26,6 +26,13 @@ class UsersController < ApplicationController
 
       user.notification_preferences = %w[EVENTS GAMES CUSTOM CHALLENGES]
 
+      user.chests.create!(type: "RARE")
+
+      user.score_records.create!(
+        reason: "Ouverture avant 00:00", # before 08/03/2023 23:59
+        score: 200
+      ) if DateTime.now < DateTime.new(2023, 3, 8, 23, 59, 59)
+
       user.save!
       user
     else

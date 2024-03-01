@@ -86,8 +86,8 @@ generateQRCode()
       />
     </div>
 
-    <h2 class="text-center text-2xl">
-      Arthur Nobrega
+    <h2 class="text-center text-2xl one-line">
+      {{ firstName }} {{ lastName }}
     </h2>
 
     <span class="text-center text-gray-500 text-xs px-6">

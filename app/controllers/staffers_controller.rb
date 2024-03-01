@@ -25,9 +25,10 @@ class StaffersController < ApplicationController
     user = User.find_by!(public_token: params[:user])
     user.score_records.create!(
       reason: params[:reason],
-      score: params[:quantity].to_i,
+      score: [params[:quantity].to_i, 1000].min,
       offered_by: current_user
-    )
+    ) unless params[:quantity].to_i.zero?
+
     params[:chests].each do |chest|
       user.chests.create!(type: chest)
     end
@@ -43,7 +44,7 @@ class StaffersController < ApplicationController
     return render json: {
       error: 'La récompense pour l\'activité a déjà été attribuée à cet utilisateur'
     } if user.rewards.joins(:activity_reward)
-                          .where(activity_rewards: { activity_id: ar.activity.id }).exists?
+             .where(activity_rewards: { activity_id: ar.activity.id }).exists?
 
     Reward.create!(user:, activity_reward: ar)
     user.score_records.create!(

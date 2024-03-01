@@ -20,7 +20,7 @@ const emit = defineEmits<{
     </v-icon>
     <div class="flex flex-col justify-center">
       <h2 class="text-xl font-bold">
-        {{ piece_count }} / 9 Pièces trouvées
+        {{ piece_count }} / 20 Pièces trouvées
       </h2>
       <div v-if="chest_count == 0" class="text-muted">
         Ouvre ta collection

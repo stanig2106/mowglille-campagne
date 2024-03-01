@@ -186,8 +186,8 @@ onUnmounted(() => keyboard?.destroy())
       <div class="text-2xl">
         <span v-for="(c, index) in user_input" :key="index"
               :class="{'line-through text-black': c != number[index]}"
-        >{{ c }}</span><span v-for="index in number.length - user_input.length" :key="index"
-                             class="line-through text-black">?</span>
+        >{{ c }}</span><span v-for="index in Math.max(number.length - user_input.length, 0)"
+                             :key="index" class="line-through text-black">?</span>
       </div>
       <span v-if="done" class="text-lg mt-6">
         Votre score à été enregistré.
