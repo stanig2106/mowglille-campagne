@@ -15,56 +15,59 @@ const emit = defineEmits<{
   done: []
 }>()
 
+const start_timer = 1.80 as const
+const end_timer = 5.16 as const
+const end_end_timer = 5.70 as const
+
 const shake = ref(false)
 
 const show = ref(false)
 
 onMounted(() => {
-  const open = document.getElementById("open") as HTMLVideoElement
-  open.play()
+  const video = document.getElementById("video") as HTMLVideoElement
+  video.currentTime = 0
+  video.play()
 
-  open.addEventListener("ended", () => {
-    open.style.display = "none"
+  const hint = document.getElementById("hint") as HTMLDivElement
+  //
+  const clickTimeout = setTimeout(() => {
+    hint.style.display = "flex"
+    shake.value = true
+  }, start_timer * 1000 + 2700)
 
-    const loop = document.getElementById("loop") as HTMLVideoElement
-    const hint = document.getElementById("hint") as HTMLDivElement
-
-    loop.style.display = "block"
-    loop.play()
-
-    const clickTimeout = setTimeout(() => {
-      hint.style.display = "flex"
-      shake.value = true
-
-    }, 2700)
-
-    const shakeInterval = setInterval(() => {
-      shake.value = true
-    }, 2500)
-
-    hint.addEventListener("animationend", () => {
-      shake.value = false
-    })
-
-    document.addEventListener("click", () => {
-      clearInterval(shakeInterval)
-      clearTimeout(clickTimeout)
-      hint.style.display = "none"
-
-      loop.style.display = "none"
-      loop.pause()
-      const opening = document.getElementById("opening") as HTMLVideoElement
-      opening.style.display = "block"
-      opening.play()
-
-
-      opening.addEventListener("ended", () => {
-        show.value = true
-        document.addEventListener("click", () => emit("done"),
-          {once: true})
-      })
-    }, {once: true})
+  const shakeInterval = setInterval(() => {
+    shake.value = true
+  }, 2500)
+  //
+  hint.addEventListener("animationend", () => {
+    shake.value = false
   })
+  //
+  let clicked = false
+  video.addEventListener("timeupdate", () => {
+    console.log(video.currentTime)
+    if (video.currentTime >= 9.5) {
+      video.pause()
+      show.value = true
+      document.addEventListener("click", () => emit("done"),
+        {once: true})
+
+    }
+
+    if (clicked)
+      return
+    if (video.currentTime >= end_timer)
+      video.currentTime = start_timer
+  })
+
+  setTimeout(() => document.addEventListener("click", () => {
+    clicked = true
+    clearInterval(shakeInterval)
+    clearTimeout(clickTimeout)
+    hint.style.display = "none"
+
+    video.currentTime = end_end_timer
+  }, {once: true}), start_timer * 1000)
 })
 
 
@@ -72,23 +75,14 @@ onMounted(() => {
 
 <template>
   <div id="hint" :class="{ 'apply-shake': shake }" class="hidden fixed top-0 left-0 z-50
-                        h-full w-full justify-end items-end pb-[22vh] pr-[5vw]">
+                        h-full w-full justify-end items-end pb-[10vh] pr-[5vw]">
     <v-icon class="text-white" size="124" style="rotate: -20deg">
       mdi-gesture-tap
     </v-icon>
   </div>
 
-  <video id="opening" class="fixed top-0 left-0 z-40 h-full w-full object-cover bg-black"
-         playsinline>
-    <source :src="`/chest/${props.rarity}.mp4`" type="video/mp4"/>
-  </video>
-  <video id="loop" class="fixed top-0 left-0 z-40 h-full w-full object-cover bg-black"
-         loop playsinline>
-    <source src="/chest/loop.mp4" type="video/mp4"/>
-  </video>
-  <video id="open" autoplay class="fixed top-0 left-0 z-40 h-full w-full object-cover bg-black"
-         playsinline src="/chest/intro.mp4" type="video/mp4">
-  </video>
+  <video id="video" autoplay class="fixed top-0 left-0 z-40 h-full w-full object-cover bg-black"
+         playsinline :src="`/chest/${props.rarity}.mp4`" type="video/mp4"/>
 
   <div v-if="show" class="fixed top-0 left-0 z-40 h-full w-full flex justify-center
              items-center gap-12 flex-col text-white">

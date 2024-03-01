@@ -63,7 +63,7 @@ chestsStore.updateChests()
         Vous n'avez pas de coffre à ouvrir, faites des activités pour en gagner !
       </h4>
 
-      <open-chest v-if="opening" :rarity="'epic'"
+      <open-chest v-if="opening" :rarity="opening.rarity"
                   :reward="opening.reward"
                   @done="opening = false; chestsStore.updateChests()"/>
     </div>
