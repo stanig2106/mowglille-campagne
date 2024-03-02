@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import honey from "@/assets/honey.webp";
 import {ProfileImage} from "@/utils/profile_pictures";
+import Galerie from "@/components/Galerie.vue";
 
 const props = defineProps<{
   rank: number | undefined,
@@ -14,12 +15,9 @@ const props = defineProps<{
   <div class="flex justify-between w-full h-full items-center px-4">
     <div class="flex gap-2 items-center">
       <div class="rounded-full overflow-hidden">
-        <v-img v-if="profile_picture"
-               :lazy-src="ProfileImage.new(name || 'Profile').png()"
-               :src="profile_picture"
-               class="rounded-full bg-gray-200" height="48" width="48"/>
-        <v-img v-else
-               :lazy-src="ProfileImage.new(name || 'Profile').png()"
+        <galerie v-if="profile_picture" :images="[profile_picture]"
+                 class="w-[48px] h-[48px] rounded-full overflow-hidden"/>
+        <v-img v-else :lazy-src="ProfileImage.new(name || 'Profile').png()"
                :src="ProfileImage.new(name || 'Profile').png()"
                class="rounded-full bg-gray-200" height="48" width="48"/>
       </div>

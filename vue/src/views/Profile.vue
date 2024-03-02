@@ -82,15 +82,6 @@ watch(avatar, (new_avatar) => {
   (avatar.value!.canvas as HTMLCanvasElement).nextElementSibling!.id = "pp-input"
 })
 
-const galerie_scale = computed(() => {
-  const image = new Image()
-  image.src = userStore.pp!
-  return {
-    width: 1080,
-    height: 1080
-  }
-})
-
 const pictureDialog = ref(false)
 </script>
 
@@ -99,12 +90,8 @@ const pictureDialog = ref(false)
   <div class="bg-white rounded-t-2xl p-4 flex flex-col mt-[100px] elevation-2 min-h-[calc(100%-100px)] relative square-shadow">
     <div class="z-10 rounded-full bg-gray-200 w-2/3 aspect-square -mt-[100px] self-center relative">
 
-      <galerie v-if="userStore.pp" :images="[{
-        thumbnailURL: userStore.pp,
-        largeURL: userStore.pp,
-        width: galerie_scale.width,
-        height: galerie_scale.height
-      }]" class="w-full h-full rounded-full overflow-hidden absolute top-0 left-0"/>
+      <galerie v-if="userStore.pp" :images="[userStore.pp]"
+               class="w-full h-full rounded-full overflow-hidden absolute top-0 left-0"/>
 
       <v-img v-else :src="ProfileImage.new(userStore.name, {fontSize: 20}).png()"
              class="w-full h-full rounded-full bg-gray-200"/>

@@ -6,6 +6,7 @@ import {dateToS} from "@/views/games/safariSprint/core/utils";
 import honey from "@/assets/honey.webp";
 import {doItOnline} from "@/router/offline";
 import {ProfileImage} from "@/utils/profile_pictures";
+import Galerie from "@/components/Galerie.vue";
 
 const selected_game_index = ref(0);
 
@@ -94,9 +95,12 @@ function congratulate(score: GameScoreboard[number]) {
                   </v-card-title>
                   <v-card-text>
                     <div class="flex flex-col justify-center items-center mb-2">
-                      <v-img :lazy-src="ProfileImage.new(score.name).png()"
-                             :src="score.pp!"
-                             height="100" width="100"/>
+                      <galerie v-if="score.pp"
+                               :images="[score.pp]"
+                               class="w-[100px] h-[100px] rounded-full overflow-hidden"/>
+                      <v-img v-else :src="ProfileImage.new(score.name).png()"
+                             class="rounded-full overflow-hidden" height="100" width="100"/>
+
                       <h3 class="mt-2">
                         Score: {{ score.score }} {{ game_unit[game] }}
                       </h3>

@@ -5,12 +5,12 @@ import {inject, onMounted, onUnmounted, Ref, ref} from "vue";
 
 const props = withDefaults(defineProps<{
   galleryId?: string,
-  images: {
+  images: ({
     thumbnailURL: string,
-    largeURL: string,
-    width: number,
-    height: number
-  }[]
+    largeURL?: string,
+    width?: number,
+    height?: number
+  } | string)[]
 }>(), {
   galleryId: "i" + Math.random().toString(36).substring(7)
 });
@@ -43,13 +43,13 @@ onUnmounted(() => {
     <a
       v-for="(image, key) in images"
       :key="key"
-      :data-pswp-height="image.height"
-      :data-pswp-src="image.largeURL"
-      :data-pswp-width="image.width"
+      :data-pswp-height="typeof image === 'string' ? 1080 : image.height || 1080"
+      :data-pswp-src="typeof image === 'string' ? image : image.largeURL || image.thumbnailURL"
+      :data-pswp-width="typeof image === 'string' ? 1080 : image.width || 1080"
       rel="noreferrer"
       target="_blank"
     >
-      <img :src="image.thumbnailURL" alt=""/>
+      <img :src="typeof image === 'string' ? image : image.thumbnailURL" alt="Image"/>
     </a>
   </div>
 </template>

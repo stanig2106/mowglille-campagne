@@ -15,6 +15,7 @@ const props = defineProps<{
 }>();
 
 let download = () => {
+  // will be overwritten
 }
 
 let canvas = undefined as fabric.Canvas | undefined;
@@ -87,10 +88,10 @@ onMounted(async () => {
         watch(size, (new_size) => {
           if (!img || !canvas) return;
           img?.set({
-            scaleX: canvas!.width! / Math.min(img.width!, img.height!) * new_size / 100,
-            scaleY: canvas!.height! / Math.min(img.width!, img.height!) * new_size / 100,
+            scaleX: canvas.width! / Math.min(img.width!, img.height!) * new_size / 100,
+            scaleY: canvas.height! / Math.min(img.width!, img.height!) * new_size / 100,
           });
-          canvas!.renderAll();
+          canvas.renderAll();
         })
 
         watch(remove_bg, async (new_remove_bg) => {
@@ -128,10 +129,10 @@ onMounted(async () => {
           watch(size, (new_size) => {
             if (!img || !canvas) return;
             img?.set({
-              scaleX: canvas!.width! / img.width! * new_size / 100,
-              scaleY: canvas!.height! / img.height! * new_size / 100,
+              scaleX: canvas.width! / img.width! * new_size / 100,
+              scaleY: canvas.height! / img.height! * new_size / 100,
             });
-            canvas!.renderAll();
+            canvas.renderAll();
           })
 
           watch(remove_bg, async (new_remove_bg) => {
@@ -141,7 +142,7 @@ onMounted(async () => {
               lockMovementX: !new_remove_bg,
               lockMovementY: !new_remove_bg,
             });
-            canvas!.renderAll();
+            canvas.renderAll();
           })
 
           r()
@@ -180,15 +181,15 @@ onMounted(async () => {
     const imageOverlay = new Image();
     imageOverlay.src = overlay;
     imageOverlay.onload = () => {
-      canvas?.setOverlayImage(imageOverlay.src, canvas!.renderAll.bind(canvas!), {
+      canvas?.setOverlayImage(imageOverlay.src, canvas.renderAll.bind(canvas), {
         originX: 'left',
         originY: 'top',
         left: 0,
         top: 0,
         height: imageOverlay.height,
         width: imageOverlay.width,
-        scaleX: canvas!.width! / imageOverlay.width,
-        scaleY: canvas!.height! / imageOverlay.height,
+        scaleX: canvas.width! / imageOverlay.width,
+        scaleY: canvas.height! / imageOverlay.height,
       });
     }
   }
