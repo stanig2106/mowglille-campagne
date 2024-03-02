@@ -2,6 +2,6 @@ Liste des bugs :
 
 -v Scroll horizontal sur la page d'accueil
 -v Jeu de nombres : pb si nombre trop grand
-- Memoires visuel : afficher la bonne réponses à la fin (quand on a perdu)
+-v Memoires visuel : afficher la bonne réponses à la fin (quand on a perdu)
 - Lieu de l'event sur home page
 -v qr code nom

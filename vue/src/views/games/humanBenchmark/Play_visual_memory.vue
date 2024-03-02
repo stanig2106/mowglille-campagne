@@ -15,7 +15,7 @@ const sequence = ref([] as number[])
 const show = ref(false)
 const shadow_block = ref(false)
 const missed = ref([] as number[])
-
+const dead = ref(false)
 
 async function showSequence() {
   show.value = true
@@ -46,6 +46,7 @@ function nextStep(button?: number) {
 
   if (done.value) {
     missed.value = []
+    dead.value = false
     user_input.value = []
     done.value = false
     started.value = false
@@ -78,7 +79,9 @@ function nextStep(button?: number) {
   missed.value.push(button!)
   if (missed.value.length == 3) {
     shadow_block.value = true
-    setTimeout(() => done.value = true, 500)
+    dead.value = true
+
+    setTimeout(() => done.value = true, 1000)
 
     saveScore('human_benchmark_visual_memory', round.value - 1,
       {
@@ -146,7 +149,8 @@ function pos(i: number, j: number) {
             <div v-for="i in size" :key="i" :class="{'!gap-1': size >= 6}" class="flex flex-col w-full flex-1 gap-2">
               <v-responsive v-for="j in size" :key="j"
                             :class="{ '!bg-white !opacity-100': user_input.includes(pos(i, j)) || show && sequence.includes(pos(i, j)),
-                            '!bg-gray-600 !opacity-70': missed.includes(pos(i, j)) }"
+                            '!bg-gray-600 !opacity-70': missed.includes(pos(i, j)) && !dead,
+                             '!bg-red-800 !opacity-70': dead && sequence.includes(pos(i, j)) && !user_input.includes(pos(i, j)) }"
                             aspect-ratio="1" class="rounded-lg bg-gray-300 opacity-40 flex justify-center items-center"
                             @pointerdown="!show && !shadow_block && nextStep(pos(i, j))"
               />
