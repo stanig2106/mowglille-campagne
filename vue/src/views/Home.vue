@@ -22,7 +22,8 @@ currentUser.updateUser()
 
     <CurrentEvent :background_url="event_bg" event_name="Le Livre de la Jungle" event_type="Aprèm"/>
 
-    <div class="h-full bg-white rounded-t-2xl elevation-2 square-shadow p-4 flex flex-col gap-4">
+    <div class="h-full bg-white rounded-t-2xl elevation-2 square-shadow p-4 flex flex-col gap-4
+                  >:overflow-hidden">
       <CollectionBtn :chest_count="currentUser.chests?.length || 0"
                      :piece_count="currentUser.collection_pieces?.length || 0"
                      class="w-full" @click="router.push('/collection')"/>

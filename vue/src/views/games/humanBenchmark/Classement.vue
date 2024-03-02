@@ -44,11 +44,38 @@ function congratulate(score: GameScoreboard[number]) {
   })
   score.congratulated = true
 }
+
+const timeLeft = ref(null as string | null)
+const deadline = new Date(2024, 2, 16, 19)
+
+setInterval(() => {
+  const now = new Date()
+  const diff = deadline.getTime() - now.getTime()
+
+  if (diff < 0) {
+    timeLeft.value = null
+    return
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+  if (days > 0)
+    timeLeft.value = days + "j " + hours + "h "
+  else if (hours > 0)
+    timeLeft.value = hours + "h " + minutes + "m "
+  else if (minutes > 0)
+    timeLeft.value = minutes + "m " + seconds + "s"
+  else
+    timeLeft.value = seconds + "s"
+}, 1000)
 </script>
 
 <template>
   <div class="bg-white rounded-t-2xl p-4 flex flex-col
-             elevation-2 h-full gap-4 relative">
+             elevation-2 h-full gap-2 relative">
 
     <h2 class="text-2xl text-center relative">
       Classement
@@ -56,12 +83,74 @@ function congratulate(score: GameScoreboard[number]) {
         <v-icon>
           mdi-information
         </v-icon>
+
+        <v-dialog #default="{isActive}" activator="parent">
+          <v-card>
+            <div class="p-4 flex flex-col gap-2">
+              <h3>
+                Répartition des points
+              </h3>
+
+              <div class="flex flex-col gap-2">
+                Les points sont distribués de la manière suivante pour chaque mini-jeu:
+                <table class="mt-4">
+                  <tr>
+                    <td>
+                      1<sup>er</sup> :
+                    </td>
+                    <td>
+                      1000 miels
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      2<sup>ème</sup> :
+                    </td>
+                    <td>
+                      700 miels
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      3<sup>ème</sup> :
+                    </td>
+                    <td>
+                      400 miels
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      4<sup>ème</sup> au 10<sup>ème</sup> :
+                    </td>
+                    <td>
+                      200 miels
+                    </td>
+                  </tr>
+                </table>
+                <div class="mt-4">
+                  Les points sont distribués à la fin de l'aprèm'.
+                </div>
+                <div v-if="timeLeft">
+                  Temps restant avant distribution: <br> {{ timeLeft }}
+                </div>
+                <div v-else>
+                  La distribution est terminée. Merci d'avoir participé !
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <v-btn color="secondary" variant="text" @click="isActive.value = false">
+                  Fermer
+                </v-btn>
+              </div>
+            </div>
+          </v-card>
+        </v-dialog>
       </v-btn>
     </h2>
 
     <v-slide-group
       v-model="selected_game_index"
-      center-active class="-ml-4 -mr-4 >:px-4"
+      center-active class="-ml-4 -mr-4 >:px-4 overflow-visible mb-2"
       mandatory
     >
       <v-slide-group-item
