@@ -1,6 +1,14 @@
 class ChestsController < ApplicationController
 
   def index
+    winner = if current_user!.collection_winner
+               true
+             elsif (w = User.where(collection_winner: true).first)
+               w.name
+             else
+               false
+             end
+
     render json: {
       chests: current_user!.chests.map do |c|
         {
@@ -9,7 +17,8 @@ class ChestsController < ApplicationController
         }
       end,
       rewards: current_user!.piece_order,
-      collections: current_user!.collection_pieces.pluck(:number)
+      collections: current_user!.collection_pieces.pluck(:number),
+      winner:
     }
   end
 
@@ -55,6 +64,9 @@ class ChestsController < ApplicationController
 
     chest.destroy
     current_user!.save
+
+    current_user!.update(collection_winner: true) if current_user!.collection_pieces.count == CollectionPiece.count &&
+      User.where(collection_winner: true).count == 0
 
     render json: { success: true }
   end

@@ -19,7 +19,7 @@ const titles = [
       <v-btn icon @click="page--" rounded="lg" :disabled="page == 0">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
-      <h3>
+      <h3 class="text-xl text-center flex items-center">
         {{ titles[page] }}
       </h3>
       <v-btn icon @click="page++" rounded="lg" :disabled="page == titles.length - 1">

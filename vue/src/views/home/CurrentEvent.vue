@@ -65,10 +65,11 @@ setInterval(timeToNext.trigger, 1000)
 
     <event-action v-if="currentEvent.menu.length > 0" icon="mdi-food" subtitle="Voir le menu"
                   title="Un petit creux ?" @click="router.push('menu')"/>
-    <event-action icon="mdi-chat" subtitle="Ouvre le chat" title="Discute de l'évent"
-                  @click="router.push('chat')"/>
-    <event-action icon="mdi-dots-horizontal" subtitle="En savoir plus" title="Une question ?"/>
-    <!--    <event-action icon="mdi-music-note-plus" subtitle="Propose le tiens !" title="Pas ouf le son ?" class="opacity-0"/>-->
+    <event-action icon="mdi-dots-horizontal" subtitle="En savoir plus" title="Besoin d'infos ?"/>
+
+    <div class="flex justify-end text-white mt-2">
+      Lieu : {{ currentEvent.location }}
+    </div>
   </div>
 
 </template>

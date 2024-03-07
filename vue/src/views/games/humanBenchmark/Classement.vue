@@ -17,10 +17,13 @@ function long_selected_game(game: Game) {
 }
 
 const game_classements_store = useGameScoreboardStore()
+const updated = ref([] as string[])
 
 watch(selected_game, game => {
-  if (game)
+  if (game && !updated.value.includes(long_selected_game(game))) {
     game_classements_store.updateScoreboard(long_selected_game(game))
+    updated.value.push(long_selected_game(game))
+  }
 }, {immediate: true})
 
 const game_unit = {

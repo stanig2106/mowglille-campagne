@@ -30,6 +30,7 @@ export const useChestsStore =
     const chests = ref(undefined as Chests | undefined)
     const rewards = ref(undefined as Rewards | undefined)
     const collections = ref(undefined as number[] | undefined)
+    const winner = ref(undefined as boolean | string | undefined)
 
     async function updateChests() {
       const response = await axios.get("/chests")
@@ -40,6 +41,7 @@ export const useChestsStore =
       chests.value = response.data.chests
       rewards.value = response.data.rewards
       collections.value = response.data.collections
+      winner.value = response.data.winner
 
       return true
     }
@@ -50,6 +52,7 @@ export const useChestsStore =
       chests,
       rewards,
       collections,
+      winner,
       updateChests
     }
   })

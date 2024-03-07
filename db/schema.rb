@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_01_133017) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_07_003552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -200,6 +200,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_01_133017) do
     t.string "planning_letter"
     t.jsonb "subscription"
     t.string "notification_preferences", array: true
+    t.boolean "collection_winner", default: false
     t.index ["cla_info_id"], name: "index_users_on_cla_info_id"
   end
 

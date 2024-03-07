@@ -117,14 +117,46 @@ watch(opening, () => {
              :src="`/collections/${piece}.png`"
              class="rounded-2xl absolute w-full top-0"/>
       </div>
-      <div class="text-center text-xl">
+      <div v-if="chestsStore.winner == false" class="text-center text-xl">
         Complétez le puzzle en premier pour gagner une ps5 !
+      </div>
+      <div v-else-if="chestsStore.winner == true" class="text-center text-xl">
+        Vous avez completer le puzzle en premier et remportez la ps5 !
+      </div>
+      <div v-else class="text-center text-xl">
+        {{ chestsStore.winner }} a completer le puzzle en premier et remporte la ps5 ! <br>
+        Vous pouvez toujours completer le puzzle pour gagner 500 points !
       </div>
 
     </div>
   </div>
 
-  <!--  <open-chest rarity="epic"/>-->
 
+  <v-dialog v-if="chestsStore.winner && !opening" #default="{isActive}"
+            :model-value="true">
+    <v-card>
+      <div class="p-6">
+        <h2 v-if="chestsStore.winner == true" class="mb-4">
+          Félicitation !
+        </h2>
+        <div v-if="chestsStore.winner == true">
+          Vous êtes le premier à avoir completer le puzzle, rendez vous ce soir
+          au foyer pour récupérer votre lot ! <br> <br>
+          Si vous n'êtes pas disponible ce soir, contactez un Mowgu !
+        </div>
+        <div v-else>
+          {{ chestsStore.winner }} a completer le puzzle en premier et remporte la ps5 ! <br>
+          Vous pouvez toujours completer le puzzle pour gagner 500 points !
+        </div>
+      </div>
+
+      <div class="flex justify-end p-2">
+        <v-btn @click="isActive.value = false" variant="text">
+          Fermer
+        </v-btn>
+
+      </div>
+    </v-card>
+  </v-dialog>
 </template>
 
