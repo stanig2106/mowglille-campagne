@@ -64,6 +64,30 @@ provide(informShowKey, (title: string, message: string) => {
   ]
 })
 
+router.beforeEach((to, from, next) => {
+  console.log('beforeEachSw');
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      registrations.forEach(async registration => {
+        registration.addEventListener('updatefound', () => {
+          const installingWorker = registration.installing;
+          console.log('A new service worker is being installed:', installingWorker);
+          if (installingWorker) {
+            installingWorker.addEventListener('statechange', () => {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                window.location.reload();
+              }
+            });
+          }
+        });
+
+        await registration.update();
+      });
+    });
+  }
+
+  next();
+});
 
 </script>
 

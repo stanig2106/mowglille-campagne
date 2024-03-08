@@ -20,6 +20,7 @@ import axios from 'axios';
 import {startOnlineJobs, useOffline} from "@/router/offline";
 
 import {notification_init, saveSubscription} from "@/utils/notification";
+import router from "@/router";
 
 const app = createApp(App)
 
