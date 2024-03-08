@@ -91,4 +91,29 @@ const router = createRouter({
   routes,
 })
 
+router.beforeEach((to, from, next) => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      registrations.forEach(async registration => {
+        await registration.update();
+
+        registration.addEventListener('updatefound', () => {
+          const installingWorker = registration.installing;
+          console.log('A new service worker is being installed:', installingWorker);
+          if (installingWorker) {
+            installingWorker.addEventListener('statechange', () => {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                window.location.reload();
+              }
+            });
+          }
+        });
+      });
+    });
+  }
+
+  next();
+});
+
+
 export default router
