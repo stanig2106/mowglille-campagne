@@ -26,6 +26,8 @@ class UsersController < ApplicationController
 
       user.notification_preferences = %w[EVENTS GAMES CUSTOM CHALLENGES]
 
+      user.save!
+      
       user.chests.create!(type: "RARE")
 
       user.score_records.create!(
