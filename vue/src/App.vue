@@ -64,6 +64,21 @@ provide(informShowKey, (title: string, message: string) => {
   ]
 })
 
+navigator.serviceWorker.getRegistrations()
+  .then(registrations =>
+    registrations.forEach(registration => {
+      registration.addEventListener('updatefound', () => {
+        const installingWorker = registration.installing;
+        installingWorker?.addEventListener('statechange', () => {
+          if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            // force the update
+            window.location.reload();
+          }
+        });
+      });
+    })
+  )
+
 
 </script>
 
@@ -211,7 +226,7 @@ h6 {
 
 }
 
-.v-dialog>.v-overlay__content {
+.v-dialog > .v-overlay__content {
   @apply left-0;
 }
 

@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
       user.save!
       user
-    else
+    elsif user.cla_info.username != "stani.gam"
       # Invalidate the old token
       user.token = SecureRandom.hex(32) + user.id.to_s
       user.save!
