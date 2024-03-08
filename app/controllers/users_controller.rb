@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       user.score_records.create!(
         reason: "Ouverture avant 00:00", # before 08/03/2023 23:59
         score: 200
-      ) if DateTime.now < DateTime.new(2023, 3, 8, 23, 59, 59)
+      ) if DateTime.now < DateTime.new(2024, 3, 8, 23, 59, 59)
 
       user.save!
       user

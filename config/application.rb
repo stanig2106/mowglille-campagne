@@ -18,6 +18,7 @@ module MowglilleCampagne
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.time_zone = 'Paris'
 
     config.public_file_server.root = "#{Rails.root}/vue/dist"
   end
