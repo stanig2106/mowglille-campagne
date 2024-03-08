@@ -27,8 +27,8 @@ class UsersController < ApplicationController
       user.notification_preferences = %w[EVENTS GAMES CUSTOM CHALLENGES]
 
       user.save!
-      
-      user.chests.create!(type: "RARE")
+
+      user.chests.create!(type: "rare")
 
       user.score_records.create!(
         reason: "Ouverture avant 00:00", # before 08/03/2023 23:59
