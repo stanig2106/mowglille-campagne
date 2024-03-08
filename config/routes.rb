@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   post "api/staff/offer", to: "staffers#offer"
   post "api/staff/reward", to: "staffers#reward"
 
+  post "api/staff/add_com/:event_id", to: "staffers#add_com"
+
   post "api/games/score", to: "games#save_score"
   get "api/games/scoreboard", to: "games#get_scoreboard"
   post "api/games/congratulate", to: "games#congratulate"

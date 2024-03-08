@@ -10,5 +10,6 @@ export const roles = [
   "MANAGE_SOUND",
   "MANAGE_CHAT",
   "MANAGE_PHOTO",
-  "NOTIFY"
+  "NOTIFY",
+  "MANAGE_COM"
 ] as const

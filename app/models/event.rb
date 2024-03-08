@@ -4,6 +4,8 @@ class Event < ApplicationRecord
 
   has_many :menu_items
 
+  has_one_attached :image_com
+
   def type_as_s
     {
       GOU: "Goûter",

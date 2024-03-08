@@ -151,7 +151,7 @@ watch(opening, () => {
       </div>
 
       <div class="flex justify-end p-2">
-        <v-btn @click="isActive.value = false" variant="text">
+        <v-btn variant="text" @click="isActive.value = false">
           Fermer
         </v-btn>
 

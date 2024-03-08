@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   def index
     return not_allowed! unless current_user&.has_staff_role?(:MANAGE_SCORE, :SCORE)
 
-    render json: Event.all.map(&method(:to_web))
+    render json: Event.all.sort_by(&:start_date).map { to_web(_1) }
 
   end
 
@@ -81,6 +81,7 @@ class EventsController < ApplicationController
       endDate: event.end_date.iso8601,
       location: event.location,
       description: event.description,
+      com: event.image_com.attached? ? url_for(event.image_com) : nil,
       activities: event.activities.map do |activity|
         {
           internalId: activity.internal_id,

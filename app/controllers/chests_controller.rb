@@ -68,6 +68,12 @@ class ChestsController < ApplicationController
     current_user!.update(collection_winner: true) if current_user!.collection_pieces.count == CollectionPiece.count &&
       User.where(collection_winner: true).count == 0
 
+    current_user!.score_records.create(
+      reason: "Collection complété !",
+      score: 500
+    ) if current_user!.collection_pieces.count == CollectionPiece.count &&
+      User.where(collection_winner: true).count >= 1
+
     render json: { success: true }
   end
 end

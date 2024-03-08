@@ -13,6 +13,7 @@ export type Event = {
   location: string
   description: string
   activities: Activity[]
+  com: string
 }
 
 export type Activity = {

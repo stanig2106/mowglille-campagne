@@ -86,6 +86,12 @@ const staffs_action = [
     name: "Notifier les utilisateurs",
     icon: "mdi-bell",
     roles: ["NOTIFY"]
+  },
+  {
+    path: '/staff/manage_com',
+    name: "Gérer la com",
+    icon: "mdi-comment",
+    roles: ["MANAGE_COM"]
   }
 ]
 

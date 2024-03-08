@@ -71,6 +71,12 @@ export default [
     meta: {
       title: "Notifier",
     },
+  },
+  {
+    path: '/staff/manage_com', component: () => import('../views/staff/ManageCom.vue'),
+    meta: {
+      title: "Gérer la com",
+    },
   }
 
 ]

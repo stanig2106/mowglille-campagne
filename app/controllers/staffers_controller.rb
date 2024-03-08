@@ -56,6 +56,21 @@ class StaffersController < ApplicationController
     user.chests.create!(type: ar.chest)
   end
 
+  def add_com
+    return not_allowed! unless current_user&.has_staff_role?(:MANAGE_COM)
+
+    event = Event.find_by!(internal_id: params[:event_id])
+    if params[:file]
+      unless params[:file].content_type.start_with?('image/')
+        return render json: { ok: false, error: "Le fichier n'est pas une image." }
+      end
+      event.image_com.attach(params[:file])
+    end
+
+    event.description = params[:description]
+    render json: { ok: true }
+  end
+
   private
 
   def not_allowed!

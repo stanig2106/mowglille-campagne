@@ -38,6 +38,8 @@ class User < ApplicationRecord
     MANAGE_PHOTO: "Manage photo",
 
     NOTIFY: "Notify",
+
+    MANAGE_COM: "Manage com'"
   }
   validate :staff_roles_are_valid
 

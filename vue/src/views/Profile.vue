@@ -40,6 +40,13 @@ const imageLoaded = ref(false)
 const avatarLoading = ref(false)
 const originalImage = ref(null as File | null)
 
+const error_upload = ref(false)
+
+watch(error_upload, (value, oldValue) => {
+  if (!value && oldValue)
+    avatarLoading.value = false
+})
+
 async function uploadPP() {
   const blob = await new Promise<Blob | null>((resolve) => {
     avatar.value!.getImageScaled().toBlob((blob: Blob | null) => {
@@ -60,7 +67,9 @@ async function uploadPP() {
       "Content-Type": "multipart/form-data"
     },
     timeout: 120 * 1000 // 120 seconds
-  }).then(userStore.updateUser).catch()
+  }).then(userStore.updateUser).catch(() => {
+    error_upload.value = true
+  })
 
   avatarLoading.value = false
 }
@@ -167,6 +176,23 @@ const pictureDialog = ref(false)
               </div>
             </v-card>
           </template>
+        </v-dialog>
+
+        <v-dialog v-model="error_upload" persistent>
+          <v-card>
+            <v-card-title class="text-red-500">
+              Erreur
+            </v-card-title>
+            <v-card-text>
+              Une erreur est survenue lors de l'envoi de la photo de profil
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer/>
+              <v-btn @click="error_upload = false">
+                Fermer
+              </v-btn>
+            </v-card-actions>
+          </v-card>
         </v-dialog>
 
         <div>
