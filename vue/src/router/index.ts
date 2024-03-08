@@ -92,11 +92,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  console.log('beforeEachSw');
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(registrations => {
       registrations.forEach(async registration => {
-        await registration.update();
-
         registration.addEventListener('updatefound', () => {
           const installingWorker = registration.installing;
           console.log('A new service worker is being installed:', installingWorker);
@@ -108,6 +107,8 @@ router.beforeEach((to, from, next) => {
             });
           }
         });
+
+        await registration.update();
       });
     });
   }
