@@ -10,7 +10,7 @@ import {storeToRefs} from "pinia";
 const props = defineProps<{
   event_type: string
   event_name: string
-  background_url: string
+  background_url?: string
 }>()
 
 const currentEventStore = useCurrentEventStore()

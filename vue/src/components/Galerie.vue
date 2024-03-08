@@ -41,8 +41,8 @@ onUnmounted(() => {
 <template>
   <div :id="galleryId">
     <a
-      v-for="(image, key) in images"
-      :key="key"
+      v-for="(image, index) in images"
+      :key="index" :class="{'hidden': index != 0}"
       :data-pswp-height="typeof image === 'string' ? 1080 : image.height || 1080"
       :data-pswp-src="typeof image === 'string' ? image : image.largeURL || image.thumbnailURL"
       :data-pswp-width="typeof image === 'string' ? 1080 : image.width || 1080"

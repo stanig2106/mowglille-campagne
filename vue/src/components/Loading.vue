@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import loading_left from "@/assets/loading_left.png";
-import loading_right from "@/assets/loading_right.png";
+import loading_left from "@/assets/loading_left.webp";
+import loading_right from "@/assets/loading_right.webp";
 import logo_full from "@/assets/logo_full.webp";
 import {onMounted, ref, watch} from "vue";
 
@@ -33,10 +33,13 @@ const interval = setInterval(() => {
   <div id="loading-overlay" class="absolute z-50 top-0 left-0 h-screen w-screen
           overflow-hidden select-none loading bg-black">
     <v-img :src="loading_left" alt="loading" @load="loaded++; load()"
+           :transition="false"
            class="absolute top-0 -left-1 h-screen w-screen loading-left" cover/>
     <v-img :src="loading_right" alt="loading" @load="loaded++; load()"
+           :transition="false"
            class="absolute top-0 -right-1 h-screen w-screen loading-right" cover/>
     <v-img :src="logo_full" alt="logo"
+           :transition="false"
            class="absolute top-1/2 left-1/2 transform -translate-x-1/2
            -translate-y-1/2 h-2/3 w-2/3 object-contain loading-logo"/>
   </div>

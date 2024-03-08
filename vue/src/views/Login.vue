@@ -20,7 +20,7 @@ onMounted(() => document.querySelector("#downloading-label")?.remove())
   <div class="flex flex-col items-center justify-center h-full w-[100vw] px-2">
     <v-card elevation="10" rounded="xl">
       <div class="p-8">
-        <v-img class="w-[45vw] mx-[15vw] -mt-2 mb-6" contain src="@/assets/logo_text.png"/>
+        <v-img class="w-[45vw] mx-[15vw] -mt-2 mb-6" contain src="@/assets/logo_text.webp"/>
 
 
         <div class="text-center mt-8 bt-4">
@@ -46,7 +46,7 @@ html {
 
 body {
   overflow: hidden;
-  background-image: url("@/assets/login_page_background.png");
+  background-image: url("@/assets/login_page_background.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

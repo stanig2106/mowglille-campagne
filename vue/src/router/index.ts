@@ -67,12 +67,22 @@ const routes = [
       title: 'Défis',
     }
   },
-
   {
-    path: '/chat', component: () => import('../views/Chat.vue'),
+    path: '/trombi', component: () => import('../views/Trombi.vue'),
     meta: {
-      title: 'Chat',
-      density: 'compact',
+      title: 'Trombi',
+    }
+  },
+  {
+    path: '/program', component: () => import('../views/Program.vue'),
+    meta: {
+      title: 'Programme',
+    }
+  },
+  {
+    path: '/planning', component: () => import('../views/Planning.vue'),
+    meta: {
+      title: 'Planning',
     }
   },
   ...games,
