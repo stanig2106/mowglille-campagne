@@ -111,7 +111,8 @@ class EventsController < ApplicationController
           name: menu_item.name,
           src: menu_item.src,
           type: menu_item.type,
-          vg: menu_item.vg
+          vg: menu_item.vg,
+          description: menu_item.description
         }
       end
 

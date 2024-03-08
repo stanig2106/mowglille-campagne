@@ -30,7 +30,7 @@ const goBackOrGoHome = () => window.history.length > 1 ?
 
     <h1 v-if="back == undefined"
         class="h-full flex items-center text-3xl italic mt-0.5 ml-4">
-      MOWG'LILLE !
+      MOWG'LILLE
     </h1>
 
     <h1 v-else

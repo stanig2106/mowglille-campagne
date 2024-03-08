@@ -169,13 +169,15 @@ Event.create!([
       "name": "Crêpes",
       "vg": true,
       "type": "DES",
-      "src": "crepes.png"
+      "src": "crepes.png",
+      desc: "Le classique ! La bonne crêpe tout droit sortie de la jungle, viens la déguster avec du sucre, du Nutella ou encore de la confiture."
     },
     {
       "name": "Gaufres",
       "vg": true,
       "type": "DES",
-      "src": "gauffres.png"
+      "src": "gauffres.png",
+      desc: "Rien de plus réconfortant qu'une gaufre, viens essayer une de nos gaufres au sucre ou fais le gourmand et prends en une au Nutella",
     }
   ],
   "3": [
@@ -183,71 +185,81 @@ Event.create!([
       "name": "Plat secret",
       "vg": false,
       "type": "PLA",
-      "src": "plat_secret.png"
+      "src": "plat_secret.png",
     }
   ],
   "4": [
     {
       "name": "Croque Monsieur",
       "vg": false,
-      "type": "PLA",
-      "src": "croque_monsieur.png"
+      "type": "CLA",
+      "src": "croque_monsieur.png",
+      desc: "Un petite gourmandise qui a fait fureur durant le WEL. Attention, ça devient rapidement compliqué de s'arrêter"
     },
     {
       "name": "Fajitas",
       "vg": false,
       "type": "PLA",
-      "src": "fajitas.png"
+      "src": "fajitas.png",
+      desc: "Le saviez-vous ? Les Fajitas sont en fait originaires du Texas"
     },
     {
       "name": "Pizzas",
       "vg": false,
       "type": "PLA",
-      "src": "pizzas.png"
+      "src": "pizzas.png",
+      desc: "La pizza, c'est la vie. Viens déguster une de nos pizzas, tu ne seras pas déçu"
     },
     {
       "name": "Cookies",
       "vg": true,
       "type": "DES",
-      "src": "cookies.png"
+      "src": "cookies.png",
+      desc: "À la fois Puffy et gourmands, difficile de n'en manger qu'un..."
     },
     {
       "name": "Crêpes",
       "vg": true,
       "type": "DES",
-      "src": "crepes.png"
+      "src": "crepes.png",
+      desc: "Le classique ! La bonne crêpe tout droit sortie de la jungle, viens la déguster avec du sucre, du Nutella ou encore de la confiture."
     },
     {
       "name": "Gâteau à l'orange",
       "vg": true,
       "type": "DES",
-      "src": "gâteau_a_lorange.png"
+      "src": "gâteau_a_lorange.png",
+      desc: "Un gâteau à l'orange, c'est toujours un plaisir"
     }
   ],
   "8": [
     {
-      "name": "Garlic Bread",
+      "name": "Pan Con Tomate",
       "vg": true,
       "type": "ENTREE",
-      "src": "garlic_bread.png"
+      "src": "garlic_bread.png",
+      desc: "Le pan con tomate, également connu sous le nom de \"pa amb tomàquet\" en catalan, est une spécialité culinaire traditionnelle originaire de Catalogne, une région située dans le nord-est de l'Espagne. Cependant, il est également populaire dans d'autres régions d'Espagne, comme les îles Baléares et la région de Valence",
     },
     {
       "name": "Croque-Monsieur",
       "vg": false,
-      "type": "PLA",
-      "src": "croque-monsieur.png"
+      "type": "CLA",
+      "src": "croque-monsieur.png",
+      desc: "Un petite gourmandise qui a fait fureur durant le WEL. Attention, ça devient rapidement compliqué de s'arrêter"
     },
     {
       "name": "Lasagnes",
       "vg": true,
       "type": "PLA",
-      "src": "lasagnes.png"
+      "src": "lasagnes.png",
+      desc: "Si jamais les croque-monsieur ne vous font pas envie, voilà un beau mélange de légumes pour vous"
     },
     {
       "name": "Brownie",
       "vg": true,
       "type": "DES",
-      "src": "brownie.png"
+      "src": "brownie.png",
+      desc: "Un bon fudge brownie à l'anglaise qui a autant un goût de reviens-y que de \"il faudrait que je fasse un régime moi\""
     },
     {
       "name": "Sirops à l'eau",
@@ -258,34 +270,39 @@ Event.create!([
   ],
   "6": [
     {
-      "name": "Avocado Toast",
+      "name": "Panini Tomate Mozzarella",
       "vg": true,
       "type": "ENTREE",
-      "src": "avocado_toast.png"
+      "src": "avocado_toast.png",
+      desc: "Un basique, comment le refuser ?"
     },
     {
       "name": "Gâteau au Yaourt",
       "vg": true,
       "type": "DES",
-      "src": "gateau_au_yaourt.png"
+      "src": "gateau_au_yaourt.png",
+      desc: "Une vraie recette de grand-mère, à manger avec du Nutella ou bien nature"
     },
     {
       "name": "Cookies",
       "vg": true,
       "type": "DES",
-      "src": "cookies.png"
+      "src": "cookies.png",
+      desc: "À la fois Puffy et gourmands, difficile de n'en manger qu'un..."
     },
     {
       "name": "Pancakes",
       "vg": true,
       "type": "DES",
-      "src": "pancakes.png"
+      "src": "pancakes.png",
+      desc: "Nouveauté il faut croire... Venez les déguster avec du sirop d'érable ou du Nutella"
     },
     {
       "name": "Gaufres",
       "vg": true,
       "type": "DES",
-      "src": "gauffres.png"
+      "src": "gauffres.png",
+      desc: "Rien de plus réconfortant qu'une gaufre, viens essayer une de nos gaufres au sucre ou fais le gourmand et prends en une au Nutella"
     }
   ],
   "5": [
@@ -307,125 +324,145 @@ Event.create!([
       "name": "Roulé Saucisse",
       "vg": false,
       "type": "ENTREE",
-      "src": "roulé_saucisse.png"
+      "src": "roulé_saucisse.png",
+      desc: "Un petit délice, c'est difficile de n'en manger qu'un"
     },
     {
       "name": "Burger Tenders",
       "vg": false,
       "type": "PLA",
-      "src": "burger_tenders.png"
+      "src": "burger_tenders.png",
+      desc: "Petite inspiration japonaise, inspiration Tonkatsu plus précisément. Notre Burger Tenders façon Tonkatsu avec son chou et sa petite sauce sucrée en a surpris plus d'un."
     },
     {
-      "name": "Gratin dauphinois",
+      "name": "Frites",
       "vg": true,
       "type": "PLA",
-      "src": "gratin_dauphinois.png"
+      "src": "frite.png",
+      desc: "À faire rougir celles de Triolo"
     },
     {
       "name": "Cake Choco banane",
       "vg": true,
       "type": "DES",
-      "src": "cake_choco_banane.png"
+      "src": "cake_choco_banane.png",
+      desc: "Mélange de saveurs qui a fait ses preuves"
     },
     {
       "name": "Crêpes",
       "vg": true,
       "type": "DES",
-      "src": "crepes.png"
+      "src": "crepes.png",
+      desc: "Le classique ! La bonne crêpe tout droit sortie de la jungle, viens la déguster avec du sucre, du Nutella ou encore de la confiture."
     },
     {
       "name": "Chocolat Chaud",
       "vg": true,
       "type": "BOI",
-      "src": "chocolat_chaud.png"
+      "src": "chocolat_chaud.png",
+      desc: "Un bon chocolat chaud pour se réchauffer"
+    },
+    {
+      "name": "Chocolat Chaud Bailey's",
+      "vg": true,
+      "type": "BOI",
+      "src": "chocolat_chaud.png",
+      desc: "Avec un peu de Bailey's pour les plus téméraires"
     }
   ],
   "10": [
     {
       "name": "Croque Monsieur",
       "vg": false,
-      "type": "PLA",
-      "src": "croque_monsieur.png"
+      "type": "CLA",
+      "src": "croque_monsieur.png",
+      desc: "Un petite gourmandise qui a fait fureur durant le WEL. Attention, ça devient rapidement compliqué de s'arrêter"
     },
     {
       "name": "Tarte à la tomate",
       "vg": true,
       "type": "PLA",
-      "src": "tarte_a_la_tomate.png"
+      "src": "tarte_a_la_tomate.png",
+      desc: "Une bonne recette un peu plus healthy que les autres. Pour changer..."
     },
     {
       "name": "Pizzas",
       "vg": false,
       "type": "PLA",
-      "src": "pizzas.png"
+      "src": "pizzas.png",
+      desc: "La pizza, c'est la vie. Viens déguster une de nos pizzas, tu ne seras pas déçu"
     },
     {
       "name": "Cookies",
       "vg": true,
       "type": "DES",
-      "src": "cookies.png"
+      "src": "cookies.png",
+      desc: "À la fois Puffy et gourmands, difficile de n'en manger qu'un..."
     },
     {
       "name": "Crêpes",
       "vg": true,
       "type": "DES",
-      "src": "crepes.png"
+      "src": "crepes.png",
+      desc: "Le classique ! La bonne crêpe tout droit sortie de la jungle, viens la déguster avec du sucre, du Nutella ou encore de la confiture."
     },
     {
       "name": "Fondant au Chocolat",
       "vg": true,
       "type": "DES",
-      "src": "fondant_au_chocolat.png"
+      "src": "fondant_au_chocolat.png",
+      desc: "S/O Centr'altitude pour la recette"
     }
   ],
   "11": [
     {
-      "name": "Panini",
+      "name": "Avocado Toast",
       "vg": true,
       "type": "PLA",
-      "src": "panini.png"
+      "src": "avocado_toast.png",
+      desc: "Un basique, comment le refuser ?"
     },
     {
       "name": "Pancakes",
       "vg": true,
       "type": "DES",
-      "src": "pancakes.png"
+      "src": "pancakes.png",
+      desc: "Nouveauté il faut croire... Venez les déguster avec du sirop d'érable ou du Nutella"
     },
     {
       "name": "Crêpes",
       "vg": true,
       "type": "DES",
-      "src": "crepes.png"
+      "src": "crepes.png",
+      desc: "Le classique ! La bonne crêpe tout droit sortie de la jungle, viens la déguster avec du sucre, du Nutella ou encore de la confiture."
     },
     {
       "name": "Gâteau au Yaourt",
       "vg": true,
       "type": "DES",
-      "src": "gateau_au_yaourt.png"
+      "src": "gateau_au_yaourt.png",
+      desc: "Une vraie recette de grand-mère, à manger avec du Nutella ou bien nature"
     },
     {
       "name": "Cookies",
       "vg": true,
       "type": "DES",
-      "src": "cookies.png"
+      "src": "cookies.png",
+      desc: "À la fois Puffy et gourmands, difficile de n'en manger qu'un..."
     },
     {
       "name": "Café",
       "vg": true,
       "type": "BOI",
-      "src": "café.png"
-    },
-    {
-      "name": "Jus de fruits",
-      "vg": true,
-      "type": "BOI",
-      "src": "jus_de_fruits.png"
+      "src": "café.png",
+      desc: "Un bon café pour bien commencer la journée"
     },
     {
       "name": "Chocolat chaud",
       "vg": true,
       "type": "BOI",
-      "src": "chocolat_chaud.png"
+      "src": "chocolat_chaud.png",
+      desc: "Un bon chocolat chaud pour se réchauffer"
     }
   ],
   "13": [
@@ -433,57 +470,59 @@ Event.create!([
       "name": "Briques",
       "vg": true,
       "type": "ENTREE",
-      "src": "briques_vg.png"
+      "src": "briques_vg.png",
+      desc: "Le brik (ou brick), appelé aussi bourek, est une sorte de chausson originaire du Maghreb, préparé à partir d'une feuille de pâte très fine portant le même nom, à base de farine et de semoule de blé, façonnée généralement en un triangle fourré"
     },
     {
       "name": "Tartes Soleil Pesto Tomate",
       "vg": true,
       "type": "PLA",
-      "src": "tartes_soleil_pesto_tomate.png"
+      "src": "tartes_soleil_pesto_tomate.png",
+      desc: "Qui n'aime pas le Pesto ?"
     },
     {
       "name": "Crêpes",
       "vg": true,
       "type": "DES",
-      "src": "crepes.png"
+      "src": "crepes.png",
+      desc: "Le classique ! La bonne crêpe tout droit sortie de la jungle, viens la déguster avec du sucre, du Nutella ou encore de la confiture."
     },
     {
       "name": "Cookies",
       "vg": true,
       "type": "DES",
-      "src": "cookies.png"
-    },
-    {
-      "name": "Jus de fruits",
-      "vg": true,
-      "type": "BOI",
-      "src": "jus_de_fruits.png"
+      "src": "cookies.png",
+      desc: "À la fois Puffy et gourmands, difficile de n'en manger qu'un..."
     },
     {
       "name": "Chocolat chaud",
       "vg": true,
       "type": "BOI",
-      "src": "chocolat_chaud.png"
+      "src": "chocolat_chaud.png",
+      desc: "Un bon chocolat chaud pour se réchauffer"
     }
   ],
   "14": [
     {
       "name": "Kebab et Frites",
       "vg": false,
-      "type": "PLA",
-      "src": "kebab_et_frites.png"
+      "type": "CLA",
+      "src": "kebab_et_frites.png",
+      desc: "Comment ne pas finir les campagnes avec ce plat, venez déguster nos frites et kebabs maison avec votre compo. Faites attention au défis flash ;)"
     },
     {
-      "name": "Pannacotta",
+      "name": "Cookies",
       "vg": true,
       "type": "DES",
-      "src": "pannacotta.png"
+      "src": "cookies.png",
+      desc: "À la fois Puffy et gourmands, difficile de n'en manger qu'un..."
     },
     {
       "name": "Fuze Tea",
       "vg": true,
       "type": "BOI",
-      "src": "fuze_tea.png"
+      "src": "fuze_tea.png",
+      desc: "Vous le connaissez, il est là pour rester. N'hésitez pas à solliciter nos staffeurs dès que vous avez une petite soif et nous nous ferons un plaisir de vous servir du Fuze Tea."
     }
   ]
 }.each do |event_id, items|
@@ -493,7 +532,8 @@ Event.create!([
       name: item[:name],
       vg: item[:vg],
       type: item[:type],
-      src: item[:src]
+      src: item[:src],
+      description: item[:desc]
     )
   end
 end unless MenuItem.count != 0
@@ -503,3 +543,22 @@ CollectionPiece.create!([
                           *[6, 7, 14, 15].map { { number: _1, rarity: "EPIC" } },
                           *[10, 11].map { { number: _1, rarity: "LEGENDARY" } }
                         ]) unless CollectionPiece.count != 0
+
+if ClaInfo.find_by(username: "guest.guest").nil?
+  cla_info = ClaInfo.new
+  cla_info.username = "guest.guest"
+  cla_info.school_email = "guest"
+  cla_info.first_name = "guest"
+  cla_info.last_name = "guest"
+  cla_info.cursus = "guest"
+  cla_info.promo = "guest"
+  cla_info.save!
+  user = User.new
+  user.cla_info = cla_info
+  user.token = "guest"
+  user.public_token = "guest"
+  user.notification_preferences = %w[EVENTS GAMES CUSTOM CHALLENGES]
+  user.save!
+end
+
+

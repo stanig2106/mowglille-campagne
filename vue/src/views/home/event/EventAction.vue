@@ -4,6 +4,7 @@ const props = defineProps<{
   title: string
   subtitle: string
   icon: string
+  disabled?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -14,24 +15,26 @@ const emit = defineEmits<{
 
 <template>
   <div class="flex gap-2 items-stretch">
-    <div v-ripple
-         class="bg-white rounded-lg elevation-2 p-2 flex justify-center items-center h-16 w-16"
-         @click="emit('click')">
-      <v-icon size="48">
-        {{ props.icon }}
-      </v-icon>
-    </div>
+    <v-card :disabled="disabled" class="h-16 w-16 shrink-0"
+            elevation="2" @click="emit('click')">
+      <div class="bg-white rounded-lg p-2 flex justify-center items-center">
+        <v-icon size="48">
+          {{ props.icon }}
+        </v-icon>
+      </div>
+    </v-card>
 
-    <div v-ripple
-         class="bg-white rounded-lg elevation-2 flex flex-col justify-center px-2 w-full h-16"
-         @click="emit('click')">
-      <h2 class="text-2xl font-bold">
-        {{ props.title }}
-      </h2>
-      <h3 class="text-gray-500">
-        {{ props.subtitle }}
-      </h3>
-    </div>
+    <v-card :disabled="disabled" class="w-full"
+            elevation="2" @click="emit('click')">
+      <div class="bg-white rounded-lg flex flex-col justify-center p-2 w-full h-16">
+        <h2 class="text-2xl font-bold">
+          {{ props.title }}
+        </h2>
+        <h3 class="text-gray-500">
+          {{ props.subtitle }}
+        </h3>
+      </div>
+    </v-card>
   </div>
 
 </template>

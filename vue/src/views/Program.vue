@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 
-import programme_court from "@/assets/programme/court.webp";
 import programme_court_p from "@/assets/programme/court_portrait.webp";
 import programme_long from "@/assets/programme/long.webp";
 import Galerie from "@/components/Galerie.vue";
@@ -12,9 +11,6 @@ async function getImagesSize(path: string) {
   await new Promise((resolve) => image.onload = resolve);
   return {width: image.width, height: image.height};
 }
-
-const court_size = ref(null as { width: number, height: number } | null);
-getImagesSize(programme_court).then(size => court_size.value = size);
 
 const court_p_size = ref(null as { width: number, height: number } | null);
 getImagesSize(programme_court_p).then(size => court_p_size.value = size);
@@ -30,12 +26,9 @@ getImagesSize(programme_long).then(size => long_size.value = size);
       <h3>
         Programme en quelques mots
       </h3>
-      <galerie v-if="court_size && court_p_size" :images="[{
-       thumbnailURL: programme_court,
-        ...court_size
-     }, {
+      <galerie v-if="court_p_size" :images="[{
        thumbnailURL: programme_court_p,
-       ...court_p_size
+        ...court_p_size
      }]" class="rounded-lg overflow-hidden mt-2"/>
     </div>
 

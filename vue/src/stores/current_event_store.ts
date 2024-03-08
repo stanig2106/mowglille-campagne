@@ -22,6 +22,7 @@ export type MenuItem = {
   src: string
   type: string
   vg: boolean
+  description: string
 }
 
 export type Activity = {

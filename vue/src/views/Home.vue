@@ -21,7 +21,7 @@ currentUser.updateUser()
   <div class="flex flex-col gap-4 h-full">
     <Score/>
 
-    <CurrentEvent event_name="Le Livre de la Jungle" event_type="Aprèm"/>
+    <CurrentEvent/>
 
     <div class="h-full bg-white rounded-t-2xl elevation-2 square-shadow p-4 flex flex-col gap-4
                   >:overflow-hidden">
