@@ -25,6 +25,8 @@
     "qrious": "^4.0.2",
     "register-service-worker": "^1.7.2",
     "roboto-fontface": "*",
+    "@types/photoswipe": "^4.1.6",
+    "photoswipe": "^5.4.3",
     "simple-keyboard": "^3.7.38",
     "vue": "^3.2.0",
     "vue-picture-input": "^3.0.1",

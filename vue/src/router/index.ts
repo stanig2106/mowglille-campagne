@@ -11,7 +11,9 @@ const routes = [
   {
     path: '/legal', component: () => import('../views/Legal.vue'),
   },
-
+  {
+    path: '/qr/bache', component: () => import('../views/QR/Bache.vue'),
+  },
   // Fallback to home
   {
     path: '/:pathMatch(.*)*',

@@ -1502,6 +1502,11 @@
   resolved "https://registry.npmjs.org/@types/p5/-/p5-1.7.6.tgz"
   integrity sha512-6pLTOo0V3N5jZb5nTwjiv3lPHLK3Z/TjbhQUj8CTWXocUk1Z/f6OHTp3Pcwi1BhWnf5gqKUcyEb1gP0KIJuQgw==
 
+"@types/photoswipe@^4.1.6":
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/@types/photoswipe/-/photoswipe-4.1.6.tgz#41d1e0a54c1b27628688e8abf9b95baab472a247"
+  integrity sha512-6kN4KYjNF4sg79fSwZ46s4Pron4+YJxoW0DQOcHveUZc/3cWd8Q4B9OLlDmEYw9iI6fODU8kyyq8ZBy+8F/+zQ==
+
 "@types/rails__actioncable@^6.1.10":
   version "6.1.10"
   resolved "https://registry.npmjs.org/@types/rails__actioncable/-/rails__actioncable-6.1.10.tgz"
@@ -1931,7 +1936,7 @@ any-promise@^1.0.0:
   resolved "https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz"
   integrity sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==
 
-anymatch@~3.1.2, anymatch@~3.1.3:
+anymatch@~3.1.2:
   version "3.1.3"
   resolved "https://registry.npmjs.org/anymatch/-/anymatch-3.1.3.tgz"
   integrity sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==
@@ -4225,6 +4230,11 @@ perfect-debounce@^1.0.0:
   resolved "https://registry.npmjs.org/perfect-debounce/-/perfect-debounce-1.0.0.tgz"
   integrity sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==
 
+photoswipe@^5.4.3:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/photoswipe/-/photoswipe-5.4.3.tgz#413670ab08ac062c09f2f8dd645dcd1278afcb4a"
+  integrity sha512-9UC6oJBK4oXFZ5HcdlcvGkfEHsVrmE4csUdCQhEjHYb3PvPLO3PG7UhnPuOgjxwmhq5s17Un5NUdum01LgBDng==
+
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz"
@@ -4548,13 +4558,6 @@ roboto-fontface@*:
   version "0.10.0"
   resolved "https://registry.npmjs.org/roboto-fontface/-/roboto-fontface-0.10.0.tgz"
   integrity sha512-OlwfYEgA2RdboZohpldlvJ1xngOins5d7ejqnIBWr9KaMxsnBqotpptRXTyfNRLnFpqzX6sTDt+X+a+6udnU8g==
-
-rollup-plugin-obfuscator@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/rollup-plugin-obfuscator/-/rollup-plugin-obfuscator-1.1.0.tgz"
-  integrity sha512-cMfQIKyGePlfHGGO+rSDhSATMBx7WWxXW/X66c53HylUE/owanTbG6nhttUQOkbdCiQH8tClskNEH/IPRoqZwA==
-  dependencies:
-    "@rollup/pluginutils" "^5.1.0"
 
 rollup-plugin-terser@^7.0.0:
   version "7.0.2"
@@ -5329,14 +5332,6 @@ validator@^13.7.0:
   version "13.11.0"
   resolved "https://registry.npmjs.org/validator/-/validator-13.11.0.tgz"
   integrity sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==
-
-vite-plugin-javascript-obfuscator@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/vite-plugin-javascript-obfuscator/-/vite-plugin-javascript-obfuscator-3.1.0.tgz#022f29bcf82efcccce6df6ebc363c679090039e7"
-  integrity sha512-sf4JFlG1iUPl7bLXHGOy+bKWOQUFyXzJFWa+n2S2xMMvyfM+V9R40HhpZoIF1eAjifArM1SF7fbSFIaTuUIbPA==
-  dependencies:
-    anymatch "~3.1.3"
-    javascript-obfuscator "^4.1.0"
 
 vite-plugin-mkcert@^1.17.1:
   version "1.17.1"
