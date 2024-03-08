@@ -9,11 +9,19 @@ import event_bg from '@/assets/fake/event_bg.png'
 import {saveSubscription} from "@/utils/notification";
 import {onMounted} from "vue";
 import {useUserStore} from "@/stores/user_store";
+import axios from "axios";
+import {informShowKey} from "@/router/keys";
 
 onMounted(saveSubscription)
 
 const currentUser = useUserStore()
 currentUser.updateUser()
+
+axios.get("/version").then(({data}) => {
+  if (data.version != "1")
+    window.location.reload()
+})
+
 </script>
 
 <template>
