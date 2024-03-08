@@ -14,7 +14,7 @@ Event.create!([
                 {
                   internal_id: "3",
                   type: "TOR",
-                  name: "Temple de la mémoire perdue",
+                  name: "Ça va commencer ici...",
                   # 08/03/2024 à 22h00 au 09/03/2024 à 3h00
                   start_date: DateTime.new(2024, 3, 8, 22, 0, 0),
                   end_date: DateTime.new(2024, 3, 9, 3, 0, 0),
@@ -34,7 +34,7 @@ Event.create!([
                 {
                   internal_id: "5",
                   type: "DEJ",
-                  name: "Déjeuner Flam’s",
+                  name: "Tout feu tout flams",
                   # 11/03/2024 à 11h30 au 09/03/2024 à 13h30
                   start_date: DateTime.new(2024, 3, 11, 11, 30, 0),
                   end_date: DateTime.new(2024, 3, 11, 13, 30, 0),
@@ -44,7 +44,7 @@ Event.create!([
                 {
                   internal_id: "6",
                   type: "PDE",
-                  name: "Petit déjeuner 1",
+                  name: "Il fait beau, il fait jour, c'est le moment pour...",
                   # 12/03/2024 à 7h30 au 12/03/2024 à 10h30
                   start_date: DateTime.new(2024, 3, 12, 7, 30, 0),
                   end_date: DateTime.new(2024, 3, 12, 10, 30, 0),
@@ -54,7 +54,7 @@ Event.create!([
                 {
                   internal_id: "7",
                   type: "SLI",
-                  name: "Soirée Lille",
+                  name: "Soirée à Lille",
                   # 12/03/2024 à 20h00 au 13/03/2024 à 0h00
                   start_date: DateTime.new(2024, 3, 12, 20, 0, 0),
                   end_date: DateTime.new(2024, 3, 13, 0, 0, 0),
@@ -64,7 +64,7 @@ Event.create!([
                 {
                   internal_id: "8",
                   type: "DEJ",
-                  name: "Déjeuner 2",
+                  name: "Une fail de Baloup",
                   # 13/03/2024 à 11h30 au 13/03/2024 à 13h30
                   start_date: DateTime.new(2024, 3, 13, 11, 30, 0),
                   end_date: DateTime.new(2024, 3, 13, 13, 30, 0),
@@ -104,7 +104,7 @@ Event.create!([
                 {
                   internal_id: "11",
                   type: "PDE",
-                  name: "Petit déjeuner 2",
+                  name: "Miam miam miam, trop bon, crunch crunch crunch",
                   # 15/03/2024 à 7h30 au 15/03/2024 à 10h30
                   start_date: DateTime.new(2024, 3, 15, 7, 30, 0),
                   end_date: DateTime.new(2024, 3, 15, 10, 30, 0),
@@ -134,7 +134,7 @@ Event.create!([
                 {
                   internal_id: "14",
                   type: "TOT", # TORCHTOT (20h00h)
-                  name: "Dans la jungle terrible jungle, les campagnes sont mortes ce soir",
+                  name: "Dans la jungle terrible jungle, les campagnes sont mortes",
                   # 16/03/2024 à 20h00 au 17/03/2024 à 00h00
                   start_date: DateTime.new(2024, 3, 16, 20, 0, 0),
                   end_date: DateTime.new(2024, 3, 17, 0, 0, 0),
