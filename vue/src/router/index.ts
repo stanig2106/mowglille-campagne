@@ -85,6 +85,12 @@ const routes = [
       title: 'Planning',
     }
   },
+  {
+    path: '/event_info', component: () => import('../views/EventInfo.vue'),
+    meta: {
+      title: 'Informations',
+    }
+  },
   ...games,
   ...staff,
 

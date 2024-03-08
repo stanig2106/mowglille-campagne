@@ -22,16 +22,16 @@ getImagesSize(photo_de_liste).then(size => photo_de_liste_size.value = size);
       <h3>
         Photo de liste
       </h3>
-      <galerie :images="[{
+      <galerie v-if="photo_de_liste_size" :images="[{
        thumbnailURL: photo_de_liste,
        ...photo_de_liste_size
-     }]" v-if="photo_de_liste_size" class="rounded-lg overflow-hidden mt-2"/>
+     }]" class="rounded-lg overflow-hidden mt-2"/>
     </div>
 
-    <div>
-      <h3>
-        Petit bureau
-      </h3>
-    </div>
+    <!--    <div>-->
+    <!--      <h3>-->
+    <!--        Petit bureau-->
+    <!--      </h3>-->
+    <!--    </div>-->
   </div>
 </template>
