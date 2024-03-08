@@ -118,13 +118,13 @@ watch(opening, () => {
              class="rounded-2xl absolute w-full top-0"/>
       </div>
       <div v-if="chestsStore.winner == false" class="text-center text-xl">
-        Complétez le puzzle en premier pour gagner une ps5 !
+        Complétez le puzzle en premier pour gagner une switch !
       </div>
       <div v-else-if="chestsStore.winner == true" class="text-center text-xl">
-        Vous avez completer le puzzle en premier et remportez la ps5 !
+        Vous avez completer le puzzle en premier et remportez la switch !
       </div>
       <div v-else class="text-center text-xl">
-        {{ chestsStore.winner }} a completer le puzzle en premier et remporte la ps5 ! <br>
+        {{ chestsStore.winner }} a completer le puzzle en premier et remporte la switch ! <br>
         Vous pouvez toujours completer le puzzle pour gagner 500 points !
       </div>
 
@@ -145,7 +145,7 @@ watch(opening, () => {
           Si vous n'êtes pas disponible ce soir, contactez un Mowgu !
         </div>
         <div v-else>
-          {{ chestsStore.winner }} a completer le puzzle en premier et remporte la ps5 ! <br>
+          {{ chestsStore.winner }} a completer le puzzle en premier et remporte la switch ! <br>
           Vous pouvez toujours completer le puzzle pour gagner 500 points !
         </div>
       </div>
