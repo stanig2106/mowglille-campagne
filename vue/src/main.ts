@@ -89,13 +89,6 @@ app.mount('#app')
  }).catch()
  */
 
-const updateSW = registerSW({
-  async onNeedRefresh() {
-    await updateSW(true)
-  }
-})
-
-
 startOnlineJobs()
 
 notification_init().then(saveSubscription)

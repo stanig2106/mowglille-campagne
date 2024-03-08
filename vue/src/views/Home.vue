@@ -16,12 +16,6 @@ onMounted(saveSubscription)
 
 const currentUser = useUserStore()
 currentUser.updateUser()
-
-axios.get("/version").then(({data}) => {
-  if (data.version != "1")
-    window.location.reload()
-})
-
 </script>
 
 <template>
