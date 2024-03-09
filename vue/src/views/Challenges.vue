@@ -45,9 +45,10 @@ const challenges = computed(() => challengeStore.challenges?.filter(c => c.categ
       <v-carousel-item v-for="index in titles.length" :key="index">
 
 
-        <challenge-line v-for="challenge in challenges" :key="challenge.id"
-                        :challenge="challenge" user-show class="mt-2"/>
-
+        <div class="overflow-auto h-full">
+          <challenge-line v-for="challenge in challenges" :key="challenge.id"
+                          :challenge="challenge" class="mt-2" user-show/>
+        </div>
         <div v-if="challenges == undefined || challenges.length == 0" class="h-full text-xl text-center mt-4">
           Aucun défi pour le moment, revenez plus tard !
         </div>
