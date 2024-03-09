@@ -21,6 +21,7 @@ const updated = ref([] as string[])
 
 watch(selected_game, game => {
   if (game && !updated.value.includes(long_selected_game(game))) {
+    console.log("Updating scoreboard for", game)
     game_classements_store.updateScoreboard(long_selected_game(game))
     updated.value.push(long_selected_game(game))
   }

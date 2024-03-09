@@ -26,12 +26,14 @@ class GameScore < ApplicationRecord
   end
 
   def self.get_scoreboard(game_name, current_user = nil)
-    GameScore.select("game_scores.*,
+    seen_you = false
+    res = GameScore.select("game_scores.*,
                   rank() over (order by score #{inverse_score?(game_name) ? "asc" : "desc"}) as r")
-             .where(game_name:, pb: true)
-             .joins(:user)
-             .order(score: inverse_score?(game_name) ? :asc : :desc)
-             .map do |game_score|
+                   .where(game_name:, pb: true)
+                   .joins(:user)
+                   .order(score: inverse_score?(game_name) ? :asc : :desc).limit(20)
+                   .map do |game_score|
+      seen_you = true if current_user&.id == game_score.user.id && !seen_you
       {
         id: game_score.id,
         you: current_user&.id == game_score.user.id,
@@ -45,6 +47,29 @@ class GameScore < ApplicationRecord
         congratulated: game_score.congratulated_by?(current_user)
       }
     end
+
+    if (!seen_you && current_user)
+      s = GameScore.select("game_scores.*,
+                  rank() over (order by score #{inverse_score?(game_name) ? "asc" : "desc"}) as r")
+                   .where(game_name:, pb: true, user: current_user)
+                   .joins(:user)
+                   .order(score: inverse_score?(game_name) ? :asc : :desc).limit(1)
+                   .first
+
+      res << {
+        id: s.id,
+        you: true,
+        name: s.user.name,
+        score: float_score?(game_name) ? s.score.to_f : s.score.to_i,
+        date: s.created_at.iso8601,
+        rank: s.r,
+        pp: s.user.profile_picture.attached? ? s.user.profile_picture : nil,
+        tries: s.tries,
+        average: s.average,
+        congratulated: false
+      }
+    end
+    res
   end
 
   def tries_and_average
