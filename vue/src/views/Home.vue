@@ -85,7 +85,7 @@ watch(need_welcomed, (v) => {
           <p class="mb-1 mt-2">
             Pour obtenir des coffres tu peux : <br>
           </p>
-          🎁 Les pièces de puzzle se trouve dans les coffres que vous pouvez gagner pendant nos activités ! <br>
+          🎁 Les pièces de puzzle se trouvent dans les coffres que vous pouvez gagner pendant nos activités ! <br>
           🎁 Mettre le filtre soutien actif en photo de profil facebook (le filtre est facile à mettre dans l’espace profil de l’app !) <br>
           🎁 Participer aux activités lors de tous nos événements (repas, après-midi…) <br>
           🎁 Réaliser les défis disponibles sur l’application <br>
