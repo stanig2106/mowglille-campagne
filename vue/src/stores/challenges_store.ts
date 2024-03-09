@@ -11,6 +11,7 @@ export type Challenges = {
   description: string
   score: number
   is_flash: boolean
+  validation: number
   start_date: Date | null
   end_date: Date | null
   amount: number | null
