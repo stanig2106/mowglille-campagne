@@ -242,7 +242,7 @@ const current_score = computed(() =>
                   <div class="flex flex-col gap-1 justify-center flex-1">
                     <div class="text-3xl flex justify-between >:one-line">
                       <div>
-                        {{ "#" + score.rank }}
+                        {{ "#" + score.rank == 0 ? "-" : score.rank }}
                       </div>
                       <div>
                         {{ score.score }} {{ game_unit[game] }}

@@ -49,11 +49,9 @@ class GameScore < ApplicationRecord
     end
 
     if (!seen_you && current_user)
-      s = GameScore.select("game_scores.*,
-                  rank() over (order by score #{inverse_score?(game_name) ? "asc" : "desc"}) as r")
+      s = GameScore.select("game_scores.* as r")
                    .where(game_name:, pb: true, user: current_user)
-                   .joins(:user)
-                   .order(score: inverse_score?(game_name) ? :asc : :desc).limit(1)
+                   .joins(:user).limit(1)
                    .first
 
       res << {
@@ -62,12 +60,12 @@ class GameScore < ApplicationRecord
         name: s.user.name,
         score: float_score?(game_name) ? s.score.to_f : s.score.to_i,
         date: s.created_at.iso8601,
-        rank: s.r,
+        rank: 0,
         pp: s.user.profile_picture.attached? ? s.user.profile_picture : nil,
         tries: s.tries,
         average: s.average,
         congratulated: false
-      }
+      } if s
     end
     res
   end
