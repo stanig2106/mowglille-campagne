@@ -20,7 +20,7 @@ self.addEventListener('push', (event) => {
         icon: icon,
         image: data.image,
         data: {
-          path: data.path
+          path: data.path || '/'
         }
       })
     )
@@ -34,7 +34,6 @@ self.addEventListener('notificationclick', (event) => {
   //@ts-ignore
   clients.openWindow(fullPath);
 });
-
 
 
 self.addEventListener('install', event => {
