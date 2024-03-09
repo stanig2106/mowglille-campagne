@@ -49,8 +49,7 @@ class GameScore < ApplicationRecord
 
   def tries_and_average
     result = GameScore.where(user: user, game_name: game_name)
-                      .select('COUNT(*) AS count', 'AVG(score) AS average_score')
-                      .first
+                      .select('COUNT(score) AS count', 'AVG(score) AS average_score')[0]
 
     count = result.count
     average = result.average_score.round(2)
