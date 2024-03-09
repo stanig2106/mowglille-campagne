@@ -148,7 +148,7 @@ const pictureDialog = ref(false)
                 <div v-if="avatarLoading" class="absolute inset-0 flex flex-center flex-col p-2">
                   <v-progress-circular color="secondary" indeterminate size="64"/>
                   <div class="text-center m-6 p-2 bg-white">
-                    Veillez patienter, cet opération peut prendre quelques secondes
+                    Veuillez patienter, cette opération peut prendre quelques secondes
                   </div>
 
                 </div>

@@ -25,6 +25,11 @@ export const useUserStore = defineStore("user", () => {
   const chests = ref(undefined as Rarity[] | undefined)
   const collection_pieces = ref(undefined as number[] | undefined)
 
+  const welcomed = ref(false)
+  const score_seen = ref(false)
+
+  const fullscreen_msg = ref(undefined as string | undefined | null)
+
   async function updateUser() {
     const response = await axios.get("/user")
     if (response.status !== 200)
@@ -49,6 +54,10 @@ export const useUserStore = defineStore("user", () => {
     collection_pieces.value = user.collection_pieces
 
     notification_preferences.value = user.notification_preferences
+
+    welcomed.value = user.welcomed
+    score_seen.value = user.score_seen
+    fullscreen_msg.value = user.fullscreen_msg
     return true
   }
 
@@ -66,6 +75,8 @@ export const useUserStore = defineStore("user", () => {
     pp, orr_pp, bg_pp,
     notification_preferences,
     chests, collection_pieces,
+    welcomed, score_seen,
+    fullscreen_msg,
     updateUser
   }
 })

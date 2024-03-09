@@ -100,9 +100,6 @@ const isEditing = ref(false)
               <v-textarea v-model="new_challenge.description" label="Description" required/>
               <v-text-field v-model.number="new_challenge.score" label="Score" required/>
 
-              <v-text-field v-model="new_challenge.start_date" label="Date et heure de début" type="datetime-local"/>
-              <v-text-field v-model="new_challenge.end_date" label="Date et heure de fin" type="datetime-local"/>
-
               <v-text-field v-model.number="new_challenge.amount" label="Nombre de validation max (optionnel)"/>
             </v-card-text>
             <v-card-actions>

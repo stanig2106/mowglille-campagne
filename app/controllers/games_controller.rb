@@ -22,7 +22,12 @@ class GamesController < ApplicationController
          best.score > params[:data][:score].to_f : best.score < params[:data][:score].to_f)
       best&.update!(pb: false)
       new_score.update!(pb: true)
+      best = new_score
     end
+
+    tries, average = best.tries_and_average
+
+    best.update!(tries:, average:)
 
     render json: { success: true }
   end

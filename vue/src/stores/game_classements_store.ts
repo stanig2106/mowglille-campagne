@@ -18,6 +18,7 @@ export type GameScoreboard = {
 export const useGameScoreboardStore = defineStore(
   "game_scoreboard", () => {
     const scoreboards = reactive({} as Record<string, GameScoreboard>)
+    const personalScore = reactive({} as Record<string, GameScoreboard[number] | null>)
 
 
     async function updateScoreboard(game_name: string) {
@@ -33,11 +34,16 @@ export const useGameScoreboardStore = defineStore(
         date: new Date(score.date),
       }))
 
+      personalScore[game_name] = scoreboards[game_name]
+        .find(score => score.you) ?? null
+
+
       return true
     }
 
     return {
       scoreboards,
+      personalScore,
       updateScoreboard
     }
   })

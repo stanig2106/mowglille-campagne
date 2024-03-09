@@ -1,6 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
+import {useChallengesStore} from "@/stores/challenges_store";
+import ChallengeLine from "@/views/staff/ChallengeLine.vue";
 
 const page = ref(1)
 
@@ -11,25 +13,42 @@ const titles = [
   "Défis de zinzin",
 ]
 
+const cats = [
+  'flash',
+  'bzzz',
+  'mielleux',
+  'zinzin'
+]
+
+const challengeStore = useChallengesStore()
+challengeStore.updateChallenges()
+
+const challenges = computed(() => challengeStore.challenges?.filter(c => c.category == cats[page.value]))
+
 </script>
 
 <template>
   <div class="bg-white rounded-t-2xl p-4 flex flex-col elevation-2 min-h-full relative">
     <div class="flex justify-between items-center mb-4">
-      <v-btn icon @click="page--" rounded="lg" :disabled="page == 0">
+      <v-btn :disabled="page == 0" icon rounded="lg" @click="page--">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
       <h3 class="text-xl text-center flex items-center">
         {{ titles[page] }}
       </h3>
-      <v-btn icon @click="page++" rounded="lg" :disabled="page == titles.length - 1">
+      <v-btn :disabled="page == titles.length - 1" icon rounded="lg" @click="page++">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
     </div>
-    <v-carousel :show-arrows="false" hide-delimiters v-model="page" :continuous="false"
-                class="flex-grow >:!h-full">
+    <v-carousel v-model="page" :continuous="false" :show-arrows="false" class="flex-grow >:!h-full"
+                hide-delimiters>
       <v-carousel-item v-for="index in titles.length" :key="index">
-        <div class="h-full text-xl text-center mt-4">
+
+
+        <challenge-line v-for="challenge in challenges" :key="challenge.id"
+                        :challenge="challenge" user-show class="mt-2"/>
+
+        <div v-if="challenges == undefined || challenges.length == 0" class="h-full text-xl text-center mt-4">
           Aucun défi pour le moment, revenez plus tard !
         </div>
       </v-carousel-item>

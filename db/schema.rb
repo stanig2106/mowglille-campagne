@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_08_121647) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_09_143020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_08_121647) do
     t.datetime "updated_at", null: false
     t.string "category"
     t.boolean "is_flash"
+    t.integer "validation", default: 0
   end
 
   create_table "chests", force: :cascade do |t|
@@ -119,6 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_08_121647) do
     t.bigint "user_id", null: false
     t.string "reason"
     t.bigint "target_id", null: false
+    t.index ["reason"], name: "index_congratulations_on_reason"
     t.index ["target_id"], name: "index_congratulations_on_target_id"
     t.index ["user_id"], name: "index_congratulations_on_user_id"
   end
@@ -142,6 +144,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_08_121647) do
     t.boolean "pb", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tries"
+    t.float "average"
+    t.index ["game_name"], name: "index_game_scores_on_game_name"
+    t.index ["pb"], name: "index_game_scores_on_pb"
+    t.index ["score"], name: "index_game_scores_on_score"
     t.index ["user_id"], name: "index_game_scores_on_user_id"
   end
 
@@ -202,6 +209,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_08_121647) do
     t.jsonb "subscription"
     t.string "notification_preferences", array: true
     t.boolean "collection_winner", default: false
+    t.boolean "welcomed", default: false
+    t.boolean "score_seen", default: false
+    t.string "fullscreen_msg"
     t.index ["cla_info_id"], name: "index_users_on_cla_info_id"
   end
 

@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get "api/check_qr_code/:content", to: "users#check_qr_code"
   get "api/users", to: "users#index"
   get "api/user", to: "users#show"
+  post "api/user/welcomed", to: "users#welcomed"
+  post "api/user/fullscreen_msg", to: "users#fullscreen_msg"
   get "api/score", to: "users#score"
   get "api/rank", to: "users#rank"
   get "api/name", to: "users#name"

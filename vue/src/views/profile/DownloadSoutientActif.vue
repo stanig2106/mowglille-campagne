@@ -226,7 +226,8 @@ const emit = defineEmits<{
     <v-card-text>
       <h3 class="text-lg -mt-4">
         Télécharger votre photo avec notre filtre soutient actif et
-        gagnez 10% de miel en plus si vous l'utiliser sur facebook !
+        gagnez 200 miels et un coffre si vous l'utiliser sur facebook !
+        (Envoyez un screen à Aubin l'Ourse Brun)
       </h3>
 
       <!--      <v-switch v-model="remove_bg"-->

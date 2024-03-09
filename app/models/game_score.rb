@@ -26,7 +26,8 @@ class GameScore < ApplicationRecord
   end
 
   def self.get_scoreboard(game_name, current_user = nil)
-    GameScore.select("game_scores.*, rank() over (order by score #{inverse_score?(game_name) ? "asc" : "desc"}) as r")
+    GameScore.select("game_scores.*,
+                  rank() over (order by score #{inverse_score?(game_name) ? "asc" : "desc"}) as r")
              .where(game_name:, pb: true)
              .joins(:user)
              .order(score: inverse_score?(game_name) ? :asc : :desc)
@@ -46,12 +47,15 @@ class GameScore < ApplicationRecord
     end
   end
 
-  def tries
-    GameScore.where(user:, game_name:).count
-  end
+  def tries_and_average
+    result = GameScore.where(user: user, game_name: game_name)
+                      .select('COUNT(*) AS count', 'AVG(score) AS average_score')
+                      .first
 
-  def average
-    GameScore.where(user:, game_name:).average(:score).round(2)
+    count = result.count
+    average = result.average_score.round(2)
+
+    [count, average]
   end
 
   def congratulated_by?(user)

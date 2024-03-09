@@ -14,7 +14,7 @@ class VapidPushNotificationService
       message: JSON.generate({
                                **data,
                                type: 'notification',
-                               title: title, body: body,
+                               title:, body:,
                              }),
       endpoint: subscription["endpoint"],
       p256dh: subscription["keys"]["p256dh"],

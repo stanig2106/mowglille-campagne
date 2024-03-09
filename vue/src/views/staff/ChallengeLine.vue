@@ -4,10 +4,14 @@
 import {Challenges} from "@/stores/challenges_store";
 import honey from "@/assets/honey.webp";
 import {dateToS} from "../games/safariSprint/core/utils";
+import {useSlots} from "vue";
 
 const props = defineProps<{
   challenge: Challenges[number]
+  userShow?: boolean
 }>()
+
+const slots = useSlots()
 
 </script>
 
@@ -21,7 +25,7 @@ const props = defineProps<{
           <v-icon v-if="challenge.amount" size="24">mdi-account-clock</v-icon>
           {{ challenge.name }}
         </h3>
-        <p>
+        <p class="ml-1">
           {{ challenge.description }}
         </p>
       </div>
@@ -33,7 +37,7 @@ const props = defineProps<{
             <v-img :src="honey" height="24" width="24"/>
           </div>
         </div>
-        <div>
+        <div v-if="!userShow">
           Cat. {{ challenge.category }}
         </div>
       </div>
@@ -48,32 +52,25 @@ const props = defineProps<{
               {{ challenge.description }}
             </p>
             <p class="flex gap-2 items-center">
-              Score : {{ challenge.score }}
+              Miel à gagner : {{ challenge.score }}
               <span>
                 <v-img :src="honey" height="20" width="20"/>
               </span>
             </p>
-            <p>
-              Catégorie : {{ challenge.category }}
-            </p>
             <p class="flex gap-2 items-center">
               <span><v-icon size="24">mdi-account-clock</v-icon></span>
-              Nombre de validation max : {{ challenge.amount || "Illimité" }}
+              <template v-if="!userShow">
+                Nombre de validations max : {{ challenge.amount || "Illimité" }}
+              </template>
+              <template v-else>
+                Nombre de validations : {{ challenge.validation }}
+                <template v-if="challenge.amount">/ {{ challenge.amount }}</template>
+              </template>
             </p>
-            <div class="flex gap-2 items-center">
-              <span><v-icon size="24">mdi-clock</v-icon></span>
-              <div>
-                <p>
-                  Date et heure de début : {{ challenge.start_date ? dateToS(challenge.start_date) : "-" }}
-                </p>
-                <p>
-                  Date et heure de fin : {{ challenge.end_date ? dateToS(challenge.end_date) : "-" }}
-                </p>
-              </div>
-            </div>
           </div>
         </div>
         <v-card-actions>
+          <v-spacer v-if="!slots.default"/>
           <v-btn @click="isActive.value = false">Fermer</v-btn>
           <slot :isActive="isActive" name="actions"/>
         </v-card-actions>

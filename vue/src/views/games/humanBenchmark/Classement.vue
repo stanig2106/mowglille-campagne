@@ -74,6 +74,9 @@ setInterval(() => {
   else
     timeLeft.value = seconds + "s"
 }, 1000)
+
+const current_score = computed(() =>
+  game_classements_store.personalScore["human_benchmark_" + games[selected_game_index.value]])
 </script>
 
 <template>
@@ -265,6 +268,70 @@ setInterval(() => {
       </v-carousel-item>
     </v-carousel>
 
+    <div v-if="current_score != null">
+      <v-card color="orange" rounded="lg" variant="tonal" @click="">
+        <v-dialog activator="parent">
+          <v-card elevation="2">
+            <v-card-title>
+              #{{ current_score.rank }} - {{ current_score.name }}
+            </v-card-title>
+            <v-card-text>
+              <div class="flex flex-col justify-center items-center mb-2">
+                <galerie v-if="current_score.pp"
+                         :images="[current_score.pp!]"
+                         class="w-[100px] h-[100px] rounded-full overflow-hidden"/>
+                <v-img v-else :src="ProfileImage.new(current_score.name).png()"
+                       class="rounded-full overflow-hidden" height="100" width="100"/>
+
+                <h3 class="mt-2">
+                  Score: {{ current_score.score }} {{ game_unit[games[selected_game_index]] }}
+                </h3>
+                <h5 class="text-muted">
+                  {{ dateToS(current_score.date) }}
+                </h5>
+              </div>
+              <div>
+                <div>
+                  Nombre d'essaies: {{ current_score.tries }}
+                </div>
+                <div>
+                  Moyenne: {{ current_score.average }} {{ game_unit[games[selected_game_index]] }}
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+        <div class="flex justify-between w-full h-full items-center px-4 py-1">
+          <div class="flex gap-2 items-center w-full">
+            <div class="rounded-full overflow-hidden">
+              <v-img v-if="current_score.pp"
+                     :lazy-src="ProfileImage.new(current_score.name || 'Profile').png()"
+                     :src="current_score.pp!"
+                     class="rounded-full bg-gray-200" height="48" width="48"/>
+              <v-img v-else
+                     :lazy-src="ProfileImage.new(current_score.name || 'Profile').png()"
+                     :src="ProfileImage.new(current_score.name || 'Profile').png()"
+                     class="rounded-full bg-gray-200" height="48" width="48"/>
+            </div>
+
+            <div class="flex flex-col gap-1 justify-center flex-1">
+              <div class="text-3xl flex justify-between >:one-line">
+                <div>
+                  {{ "#" + current_score.rank }}
+                </div>
+                <div>
+                  {{ current_score.score }} {{ game_unit[games[selected_game_index]] }}
+                </div>
+              </div>
+              <div class="text-lg text-muted >:one-line">
+                {{ current_score.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </v-card>
+
+    </div>
 
   </div>
 

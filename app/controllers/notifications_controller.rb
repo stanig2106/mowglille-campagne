@@ -28,12 +28,12 @@ class NotificationsController < ApplicationController
       if user.subscription.nil? || user.notification_preferences.exclude?(params[:type])
         return render json: { error: "L'utilisateur ne peux pas recevoir de notifications" }
       end
-      PNS.send_notification(user, params[:title], params[:body])
+      PNS.send_notification(user, params[:title], params[:message])
       return
     end
 
     User.notifiables(params[:type]).find_each do |user|
-      PNS.send_notification(user, params[:title], params[:body])
+      PNS.send_notification(user, params[:title], params[:message])
     end
   end
 

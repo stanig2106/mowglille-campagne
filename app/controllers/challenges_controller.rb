@@ -37,11 +37,28 @@ class ChallengesController < ApplicationController
         start_date: challenge.start_date,
         end_date: challenge.end_date,
         amount: challenge.amount,
+        validation: challenge.validation,
         created_at: challenge.created_at,
       }
     end
 
     render json: { challenges:, categories: }
+  end
+
+  def validate
+    return not_allowed! unless current_user&.has_staff_role?(:CHALLENGE_VALIDATION)
+    c = Challenge.find(params[:id])
+    c.increment! :validation
+
+    user = User.find_by!(public_token: params[:user])
+    user.score_records.create!(
+      reason: "Vous avez fait le défis " + c.name,
+      score: c.score,
+      offered_by: current_user!
+    )
+
+    render json: { ok: true }
+
   end
 
   def destroy

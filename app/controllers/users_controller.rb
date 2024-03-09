@@ -81,7 +81,9 @@ class UsersController < ApplicationController
       pp:, orr_pp:, bg_pp:,
       notification_preferences:,
       chests: chests.map(&:type),
-      collection_pieces: collection_pieces.map(&:id)
+      collection_pieces: collection_pieces.map(&:id),
+      welcomed:, score_seen:,
+      fullscreen_msg:
     } }
   end
 
@@ -192,6 +194,16 @@ class UsersController < ApplicationController
     user.bg_removed_picture.attach(params[:file])
 
     render json: { ok: true }, status: 200
+  end
+
+  def welcomed
+    current_user!.update!(welcomed: true)
+    render json: { ok: true }
+  end
+
+  def fullscreen_msg
+    current_user!.update!(fullscreen_msg: nil)
+    render json: { ok: true }
   end
 
   private
