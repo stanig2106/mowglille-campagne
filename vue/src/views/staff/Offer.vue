@@ -95,16 +95,16 @@ watch(done, () => {
       </v-card-text>
     </v-card>
 
-    <v-card title="Inclure un coffre dans le dons" variant="text"
-            v-if="currentUser.staffRoles?.includes('NEW_STAFF')">
+    <v-card v-if="currentUser.staffRoles?.includes('NEW_STAFF')" title="Inclure un coffre dans le dons"
+            variant="text">
       <v-card-text class="overflow-y-auto">
         <div class="inline-flex justify-between gap-6 px-1">
           <div v-for="rarity in chestRarities" :key="rarity" class="pt-2">
             <v-card
               :variant="selected_chest.includes(rarity) ? 'tonal' : 'elevated'"
               class="focus:bg-inherit"
-              rounded="lg"
               elevation="2"
+              rounded="lg"
               @click="() => select_chest(rarity)">
               <div class="">
                 <chest :rarity="rarity"/>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_09_143020) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_09_184816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,6 +65,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_143020) do
     t.text "internal_description"
     t.string "name"
     t.index ["activity_id"], name: "index_activity_rewards_on_activity_id"
+  end
+
+  create_table "challenge_validations", force: :cascade do |t|
+    t.bigint "challenge_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["challenge_id"], name: "index_challenge_validations_on_challenge_id"
+    t.index ["user_id"], name: "index_challenge_validations_on_user_id"
   end
 
   create_table "challenges", force: :cascade do |t|
@@ -219,6 +226,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_143020) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activities", "events"
   add_foreign_key "activity_rewards", "activities"
+  add_foreign_key "challenge_validations", "challenges"
+  add_foreign_key "challenge_validations", "users"
   add_foreign_key "chests", "users"
   add_foreign_key "collections", "collection_pieces"
   add_foreign_key "collections", "users"

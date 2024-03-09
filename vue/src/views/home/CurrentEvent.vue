@@ -6,6 +6,7 @@ import {useCurrentEventStore} from "@/stores/current_event_store";
 import {typeToString} from "@/utils/event";
 import {computedWithControl} from "@vueuse/core";
 import {storeToRefs} from "pinia";
+import {dateToS} from "../games/safariSprint/core/utils";
 
 const currentEventStore = useCurrentEventStore()
 currentEventStore.updateCurrentEvent()
@@ -13,23 +14,23 @@ const {current_event: currentEvent} = storeToRefs(currentEventStore)
 
 const timeToNext = computedWithControl(() => void 0, () => {
   if (currentEvent.value == undefined)
-    return "0 s"
+    return "0s"
   if (currentEvent.value.startDate.getTime == undefined)
-    return '...'
+    return ''
   const res = currentEvent.value.startDate.getTime() - new Date().getTime()
   if (res < 0)
-    return "0 s"
+    return "0s"
   const seconds = Math.floor(res / 1000)
   const minutes = Math.floor(seconds / 60)
   const hours = Math.floor(minutes / 60)
   const days = Math.floor(hours / 24)
   if (days > 0)
-    return days + " j " + (hours % 24) + " h"
+    return days + "j" + (hours % 24) + "h"
   if (hours > 0)
-    return hours + " h " + (minutes % 60) + " m"
+    return hours + "h" + (minutes % 60) + "m"
   if (minutes > 0)
-    return minutes + " m " + (seconds % 60) + " s"
-  return seconds + " s"
+    return minutes + "m" + (seconds % 60) + "s"
+  return seconds + "s"
 })
 
 setInterval(timeToNext.trigger, 1000)
@@ -45,14 +46,13 @@ setInterval(timeToNext.trigger, 1000)
        style=" background-size: cover; background-position: center; background-blend-mode: color;">
     <div class="flex flex-col mb-4">
       <div class="text-gray-200 text-lg font-bold flex justify-between">
-        <div v-if="currentEventStore.started || timeToNext != '...'">
-          {{ currentEventStore.started ? "Actuellement :" : ("Prochainement (" + timeToNext + ") ") }}
-        </div>
-        <div v-else>
-          Prochainement
-        </div>
         <div>
-          {{ typeToString(currentEvent.type) }}
+          {{ currentEventStore.started ? "Actuellement :" : "Prochainement" }} <br>
+          {{ timeToNext }}
+        </div>
+        <div class="text-end">
+          {{ typeToString(currentEvent.type) }} <br>
+          {{ dateToS(currentEvent.startDate) }} - {{ dateToS(currentEvent.endDate, "Hours") }}
         </div>
       </div>
       <h3 class="text-white text-5xl text-uppercase mt-4">

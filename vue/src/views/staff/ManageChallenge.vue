@@ -34,12 +34,6 @@ async function submit() {
   if ((new_challenge.amount || 1) <= 0)
     return onError("Le nombre de validation max doit être supérieur à 0")
 
-  if (new_challenge.category == 'flash' && (new_challenge.start_date == null || new_challenge.end_date == null))
-    return onError("Veuillez remplir les dates de début et de fin si le défi est un défi flash")
-
-  if (new_challenge.start_date != null && new_challenge.end_date != null && new_challenge.start_date >= new_challenge.end_date)
-    return onError("La date de début doit être inférieure à la date de fin")
-
   await doItOnline({
     method: "post", url: "/challenges",
     data: {...new_challenge}
