@@ -24,11 +24,11 @@ watch(as_notif, (v) => {
   axios.post("/user/fullscreen_msg")
 })
 
-const need_welcomed = computed(() => currentUser.welcomed === false)
-watch(need_welcomed, (v) => {
-  if (v) return
-  axios.post("/user/welcomed")
-})
+// const need_welcomed = computed(() => currentUser.welcomed === false)
+// watch(need_welcomed, (v) => {
+//   if (v) return
+//   axios.post("/user/welcomed")
+// })
 </script>
 
 <template>
@@ -68,42 +68,42 @@ watch(need_welcomed, (v) => {
     </div>
   </div>
 
-  <v-dialog v-model="need_welcomed" persistent>
-    <v-card>
-      <v-card-title>
-        Bienvenue sur Mowgli
-      </v-card-title>
-      <v-card-text>
-        <div class="leading-6">
-          Salut les oursons 🐻 ! <br><br>
+<!--  <v-dialog v-model="need_welcomed" persistent>-->
+<!--    <v-card>-->
+<!--      <v-card-title>-->
+<!--        Bienvenue sur Mowgli-->
+<!--      </v-card-title>-->
+<!--      <v-card-text>-->
+<!--        <div class="leading-6">-->
+<!--          Salut les oursons 🐻 ! <br><br>-->
 
-          Ces campagnes on vous régale avec ✨2 jeux✨ : <br>
-          Le premier qui réussit à compléter le puzzle gagnera une switch 🎮 <br>
-          A la fin des campagnes, les oursons avec le plus de miel 🍯 choisiront leur lot en premier <br><br>
+<!--          Ces campagnes on vous régale avec ✨2 jeux✨ : <br>-->
+<!--          Le premier qui réussit à compléter le puzzle gagnera une switch 🎮 <br>-->
+<!--          A la fin des campagnes, les oursons avec le plus de miel 🍯 choisiront leur lot en premier <br><br>-->
 
-          Comment gagner des pièces de puzzle 🧩 et du miel 🍯 ? <br>
-          <p class="mb-1 mt-2">
-            Pour obtenir des coffres tu peux : <br>
-          </p>
-          🎁 Les pièces de puzzle se trouvent dans les coffres que vous pouvez gagner pendant nos activités ! <br>
-          🎁 Mettre le filtre soutien actif en photo de profil facebook (le filtre est facile à mettre dans l’espace profil de l’app !) <br>
-          🎁 Participer aux activités lors de tous nos événements (repas, après-midi…) <br>
-          🎁 Réaliser les défis disponibles sur l’application <br>
-          🎁 Être dans le TOP 10 d’un jeu mobile de l'application à la fin des campagnes <br><br>
+<!--          Comment gagner des pièces de puzzle 🧩 et du miel 🍯 ? <br>-->
+<!--          <p class="mb-1 mt-2">-->
+<!--            Pour obtenir des coffres tu peux : <br>-->
+<!--          </p>-->
+<!--          🎁 Les pièces de puzzle se trouvent dans les coffres que vous pouvez gagner pendant nos activités ! <br>-->
+<!--          🎁 Mettre le filtre soutien actif en photo de profil facebook (le filtre est facile à mettre dans l’espace profil de l’app !) <br>-->
+<!--          🎁 Participer aux activités lors de tous nos événements (repas, après-midi…) <br>-->
+<!--          🎁 Réaliser les défis disponibles sur l’application <br>-->
+<!--          🎁 Être dans le TOP 10 d’un jeu mobile de l'application à la fin des campagnes <br><br>-->
 
-          La liste des lots sera disponible sous peu sur l’application, et on vous garantit que c’est mielleux !<br><br>
+<!--          La liste des lots sera disponible sous peu sur l’application, et on vous garantit que c’est mielleux !<br><br>-->
 
-          En vous souhaitant les meilleures campagnes possibles, big love 🫶🐻🍯
-        </div>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer/>
-        <v-btn variant="text" @click="currentUser.welcomed = true">
-          J'ai compris
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+<!--          En vous souhaitant les meilleures campagnes possibles, big love 🫶🐻🍯-->
+<!--        </div>-->
+<!--      </v-card-text>-->
+<!--      <v-card-actions>-->
+<!--        <v-spacer/>-->
+<!--        <v-btn variant="text" @click="currentUser.welcomed = true">-->
+<!--          J'ai compris-->
+<!--        </v-btn>-->
+<!--      </v-card-actions>-->
+<!--    </v-card>-->
+<!--  </v-dialog>-->
 
   <v-dialog v-model="as_notif" persistent>
     <v-card>

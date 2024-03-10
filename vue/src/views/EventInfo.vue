@@ -5,6 +5,7 @@ import {ref} from "vue";
 import planning from "@/assets/planning.webp";
 import Galerie from "@/components/Galerie.vue";
 import affiche_torcho from "@/assets/com/affiche_torcho.webp";
+import affiche_hotline from "@/assets/com/affiche_hotline.webp";
 
 const currentEventStore = useCurrentEventStore()
 currentEventStore.updateCurrentEvent()
@@ -21,6 +22,9 @@ getImagesSize(planning).then(size => planning_size.value = size);
 
 const affiche_torcho_size = ref(null as { width: number, height: number } | null);
 getImagesSize(affiche_torcho).then(size => affiche_torcho_size.value = size);
+
+const affiche_hotline_size = ref(null as { width: number, height: number } | null);
+getImagesSize(affiche_hotline).then(size => affiche_hotline_size.value = size);
 
 </script>
 
@@ -48,6 +52,22 @@ getImagesSize(affiche_torcho).then(size => affiche_torcho_size.value = size);
       <galerie v-if="affiche_torcho_size" :images="[{
         thumbnailURL: affiche_torcho,
         ...affiche_torcho_size
+      }]" class="rounded-lg overflow-hidden mt-2"/>
+    </template>
+
+    <template v-if="currentEventStore.current_event?.internalId == '4'">
+      [HOTLINES] [MOW’GOURMANDISE] [14h-18h]
+      Salut les oursons 🐻,
+      A 14h commencent les hotlines, pour lesquelles vos mowgus vous ont préparé plein de délicieuses recettes 🍯
+      Au menu, croque-monsieurs🥪, fajitas🥙, pizzas 🍕, gâteau à l’orange🥧, cookies et crêpes 🥞. Un form sera posté à 14h pile pour que vous puissiez commander.
+      On vous donne rendez-vous sur notre appli Mowg’Lille pour visionner notre menu!
+      Rendez-vous à la rez ou dans Lille, vos mowgus viendront vous livrer avec plaisir 😊
+      Soyez à l’affût, la cuisine mowgu est réputée dans les alentours et risque d’être prise d’assauts !😋
+      A tout à l’heure pour égayer vos papilles🌟
+
+      <galerie v-if="affiche_torcho_size" :images="[{
+        thumbnailURL: affiche_hotline,
+        ...affiche_hotline_size
       }]" class="rounded-lg overflow-hidden mt-2"/>
     </template>
 

@@ -69,6 +69,7 @@ class ChallengesController < ApplicationController
       user: user,
     )
 
+    user.chests.create!(type: "rare") if c.name == "Soutien actif"
 
     render json: { ok: true }
 
