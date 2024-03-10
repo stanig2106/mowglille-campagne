@@ -61,7 +61,7 @@ function open_form() {
                   title="Un petit creux ?" @click="router.push('menu')"/>
     <event-action v-if="currentEvent.type == 'HOT'" :disabled="!currentEventStore.started"
                   icon="mdi-car-hatchback" subtitle="Faites vous livrer !"
-                  title="Une envie ?" @click="open_form"/>
+                  title="Une envie ?" link="https://forms.gle/MTEeHUNuL2ay67mz9"/>
     <event-action :disabled="currentEvent.type == 'DEJ'" icon="mdi-dots-horizontal"
                   subtitle="Lire la com" title="Besoin d'infos ?"
                   @click="router.push('event_info')"/>
