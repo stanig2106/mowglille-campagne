@@ -106,7 +106,7 @@ const current_score = computed(() =>
                       1<sup>er</sup> :
                     </td>
                     <td>
-                      1000 miels
+                      700 miels
                     </td>
                   </tr>
                   <tr>
@@ -114,7 +114,7 @@ const current_score = computed(() =>
                       2<sup>ème</sup> :
                     </td>
                     <td>
-                      700 miels
+                      400 miels
                     </td>
                   </tr>
                   <tr>
@@ -122,7 +122,7 @@ const current_score = computed(() =>
                       3<sup>ème</sup> :
                     </td>
                     <td>
-                      400 miels
+                      200 miels
                     </td>
                   </tr>
                   <tr>
@@ -130,7 +130,7 @@ const current_score = computed(() =>
                       4<sup>ème</sup> au 10<sup>ème</sup> :
                     </td>
                     <td>
-                      200 miels
+                      100 miels
                     </td>
                   </tr>
                 </table>
