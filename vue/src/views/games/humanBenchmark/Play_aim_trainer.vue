@@ -45,8 +45,8 @@ function nextStep() {
     done.value = true
 
     let score = (sum.value / 1000)
-    if (score < 2.50)
-      score = 2.5
+    if (score < 1.5)
+      score = 1.5
 
 
     saveScore('human_benchmark_aim_trainer', score,
