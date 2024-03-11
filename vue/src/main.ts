@@ -105,3 +105,10 @@ disableDevtool({
   tkName: 'devtool',
 })
 
+let isDesktop = !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+
+if (isDesktop) {
+  alert('This app is not optimized for desktop, please use a mobile device')
+  window.location.href = 'https://mowglille.fr'
+}
+

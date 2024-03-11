@@ -44,10 +44,15 @@ function nextStep() {
   if (results.value.length >= todo - 1) {
     done.value = true
 
-    saveScore('human_benchmark_aim_trainer', (sum.value / 1000),
+    let score = (sum.value / 1000)
+    if (score < 2.50)
+      score = 2.5
+
+
+    saveScore('human_benchmark_aim_trainer', score,
       {
         title: "Score de " + gameNames['aim_trainer'],
-        message: "Temps total: " + (sum.value / 1000).toFixed(2) + "s"
+        message: "Temps total: " + score.toFixed(2) + "s"
       })
 
 
