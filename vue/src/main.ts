@@ -95,12 +95,13 @@ startOnlineJobs()
 
 notification_init().then(saveSubscription)
 
-// disableDevtool({
-//   disableMenu: true,
-//   url: 'https://mowglille.fr',
-//   ondevtoolopen(type, next) {
-//     axios.post('/devtool', {type}).then(() => next()).catch(() => next())
-//   },
-//   md5: 'b07ced62f40a7559f6bdc8150ccfa3eb',
-//   tkName: 'devtool',
-// })
+disableDevtool({
+  disableMenu: true,
+  url: 'https://mowglille.fr',
+  ondevtoolopen(type, next) {
+    axios.post('/devtool', {type}).then(() => next()).catch(() => next())
+  },
+  md5: 'b07ced62f40a7559f6bdc8150ccfa3eb',
+  tkName: 'devtool',
+})
+
