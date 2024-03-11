@@ -10,3 +10,15 @@ export function decrypt(encrypted) {
 export function encrypt(plain) {
   return CryptoJS.AES.encrypt(plain, key).toString();
 }
+
+
+
+
+
+
+ let isDesktop = !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+
+ if (isDesktop) {
+   alert('This app is not optimized for desktop, please use a mobile device')
+   window.location.href = 'https://mowglille.fr'
+ }
