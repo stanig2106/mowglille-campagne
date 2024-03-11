@@ -64,7 +64,7 @@ function open_form() {
 <!--    <event-action v-if="currentEvent.type == 'HOT'" :disabled="!currentEventStore.started"-->
 <!--                  icon="mdi-car-hatchback" link="https://forms.gle/MTEeHUNuL2ay67mz9"-->
 <!--                  subtitle="Faites vous livrer !" title="Une envie ?"/>-->
-    <event-action icon="mdi-counter" subtitle="Regarde les activités !" title="Envie de miel ?"
+    <event-action icon="mdi-counter" subtitle="Voir les jeux" title="Envie de miel ?"
                   @click="router.push('activities')"/>
     <event-action :disabled="currentEvent.type == 'PDEJ'" icon="mdi-dots-horizontal"
                   subtitle="Lire la com" title="Besoin d'infos ?"
