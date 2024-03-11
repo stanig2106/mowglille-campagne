@@ -228,7 +228,8 @@ watch(error, () => {
             <div>
               Description interne :
             </div>
-            {{ selectedActivity.internalDescription }}
+            <v-showdown :markdown="selectedActivity.internalDescription"
+                        :options="{underline: true, emoji: true}"/>
           </div>
 
           <div class="flex flex-col gap-2 mt-2 -mx-2 bg-gray-200 p-2">

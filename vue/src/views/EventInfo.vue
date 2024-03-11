@@ -6,6 +6,7 @@ import planning from "@/assets/planning.webp";
 import Galerie from "@/components/Galerie.vue";
 import affiche_torcho from "@/assets/com/affiche_torcho.webp";
 import affiche_hotline from "@/assets/com/affiche_hotline.webp";
+import affiche_dej1 from "@/assets/com/affiche_dej1.webp";
 
 const currentEventStore = useCurrentEventStore()
 currentEventStore.updateCurrentEvent()
@@ -25,6 +26,9 @@ getImagesSize(affiche_torcho).then(size => affiche_torcho_size.value = size);
 
 const affiche_hotline_size = ref(null as { width: number, height: number } | null);
 getImagesSize(affiche_hotline).then(size => affiche_hotline_size.value = size);
+
+const affiche_dej1_size = ref(null as { width: number, height: number } | null);
+getImagesSize(affiche_dej1).then(size => affiche_dej1_size.value = size);
 
 </script>
 
@@ -71,6 +75,25 @@ getImagesSize(affiche_hotline).then(size => affiche_hotline_size.value = size);
       }]" class="rounded-lg overflow-hidden mt-2"/>
     </template>
 
+    <template v-if="currentEventStore.current_event?.internalId == '5'">
+      <h3>
+        [Déjeuner] [Tout feu tout flam’s]
+      </h3>
+      Hello les oursons🐻, <br>
+      On espère que vous avez bien dormi ! <br>
+      Aujourd’hui, les mowgus vous ont dégoté un partenariat avec Flam’s pour le déjeuner ! 😋 <br>
+      Venez vous restaurer à Centrale ou à la rez de 11h30 à 13h30 pour 3€ (ou 2€ pour les petites faims qui ne veulent pas de dessert) <br>
+      Au menu, une part de flam’s salée et une part de flam’s sucrée ! 🍕 <br>
+      Vos mowgus vous ont aussi préparé quelques jeux et quizz sur les membres de la liste pour vous aider à découvrir les secrets qui se cachent chez les
+      Mowg'lille 😉 <br>
+      À tout à l’heure ! 🍯
+
+      <galerie v-if="affiche_dej1_size" :images="[{
+        thumbnailURL: affiche_dej1,
+        ...affiche_dej1_size
+      }]" class="rounded-lg" style="overflow: hidden;"/>
+    </template>
   </div>
+
 
 </template>

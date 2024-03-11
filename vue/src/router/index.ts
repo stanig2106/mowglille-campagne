@@ -97,6 +97,12 @@ const routes = [
       title: 'Fil rouge',
     }
   },
+  {
+    path: '/activities', component: () => import('../views/Activities.vue'),
+    meta: {
+      title: 'Activités',
+    }
+  },
   ...games,
   ...staff,
 

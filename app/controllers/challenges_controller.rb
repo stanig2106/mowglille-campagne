@@ -49,16 +49,16 @@ class ChallengesController < ApplicationController
     return not_allowed! unless current_user&.has_staff_role?(:CHALLENGE_VALIDATION)
     c = Challenge.find(params[:id])
 
+    user = User.find_by!(public_token: params[:user])
     if c.amount && c.amount <= c.validation
       return render json: { error: 'Trop de joueurs ont deja valider ce défis' }
     end
-    if ChallengeValidation.find_by(challenge: c, user: current_user!)
+    if ChallengeValidation.find_by(challenge: c, user:)
       return render json: { error: 'Ce défi à déjà été validé' }
     end
 
     c.increment! :validation
 
-    user = User.find_by!(public_token: params[:user])
     user.score_records.create!(
       reason: "Vous avez fait le défis " + c.name,
       score: c.score,
@@ -70,6 +70,7 @@ class ChallengesController < ApplicationController
     )
 
     user.chests.create!(type: "rare") if c.name == "Soutien actif"
+    p c.name
 
     render json: { ok: true }
 

@@ -35,6 +35,8 @@ const timeToNext = computedWithControl(() => void 0, () => {
 
 setInterval(timeToNext.trigger, 1000)
 
+setInterval(currentEventStore.updateCurrentEvent, 1000 * 5) // Update every 5 seconds
+
 function open_form() {
   window.open("https://forms.gle/MTEeHUNuL2ay67mz9")
 }
@@ -59,17 +61,19 @@ function open_form() {
 
     <event-action v-if="currentEvent.menu.length > 0" icon="mdi-food" subtitle="Voir le menu"
                   title="Un petit creux ?" @click="router.push('menu')"/>
-    <event-action v-if="currentEvent.type == 'HOT'" :disabled="!currentEventStore.started"
-                  icon="mdi-car-hatchback" subtitle="Faites vous livrer !"
-                  title="Une envie ?" link="https://forms.gle/MTEeHUNuL2ay67mz9"/>
-    <event-action :disabled="currentEvent.type == 'DEJ'" icon="mdi-dots-horizontal"
+<!--    <event-action v-if="currentEvent.type == 'HOT'" :disabled="!currentEventStore.started"-->
+<!--                  icon="mdi-car-hatchback" link="https://forms.gle/MTEeHUNuL2ay67mz9"-->
+<!--                  subtitle="Faites vous livrer !" title="Une envie ?"/>-->
+    <event-action icon="mdi-counter" subtitle="Regarde les activités !" title="Envie de miel ?"
+                  @click="router.push('activities')"/>
+    <event-action :disabled="currentEvent.type == 'PDEJ'" icon="mdi-dots-horizontal"
                   subtitle="Lire la com" title="Besoin d'infos ?"
                   @click="router.push('event_info')"/>
 
     <div class="flex justify-end text-white mt-2">
       Lieu : {{ currentEvent.location }}
     </div>
-    <div class="text-end text-white">
+    <div class="text-end text-white" v-if="currentEvent.startDate?.getDay && currentEvent.endDate">
       {{ dayOfWeekToString(currentEvent.startDate.getDay()) }} {{ dateToS(currentEvent.startDate) }} à {{ dateToS(currentEvent.endDate, "Hours") }}
     </div>
   </div>
