@@ -7,6 +7,8 @@ import Galerie from "@/components/Galerie.vue";
 import affiche_torcho from "@/assets/com/affiche_torcho.webp";
 import affiche_hotline from "@/assets/com/affiche_hotline.webp";
 import affiche_dej1 from "@/assets/com/affiche_dej1.webp";
+import affiche_pdej1 from "@/assets/com/affiche_pdej1.webp";
+
 
 const currentEventStore = useCurrentEventStore()
 currentEventStore.updateCurrentEvent()
@@ -29,6 +31,9 @@ getImagesSize(affiche_hotline).then(size => affiche_hotline_size.value = size);
 
 const affiche_dej1_size = ref(null as { width: number, height: number } | null);
 getImagesSize(affiche_dej1).then(size => affiche_dej1_size.value = size);
+
+const affiche_pdej1_size = ref(null as { width: number, height: number } | null);
+getImagesSize(affiche_pdej1).then(size => affiche_pdej1_size.value = size);
 
 </script>
 
@@ -91,6 +96,28 @@ getImagesSize(affiche_dej1).then(size => affiche_dej1_size.value = size);
       <galerie v-if="affiche_dej1_size" :images="[{
         thumbnailURL: affiche_dej1,
         ...affiche_dej1_size
+      }]" class="rounded-lg" style="overflow: hidden;"/>
+    </template>
+
+    <template v-if="currentEventStore.current_event?.internalId == '6'">
+      <h3>
+        [PETIT-DEJ] [7h30-10h30] [ECOCUPS]
+      </h3>
+      Hello les nounours🐻, <br> <br>
+      On s'est bien régalés avec les Flam’s ce midi et on vous annonce que c’est pas fini! <br>
+      Il est maintenant temps de vous donner des forces demain avant les cours à notre petit-dej dans le hall du bat A de la rez ET dans le couloir des amphis
+      de Centrale ! On vous attend de 7h30 à 10h30 !😋
+      <br>
+      Il y en aura pour tous les goûts puisque nous vous proposons du sucré avec nos gaufres🧇, pancakes🥞, cookies🍪, gâteaux au yaourt 🥧 ainsi que du salé avec
+      des paninis tomate mozzarella🍅!
+      <br>
+      Vous pourrez déguster tout ça avec du café☕️, du chocolat chaud🧋ou encore des jus de fruits🧃! N’oubliez pas vos écocups pour les boissons! <br>
+      Ce sera également l’occasion pour vous de remporter un maximum de points sur l’appli Mowg’Lille grâce à nos différents jeux🎰 ! <br> <br>
+      La bise qui a hâte de cuisiner votre petit-dej!
+
+      <galerie v-if="affiche_dej1_size" :images="[{
+        thumbnailURL: affiche_pdej1,
+        ...affiche_pdej1_size
       }]" class="rounded-lg" style="overflow: hidden;"/>
     </template>
   </div>
