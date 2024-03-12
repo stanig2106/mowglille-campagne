@@ -20,7 +20,7 @@ const slots = useSlots()
     variant="tonal" @click="">
     <div class="p-2 flex gap-2 justify-between">
       <div>
-        <h3 class="flex items-center gap-2 text-green-600">
+        <h3 :class="{'text-green-600': challenge.validated}" class="flex items-center gap-2">
           <v-icon v-if="challenge.validated" size="24">mdi-check</v-icon>
           <v-icon v-if="challenge.start_date || challenge.end_date" size="24">mdi-clock</v-icon>
           <v-icon v-if="challenge.amount" size="24">mdi-account-clock</v-icon>
