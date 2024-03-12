@@ -39,6 +39,8 @@ class ChallengesController < ApplicationController
         amount: challenge.amount,
         validation: challenge.validation,
         created_at: challenge.created_at,
+        validated: ChallengeValidation
+                    .where(challenge: challenge, user: current_user).exists?
       }
     end
 

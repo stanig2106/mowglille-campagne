@@ -1,0 +1,2 @@
+class RequestId < ApplicationRecord
+end

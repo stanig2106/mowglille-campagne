@@ -15,6 +15,7 @@ export type Challenges = {
   start_date: Date | null
   end_date: Date | null
   amount: number | null
+  validated: boolean
 }[]
 
 export const useChallengesStore =

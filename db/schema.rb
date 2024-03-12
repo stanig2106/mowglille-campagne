@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_09_184816) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_12_052545) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -181,6 +181,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_184816) do
     t.integer "count", default: 0
     t.boolean "offline", default: false
     t.index ["user_id"], name: "index_qr_codes_on_user_id"
+  end
+
+  create_table "request_ids", force: :cascade do |t|
+    t.string "request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|

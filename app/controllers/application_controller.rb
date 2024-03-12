@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # ActionCable.server.broadcast 'NotificationChannel', 'Votre message ici'
 
   def verify_request_id
-    RequestId.delete_all("created_at < '#{1.hour.ago.to_s(:db)}'")
+    RequestId.where("created_at < ?", 1.hour.ago).delete_all
     if params[:request_id]
       return render json: { error: "Request ID already used" } \
         if RequestId.find_by(request_id: params[:request_id])
