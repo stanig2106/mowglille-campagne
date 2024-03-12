@@ -30,7 +30,17 @@ export function doItOnline(axiosQuery: AxiosRequestConfig, description: { title:
 
   if (id !== null)
     onlineJobs.splice(onlineJobs.findIndex(job => job.id === id), 1);
-  onlineJobs.push({description, request: axiosQuery, id});
+
+  onlineJobs.push({
+    description, id,
+    request: {
+      ...axiosQuery,
+      data: {
+        ...axiosQuery.data,
+        request_id: Math.random().toString(36).substring(7)
+      }
+    }
+  });
 
   if (!offline.value)
     return doOnlineJobs()
