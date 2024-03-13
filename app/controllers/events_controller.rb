@@ -63,11 +63,12 @@ class EventsController < ApplicationController
   end
 
   def current_event
-    return render json: { unchanged: true } if params[:known] == (
-      current_event = Event.current
-    ).internal_id
+    # return render json: { unchanged: true } if params[:known] == (
+    #   current_event = Event.current
+    # ).internal_id
 
-    render json: to_web(current_event, all_info: true)
+    ce = Event.current
+    render json: to_web(ce, all_info: true)
   end
 
   private

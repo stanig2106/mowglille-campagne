@@ -8,6 +8,7 @@ import affiche_torcho from "@/assets/com/affiche_torcho.webp";
 import affiche_hotline from "@/assets/com/affiche_hotline.webp";
 import affiche_dej1 from "@/assets/com/affiche_dej1.webp";
 import affiche_pdej1 from "@/assets/com/affiche_pdej1.webp";
+import affiche_fin_aprem from "@/assets/com/affiche_fin_aprem.webp";
 
 
 const currentEventStore = useCurrentEventStore()
@@ -34,6 +35,9 @@ getImagesSize(affiche_dej1).then(size => affiche_dej1_size.value = size);
 
 const affiche_pdej1_size = ref(null as { width: number, height: number } | null);
 getImagesSize(affiche_pdej1).then(size => affiche_pdej1_size.value = size);
+
+const affiche_fin_aprem_size = ref(null as { width: number, height: number } | null);
+getImagesSize(affiche_fin_aprem).then(size => affiche_fin_aprem_size.value = size);
 
 </script>
 
@@ -120,6 +124,30 @@ getImagesSize(affiche_pdej1).then(size => affiche_pdej1_size.value = size);
         ...affiche_pdej1_size
       }]" class="rounded-lg" style="overflow: hidden;"/>
     </template>
+
+
+    <template v-if="currentEventStore.current_event?.internalId == '9'">
+      <h3>
+        [FIN D’APREM] [IL EN FAUT PEU POUR ETRE HEUREUX] [17h-20h] [SYNTHE]
+      </h3> <br>
+      Comme le dit si bien notre ami Baloo, il en faut peu pour être heureux! 🥰 <br>
+      Et nous à Centrale on a besoin de quoi pour être heureux? Des activités made in Mowg’Lille et d’un bon repas fait maison!!🐻 <br>
+      On vous attend nombreux au synthé avec EH autour de nos jeux plus fous les uns que les autres: concours de hula-hoop, blitz d’échecs♟et la quête aux
+      balles qui est un jeu en équipes inédit.
+      <br>
+      Pour le repas, on vous propose des BURGERS TENDERS 🍔🍗 servis avec des frites 🍟 ainsi que des roulés aux saucisses! Pour le dessert, il y aura des crêpes🥞
+      et des délicieux cakes banane chocolat 🥧🍌🍫
+      <br>
+      Au niveau des bières🍻, on vous servira de la kasteel red, de la brigand et du cidre que vous pourrez boire autour d’un coin-coin ou d’un beer-pong! <br>
+      Vous pourrez également repartir avec non pas du faux mais bien du vrai miel en pot 🍯 en remportant notre jeu La quête aux balles! <br>
+      La bise mielleuse🍯
+
+      <galerie v-if="affiche_fin_aprem_size" :images="[{
+        thumbnailURL: affiche_fin_aprem,
+        ...affiche_fin_aprem_size
+      }]" class="rounded-lg" style="overflow: hidden;"/>
+    </template>
+
   </div>
 
 
