@@ -9,6 +9,7 @@ import affiche_hotline from "@/assets/com/affiche_hotline.webp";
 import affiche_dej1 from "@/assets/com/affiche_dej1.webp";
 import affiche_pdej1 from "@/assets/com/affiche_pdej1.webp";
 import affiche_fin_aprem from "@/assets/com/affiche_fin_aprem.webp";
+import affiche_dark_hotline from "@/assets/com/affiche_dark_hotline.webp";
 
 
 const currentEventStore = useCurrentEventStore()
@@ -39,6 +40,8 @@ getImagesSize(affiche_pdej1).then(size => affiche_pdej1_size.value = size);
 const affiche_fin_aprem_size = ref(null as { width: number, height: number } | null);
 getImagesSize(affiche_fin_aprem).then(size => affiche_fin_aprem_size.value = size);
 
+const affiche_dark_hotline_size = ref(null as { width: number, height: number } | null);
+getImagesSize(affiche_dark_hotline).then(size => affiche_dark_hotline_size.value = size);
 </script>
 
 <template>
@@ -145,6 +148,19 @@ getImagesSize(affiche_fin_aprem).then(size => affiche_fin_aprem_size.value = siz
       <galerie v-if="affiche_fin_aprem_size" :images="[{
         thumbnailURL: affiche_fin_aprem,
         ...affiche_fin_aprem_size
+      }]" class="rounded-lg" style="overflow: hidden;"/>
+    </template>
+
+    <template v-if="currentEventStore.current_event?.internalId == '10'">
+      <h3>
+        [Dark Hotlines][Mowgl’Eats][20h-00h]
+      </h3> <br>
+      Soyez à l’affût, la cuisine Mowgu est réputée dans les alentours et risque d’être prise d’assaut !
+      A tout à l’heure pour se régaler et lever son coude 🍻
+
+      <galerie v-if="affiche_dark_hotline_size" :images="[{
+        thumbnailURL: affiche_dark_hotline,
+        ...affiche_dark_hotline_size
       }]" class="rounded-lg" style="overflow: hidden;"/>
     </template>
 
