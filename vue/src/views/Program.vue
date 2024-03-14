@@ -2,6 +2,7 @@
 
 import programme_court_p from "@/assets/programme/court_portrait.webp";
 import programme_long from "@/assets/programme/long.webp";
+import programme_long2 from "@/assets/programme/long2.webp";
 import Galerie from "@/components/Galerie.vue";
 import {ref} from "vue";
 
@@ -17,6 +18,8 @@ getImagesSize(programme_court_p).then(size => court_p_size.value = size);
 
 const long_size = ref(null as { width: number, height: number } | null);
 getImagesSize(programme_long).then(size => long_size.value = size);
+const long2_size = ref(null as { width: number, height: number } | null);
+getImagesSize(programme_long2).then(size => long2_size.value = size);
 
 </script>
 
@@ -36,11 +39,13 @@ getImagesSize(programme_long).then(size => long_size.value = size);
       <h3>
         Version longue :
       </h3>
-      <div class="mt-2">
-        La terrible jungle nous empêche de vous en dire plus pour le moment.
-        Mais restez connectés, on vous en dira plus très bientôt.
-      </div>
-
+      <galerie v-if="court_p_size" :images="[{
+       thumbnailURL: programme_long,
+        ...long_size
+         }, {
+        thumbnailURL: programme_long2,
+        ...long2_size
+       }]" class="rounded-lg overflow-hidden mt-2"/>
     </div>
   </div>
 </template>
