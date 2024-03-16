@@ -10,6 +10,7 @@ import affiche_dej1 from "@/assets/com/affiche_dej1.webp";
 import affiche_pdej1 from "@/assets/com/affiche_pdej1.webp";
 import affiche_fin_aprem from "@/assets/com/affiche_fin_aprem.webp";
 import affiche_dark_hotline from "@/assets/com/affiche_dark_hotline.webp";
+import affiche_brunch from "@/assets/com/affiche_brunch.webp";
 
 
 const currentEventStore = useCurrentEventStore()
@@ -42,6 +43,9 @@ getImagesSize(affiche_fin_aprem).then(size => affiche_fin_aprem_size.value = siz
 
 const affiche_dark_hotline_size = ref(null as { width: number, height: number } | null);
 getImagesSize(affiche_dark_hotline).then(size => affiche_dark_hotline_size.value = size);
+
+const affiche_brunch_size = ref(null as { width: number, height: number } | null);
+getImagesSize(affiche_brunch).then(size => affiche_brunch_size.value = size);
 </script>
 
 <template>
@@ -163,6 +167,27 @@ getImagesSize(affiche_dark_hotline).then(size => affiche_dark_hotline_size.value
         ...affiche_dark_hotline_size
       }]" class="rounded-lg" style="overflow: hidden;"/>
     </template>
+
+
+    <template v-if="currentEventStore.current_event?.internalId == '12'">
+      <h3>
+        [Journée des Mowgus][Banger absolu]
+      </h3> <br>
+      Salut les oursons ! 🐻 <br>
+      La fin des campagnes approche et on se retrouve demain pour les clôturer en beauté avec la journée des Mowgus 🍯 D’abord, venez vous remettre de votre torcho lors de notre brunch gueule de boa 🐍 de 11h à 13h au barbecue. Au menu: avocado toasts 🥑, salade de pâtes 🍝 , quesadillas végé 🥔, frites de patate douce 🍠 pour le salé et salade de fruit 🍎 et brioche perdue 🍞 pour le sucré ! Vos Mowgus vous ont préparé plein de stands pour vous amuser et garder un bon souvenir des campagnes !
+      <br>
+      On enchaînera avec notre après-midi l'ivre de la jungle 📖 jusqu'à 19h sur le synthé qui vous réserve plein de surprises, notamment une activité vertigineuse pour les plus courageux 😮. Venez gagner un maximum de points pour gagner un de nos lots 🎟️ Encore une fois, on est là pour vous régaler avec nos briques et paninis végé 🥖, tartes soleil pesto tomate 🍰, crêpes 🥞, gaufres 🧇 ainsi que du chocolat chaud 🍫 et des jus de fruit 🥤
+      <br>
+      La bise qui n’a pas encore dévoilé tous ses secrets 💛
+
+
+      <galerie v-if="affiche_brunch_size" :images="[{
+        thumbnailURL: affiche_brunch,
+        ...affiche_brunch_size
+      }]" class="rounded-lg" style="overflow: hidden;"/>
+    </template>
+
+
 
   </div>
 
