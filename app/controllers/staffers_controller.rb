@@ -41,10 +41,10 @@ class StaffersController < ApplicationController
     user = User.find_by!(public_token: params[:user])
     ar = ActivityReward.find_by!(id: params[:activity_reward_id])
 
-    return render json: {
-      error: 'La récompense pour l\'activité a déjà été attribuée à cet utilisateur'
-    } if user.rewards.joins(:activity_reward)
-             .where(activity_rewards: { activity_id: ar.activity.id }).exists?
+    # return render json: {
+    #   error: 'La récompense pour l\'activité a déjà été attribuée à cet utilisateur'
+    # } if user.rewards.joins(:activity_reward)
+    #          .where(activity_rewards: { activity_id: ar.activity.id }).exists?
 
     Reward.create!(user:, activity_reward: ar)
     user.score_records.create!(
