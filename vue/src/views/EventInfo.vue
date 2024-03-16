@@ -11,6 +11,7 @@ import affiche_pdej1 from "@/assets/com/affiche_pdej1.webp";
 import affiche_fin_aprem from "@/assets/com/affiche_fin_aprem.webp";
 import affiche_dark_hotline from "@/assets/com/affiche_dark_hotline.webp";
 import affiche_brunch from "@/assets/com/affiche_brunch.webp";
+import affiche_2000 from "@/assets/com/affiche_2000.webp";
 
 
 const currentEventStore = useCurrentEventStore()
@@ -46,6 +47,10 @@ getImagesSize(affiche_dark_hotline).then(size => affiche_dark_hotline_size.value
 
 const affiche_brunch_size = ref(null as { width: number, height: number } | null);
 getImagesSize(affiche_brunch).then(size => affiche_brunch_size.value = size);
+
+const affiche_2000_size = ref(null as { width: number, height: number } | null);
+getImagesSize(affiche_2000).then(size => affiche_2000_size.value = size);
+
 </script>
 
 <template>
@@ -186,6 +191,25 @@ getImagesSize(affiche_brunch).then(size => affiche_brunch_size.value = size);
         ...affiche_brunch_size
       }]" class="rounded-lg" style="overflow: hidden;"/>
     </template>
+
+    <template v-if="currentEventStore.current_event?.internalId == '14'">
+      <h2>
+      [Les campagnes sont mortes ce soir][20h-00h]
+      </h2>
+      Salut les oursons 🐻 <br>
+      Comme vous le savez, ce soir c’est le 20h-00h des mowgus et la fin des campagnes ! 😮 <br>
+      Pour l’occasion, on a décidé de vous réserver encore quelques surprises 💛 <br>
+      Vous savez que vous pouvez gagner une switch et plein d’autres lots grâce à nos défis et notre tombolas 🎟️ <br>
+      Mais ce n’est pas tout, vous pourrez récupérer vos photos Polaroïd du temple perdu du torcho!Enfin, soyez là à 22h pétante, pour notre show ✨ surprise ✨, vous ne serez pas déçus !
+      <br>
+      Bonne après midi et à tout à l’heure 🐻 <br>
+
+      <galerie v-if="affiche_2000_size" :images="[{
+        thumbnailURL: affiche_2000,
+        ...affiche_2000_size
+      }]" class="rounded-lg overflow-hidden mt-2"/>
+    </template>
+
 
 
 
