@@ -71,6 +71,19 @@ class StaffersController < ApplicationController
     render json: { ok: true }
   end
 
+  def give_tombola
+    return not_allowed! unless current_user&.has_staff_role?(:SCORE)
+
+    user = User.find_by!(public_token: params[:user])
+
+    return render json: { error: 'L\'utilisateur a déjà un ticket de tombola' } \
+      if user.tombola_ticket
+
+    TombolaTicket.create!(user:)
+
+    render json: { ok: true }
+  end
+
   private
 
   def not_allowed!

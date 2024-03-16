@@ -83,7 +83,7 @@ class UsersController < ApplicationController
       chests: chests.map(&:type),
       collection_pieces: collection_pieces.map(&:id),
       welcomed:, score_seen:,
-      fullscreen_msg:
+      fullscreen_msg:, tombola_ticket: tombola_ticket&.id,
     } }
   end
 

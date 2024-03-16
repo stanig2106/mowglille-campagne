@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_12_052545) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_16_121440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -211,6 +211,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_12_052545) do
     t.index ["challenge_id"], name: "index_score_records_on_challenge_id"
     t.index ["offered_by_id"], name: "index_score_records_on_offered_by_id"
     t.index ["user_id"], name: "index_score_records_on_user_id"
+  end
+
+  create_table "tombola_tickets", force: :cascade do |t|
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_tombola_tickets_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

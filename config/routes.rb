@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   put "api/staffers/:public_token", to: "staffers#update"
   post "api/staff/offer", to: "staffers#offer"
   post "api/staff/reward", to: "staffers#reward"
+  post "api/staff/tombola/give", to: "staffers#give_tombola"
 
   post "api/staff/add_com/:event_id", to: "staffers#add_com"
 

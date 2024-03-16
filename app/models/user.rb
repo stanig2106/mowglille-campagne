@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   include Rails.application.routes.url_helpers
 
+  has_one :tombola_ticket, dependent: :destroy
+
   has_one_attached :profile_picture
   has_one_attached :original_profile_picture
   has_one_attached :bg_removed_picture

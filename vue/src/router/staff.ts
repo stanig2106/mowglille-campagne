@@ -77,6 +77,12 @@ export default [
     meta: {
       title: "Gérer la com",
     },
+  },
+  {
+    path: '/staff/tombola', component: () => import('../views/staff/Tombola.vue'),
+    meta: {
+      title: "Tombola",
+    },
   }
 
 ]

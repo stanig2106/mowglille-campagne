@@ -75,6 +75,11 @@ function open_form() {
                   subtitle="Voir le programme" title="Une question ?"
                   @click="router.push('program')"/>
 
+    <event-action v-if="currentEvent.internalId == '13'" icon="mdi-ticket"
+                  subtitle="Tentez votre chance" title="Tombola"
+                  @click="router.push('tombola')"/>
+
+
 
     <div class="flex justify-end text-white mt-2">
       Lieu : {{ currentEvent.location }}

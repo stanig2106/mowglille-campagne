@@ -92,6 +92,12 @@ const staffs_action = [
     name: "Gérer la com",
     icon: "mdi-comment",
     roles: ["MANAGE_COM"]
+  },
+  {
+    path: '/staff/tombola',
+    name: "Offrir ticket tombola",
+    icon: "mdi-ticket",
+    roles: ["SCORE"]
   }
 ]
 

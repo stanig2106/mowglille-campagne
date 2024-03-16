@@ -30,6 +30,8 @@ export const useUserStore = defineStore("user", () => {
 
   const fullscreen_msg = ref(undefined as string | undefined | null)
 
+  const tombola_ticket = ref(undefined as number | undefined)
+
   async function updateUser() {
     const response = await axios.get("/user")
     if (response.status !== 200)
@@ -58,6 +60,8 @@ export const useUserStore = defineStore("user", () => {
     welcomed.value = user.welcomed
     score_seen.value = user.score_seen
     fullscreen_msg.value = user.fullscreen_msg
+
+    tombola_ticket.value = user.tombola_ticket
     return true
   }
 
@@ -76,7 +80,7 @@ export const useUserStore = defineStore("user", () => {
     notification_preferences,
     chests, collection_pieces,
     welcomed, score_seen,
-    fullscreen_msg,
+    fullscreen_msg, tombola_ticket,
     updateUser
   }
 })

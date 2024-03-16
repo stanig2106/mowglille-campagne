@@ -103,6 +103,12 @@ const routes = [
       title: 'Activités',
     }
   },
+  {
+    path: '/tombola', component: () => import('../views/Tombola.vue'),
+    meta: {
+      title: 'Tombola',
+    }
+  },
   ...games,
   ...staff,
 
